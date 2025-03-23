@@ -9,4 +9,4 @@ https://keyboard2005.github.io/tags/Linux/
 https://keyboard2005.github.io/tags/hexo/
 https://keyboard2005.github.io/tags/aurora-theme/
 https://keyboard2005.github.io/categories/%E6%8A%80%E6%9C%AF/
-https://keyboard2005.github.io/categories/test/
+https://keyboard2005.github.io/categories/bugs/
