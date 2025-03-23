@@ -5,7 +5,7 @@ const targetElement = document.querySelector("#body-container");
 const observer = new MutationObserver((mutationsList) => {
     if (targetElement.classList.contains('theme-dark')) {
         document.querySelectorAll(".shiki").forEach((item) => {
-            item.classList.remove("github-light");
+            item.classList.remove("shiki-theme");
             item.classList.add("github-dark");
         });
     } else{
@@ -14,7 +14,6 @@ const observer = new MutationObserver((mutationsList) => {
             item.classList.add("github-light");
         });
     }
-    
 });
 
 // 配置选项：监听属性变化
