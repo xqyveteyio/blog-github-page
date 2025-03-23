@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://keyboard2005.github.io/post/test2.html</loc>
+    
+    <lastmod>2025-03-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://keyboard2005.github.io/post/Ubuntu24%E5%A4%9A%E6%98%BE%E7%A4%BA%E5%99%A8%E8%AE%BE%E7%BD%AE%E4%B8%8D%E5%90%8C%E5%A3%81%E7%BA%B8.html</loc>
     
     <lastmod>2025-03-22</lastmod>
@@ -12,15 +21,6 @@
   
   <url>
     <loc>https://keyboard2005.github.io/post/test1.html</loc>
-    
-    <lastmod>2025-03-22</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://keyboard2005.github.io/post/test2.html</loc>
     
     <lastmod>2025-03-22</lastmod>
     
@@ -69,10 +69,31 @@
     <priority>0.2</priority>
   </url>
   
+  <url>
+    <loc>https://keyboard2005.github.io/tags/hexo/</loc>
+    <lastmod>2025-03-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://keyboard2005.github.io/tags/aurora-theme/</loc>
+    <lastmod>2025-03-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
 
   
   <url>
     <loc>https://keyboard2005.github.io/categories/%E6%8A%80%E6%9C%AF/</loc>
+    <lastmod>2025-03-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://keyboard2005.github.io/categories/test/</loc>
     <lastmod>2025-03-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
