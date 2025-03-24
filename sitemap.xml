@@ -2,7 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://keyboard2005.github.io/post/test2.html</loc>
+    <loc>https://keyboard2005.github.io/post/test1.html</loc>
+    
+    <lastmod>2025-03-24</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://keyboard2005.github.io/post/hexo%20aurora%E4%B8%BB%E9%A2%98%E4%BF%AE%E5%A4%8D%E9%97%AE%E9%A2%98%E5%B8%96.html</loc>
     
     <lastmod>2025-03-23</lastmod>
     
@@ -12,15 +21,6 @@
   
   <url>
     <loc>https://keyboard2005.github.io/post/Ubuntu24%E5%A4%9A%E6%98%BE%E7%A4%BA%E5%99%A8%E8%AE%BE%E7%BD%AE%E4%B8%8D%E5%90%8C%E5%A3%81%E7%BA%B8.html</loc>
-    
-    <lastmod>2025-03-22</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://keyboard2005.github.io/post/test1.html</loc>
     
     <lastmod>2025-03-22</lastmod>
     
@@ -49,7 +49,7 @@
 
   <url>
     <loc>https://keyboard2005.github.io/</loc>
-    <lastmod>2025-03-23</lastmod>
+    <lastmod>2025-03-24</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -57,28 +57,35 @@
   
   <url>
     <loc>https://keyboard2005.github.io/tags/Ubuntu/</loc>
-    <lastmod>2025-03-23</lastmod>
+    <lastmod>2025-03-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://keyboard2005.github.io/tags/Linux/</loc>
-    <lastmod>2025-03-23</lastmod>
+    <lastmod>2025-03-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://keyboard2005.github.io/tags/hexo/</loc>
-    <lastmod>2025-03-23</lastmod>
+    <lastmod>2025-03-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://keyboard2005.github.io/tags/aurora-theme/</loc>
-    <lastmod>2025-03-23</lastmod>
+    <lastmod>2025-03-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://keyboard2005.github.io/tags/%E6%A3%AE%E6%9E%97%E4%B9%8B%E5%AD%90/</loc>
+    <lastmod>2025-03-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
@@ -87,14 +94,21 @@
   
   <url>
     <loc>https://keyboard2005.github.io/categories/%E6%8A%80%E6%9C%AF/</loc>
-    <lastmod>2025-03-23</lastmod>
+    <lastmod>2025-03-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://keyboard2005.github.io/categories/bugs/</loc>
-    <lastmod>2025-03-23</lastmod>
+    <lastmod>2025-03-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://keyboard2005.github.io/categories/%E6%B8%B8%E6%88%8F/</loc>
+    <lastmod>2025-03-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
