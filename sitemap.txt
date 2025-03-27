@@ -1,3 +1,4 @@
+https://keyboard2005.github.io/post/test.html
 https://keyboard2005.github.io/post/vue3%E6%8E%A5%E5%85%A5%E9%AB%98%E5%BE%B7%E5%9C%B0%E5%9B%BE(AMAP).html
 https://keyboard2005.github.io/post/hexo%20aurora%E4%B8%BB%E9%A2%98%E4%BF%AE%E5%A4%8D%E9%97%AE%E9%A2%98%E5%B8%96.html
 https://keyboard2005.github.io/post/Ubuntu24%E5%A4%9A%E6%98%BE%E7%A4%BA%E5%99%A8%E8%AE%BE%E7%BD%AE%E4%B8%8D%E5%90%8C%E5%A3%81%E7%BA%B8.html
@@ -7,9 +8,11 @@ https://keyboard2005.github.io/tags/Ubuntu/
 https://keyboard2005.github.io/tags/Linux/
 https://keyboard2005.github.io/tags/hexo/
 https://keyboard2005.github.io/tags/aurora-theme/
+https://keyboard2005.github.io/tags/test/
 https://keyboard2005.github.io/tags/vue3/
 https://keyboard2005.github.io/tags/amap/
 https://keyboard2005.github.io/tags/%E9%AB%98%E5%BE%B7%E5%9C%B0%E5%9B%BE/
 https://keyboard2005.github.io/categories/%E6%8A%80%E6%9C%AF/
 https://keyboard2005.github.io/categories/bugs/
+https://keyboard2005.github.io/categories/test/
 https://keyboard2005.github.io/categories/vue3/
