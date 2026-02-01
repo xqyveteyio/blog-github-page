@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>计算机视觉 on keyboard blog</title><link>http://localhost:1313/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/</link><description>Recent content in 计算机视觉 on keyboard blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Thu, 18 Dec 2025 01:00:00 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/index.xml" rel="self" type="application/rss+xml"/><item><title>单应性标定：从原理到实现</title><link>http://localhost:1313/posts/2025/%E5%8D%95%E5%BA%94%E6%80%A7%E6%A0%87%E5%AE%9A/</link><pubDate>Thu, 18 Dec 2025 01:00:00 +0800</pubDate><guid>http://localhost:1313/posts/2025/%E5%8D%95%E5%BA%94%E6%80%A7%E6%A0%87%E5%AE%9A/</guid><description>&lt;h2 id="什么是单应性"&gt;什么是单应性
+&lt;/h2&gt;&lt;p&gt;单应性（Homography）是计算机视觉中的核心概念，描述了&lt;strong&gt;同一平面&lt;/strong&gt;在两个不同视角下的坐标变换关系。简单理解：当你拍摄一张纸，然后换个角度再拍一张，这两张图像之间的像素对应关系就是单应性。&lt;/p&gt;
+&lt;h2 id="核心原理"&gt;核心原理
+&lt;/h2&gt;&lt;h3 id="数学表达"&gt;数学表达
+&lt;/h3&gt;&lt;p&gt;单应性用3×3矩阵H表示：&lt;/p&gt;
+&lt;p&gt;$$
+\mathbf{x&amp;rsquo;} = H \mathbf{x}
+$$&lt;/p&gt;
+&lt;p&gt;其中：
+$$
+\mathbf{x&amp;rsquo;} = \begin{bmatrix} x&amp;rsquo; \ y&amp;rsquo; \ 1 \end{bmatrix}, \quad
+H = \begin{bmatrix}
+h_{11} &amp;amp; h_{12} &amp;amp; h_{13} \
+h_{21} &amp;amp; h_{22} &amp;amp; h_{23} \
+h_{31} &amp;amp; h_{32} &amp;amp; h_{33}
+\end{bmatrix}, \quad
+\mathbf{x} = \begin{bmatrix} x \ y \ 1 \end{bmatrix}
+$$&lt;/p&gt;
+&lt;p&gt;归一化后得到：
+$$
+x&amp;rsquo; = \frac{h_{11}x + h_{12}y + h_{13}}{h_{31}x + h_{32}y + h_{33}}, \quad
+y&amp;rsquo; = \frac{h_{21}x + h_{22}y + h_{23}}{h_{31}x + h_{32}y + h_{33}}
+$$&lt;/p&gt;
+&lt;p&gt;其中$(x,y)$是原图像坐标，$(x&amp;rsquo;,y&amp;rsquo;)$是目标图像坐标。&lt;/p&gt;
+&lt;h3 id="标定原理"&gt;标定原理
+&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;收集对应点对&lt;/strong&gt;：至少需要4对匹配点&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;构建线性方程组&lt;/strong&gt;：每对点贡献2个方程&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;求解矩阵H&lt;/strong&gt;：使用最小二乘法或SVD分解&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id="python实现"&gt;Python实现
+&lt;/h2&gt;&lt;h3 id="基础实现"&gt;基础实现
+&lt;/h3&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-python" data-lang="python"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#f92672"&gt;import&lt;/span&gt; cv2
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#f92672"&gt;import&lt;/span&gt; numpy &lt;span style="color:#66d9ef"&gt;as&lt;/span&gt; np
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#f92672"&gt;import&lt;/span&gt; matplotlib.pyplot &lt;span style="color:#66d9ef"&gt;as&lt;/span&gt; plt
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;def&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;homography_calibration&lt;/span&gt;(src_points, dst_points):
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;&amp;#34;&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; 单应性标定
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; Args:
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; src_points: 源图像中的点 [[x1,y1], [x2,y2], ...]
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; dst_points: 目标图像中的对应点
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; Returns:
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; H: 3x3单应性矩阵
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; &amp;#34;&amp;#34;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;# 转换为numpy数组&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; src &lt;span style="color:#f92672"&gt;=&lt;/span&gt; np&lt;span style="color:#f92672"&gt;.&lt;/span&gt;float32(src_points)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; dst &lt;span style="color:#f92672"&gt;=&lt;/span&gt; np&lt;span style="color:#f92672"&gt;.&lt;/span&gt;float32(dst_points)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;# 计算单应性矩阵&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; H &lt;span style="color:#f92672"&gt;=&lt;/span&gt; cv2&lt;span style="color:#f92672"&gt;.&lt;/span&gt;findHomography(src, dst, cv2&lt;span style="color:#f92672"&gt;.&lt;/span&gt;RANSAC)[&lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;]
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; H
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;def&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;apply_homography&lt;/span&gt;(image, H, output_size):
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;&amp;#34;&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; 应用单应性变换
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; Args:
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; image: 输入图像
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; H: 单应性矩阵
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; output_size: 输出图像大小 (width, height)
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; Returns:
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; warped_image: 变换后的图像
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; &amp;#34;&amp;#34;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; cv2&lt;span style="color:#f92672"&gt;.&lt;/span&gt;warpPerspective(image, H, output_size)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;# 示例使用&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; __name__ &lt;span style="color:#f92672"&gt;==&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;__main__&amp;#34;&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;# 创建示例数据&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;# 假设我们有一个矩形在两个视角下的对应点&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; src_points &lt;span style="color:#f92672"&gt;=&lt;/span&gt; [[&lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;, &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;], [&lt;span style="color:#ae81ff"&gt;300&lt;/span&gt;, &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;], [&lt;span style="color:#ae81ff"&gt;300&lt;/span&gt;, &lt;span style="color:#ae81ff"&gt;200&lt;/span&gt;], [&lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;, &lt;span style="color:#ae81ff"&gt;200&lt;/span&gt;]] &lt;span style="color:#75715e"&gt;# 原始矩形&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; dst_points &lt;span style="color:#f92672"&gt;=&lt;/span&gt; [[&lt;span style="color:#ae81ff"&gt;50&lt;/span&gt;, &lt;span style="color:#ae81ff"&gt;30&lt;/span&gt;], [&lt;span style="color:#ae81ff"&gt;250&lt;/span&gt;, &lt;span style="color:#ae81ff"&gt;20&lt;/span&gt;], [&lt;span style="color:#ae81ff"&gt;280&lt;/span&gt;, &lt;span style="color:#ae81ff"&gt;180&lt;/span&gt;], [&lt;span style="color:#ae81ff"&gt;20&lt;/span&gt;, &lt;span style="color:#ae81ff"&gt;190&lt;/span&gt;]] &lt;span style="color:#75715e"&gt;# 透视变形后的四边形&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;# 计算单应性矩阵&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; H &lt;span style="color:#f92672"&gt;=&lt;/span&gt; homography_calibration(src_points, dst_points)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; print(&lt;span style="color:#e6db74"&gt;&amp;#34;单应性矩阵:&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; print(H)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;# 创建测试图像&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; test_image &lt;span style="color:#f92672"&gt;=&lt;/span&gt; np&lt;span style="color:#f92672"&gt;.&lt;/span&gt;zeros((&lt;span style="color:#ae81ff"&gt;200&lt;/span&gt;, &lt;span style="color:#ae81ff"&gt;300&lt;/span&gt;, &lt;span style="color:#ae81ff"&gt;3&lt;/span&gt;), dtype&lt;span style="color:#f92672"&gt;=&lt;/span&gt;np&lt;span style="color:#f92672"&gt;.&lt;/span&gt;uint8)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; cv2&lt;span style="color:#f92672"&gt;.&lt;/span&gt;rectangle(test_image, (&lt;span style="color:#ae81ff"&gt;50&lt;/span&gt;, &lt;span style="color:#ae81ff"&gt;50&lt;/span&gt;), (&lt;span style="color:#ae81ff"&gt;250&lt;/span&gt;, &lt;span style="color:#ae81ff"&gt;150&lt;/span&gt;), (&lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;, &lt;span style="color:#ae81ff"&gt;255&lt;/span&gt;, &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;), &lt;span style="color:#ae81ff"&gt;3&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; cv2&lt;span style="color:#f92672"&gt;.&lt;/span&gt;putText(test_image, &lt;span style="color:#e6db74"&gt;&amp;#39;Original&amp;#39;&lt;/span&gt;, (&lt;span style="color:#ae81ff"&gt;100&lt;/span&gt;, &lt;span style="color:#ae81ff"&gt;100&lt;/span&gt;), cv2&lt;span style="color:#f92672"&gt;.&lt;/span&gt;FONT_HERSHEY_SIMPLEX, &lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;, (&lt;span style="color:#ae81ff"&gt;255&lt;/span&gt;, &lt;span style="color:#ae81ff"&gt;255&lt;/span&gt;, &lt;span style="color:#ae81ff"&gt;255&lt;/span&gt;), &lt;span style="color:#ae81ff"&gt;2&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;# 应用变换&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; warped &lt;span style="color:#f92672"&gt;=&lt;/span&gt; apply_homography(test_image, H, (&lt;span style="color:#ae81ff"&gt;300&lt;/span&gt;, &lt;span style="color:#ae81ff"&gt;200&lt;/span&gt;))
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;# 显示结果&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; plt&lt;span style="color:#f92672"&gt;.&lt;/span&gt;figure(figsize&lt;span style="color:#f92672"&gt;=&lt;/span&gt;(&lt;span style="color:#ae81ff"&gt;12&lt;/span&gt;, &lt;span style="color:#ae81ff"&gt;4&lt;/span&gt;))
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; plt&lt;span style="color:#f92672"&gt;.&lt;/span&gt;subplot(&lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;, &lt;span style="color:#ae81ff"&gt;2&lt;/span&gt;, &lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; plt&lt;span style="color:#f92672"&gt;.&lt;/span&gt;imshow(cv2&lt;span style="color:#f92672"&gt;.&lt;/span&gt;cvtColor(test_image, cv2&lt;span style="color:#f92672"&gt;.&lt;/span&gt;COLOR_BGR2RGB))
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; plt&lt;span style="color:#f92672"&gt;.&lt;/span&gt;title(&lt;span style="color:#e6db74"&gt;&amp;#39;原始图像&amp;#39;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; plt&lt;span style="color:#f92672"&gt;.&lt;/span&gt;axis(&lt;span style="color:#e6db74"&gt;&amp;#39;off&amp;#39;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; plt&lt;span style="color:#f92672"&gt;.&lt;/span&gt;subplot(&lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;, &lt;span style="color:#ae81ff"&gt;2&lt;/span&gt;, &lt;span style="color:#ae81ff"&gt;2&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; plt&lt;span style="color:#f92672"&gt;.&lt;/span&gt;imshow(cv2&lt;span style="color:#f92672"&gt;.&lt;/span&gt;cvtColor(warped, cv2&lt;span style="color:#f92672"&gt;.&lt;/span&gt;COLOR_BGR2RGB))
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; plt&lt;span style="color:#f92672"&gt;.&lt;/span&gt;title(&lt;span style="color:#e6db74"&gt;&amp;#39;单应性变换后&amp;#39;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; plt&lt;span style="color:#f92672"&gt;.&lt;/span&gt;axis(&lt;span style="color:#e6db74"&gt;&amp;#39;off&amp;#39;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; plt&lt;span style="color:#f92672"&gt;.&lt;/span&gt;tight_layout()
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; plt&lt;span style="color:#f92672"&gt;.&lt;/span&gt;show()
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id="进阶特征点匹配实现"&gt;进阶：特征点匹配实现
+&lt;/h3&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-python" data-lang="python"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;def&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;feature_based_homography&lt;/span&gt;(img1, img2, feature_type&lt;span style="color:#f92672"&gt;=&lt;/span&gt;&lt;span style="color:#e6db74"&gt;&amp;#39;SIFT&amp;#39;&lt;/span&gt;):
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;&amp;#34;&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; 基于特征点匹配的单应性标定
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; Args:
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; img1, img2: 输入图像
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; feature_type: 特征检测器类型
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; Returns:
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; H: 单应性矩阵
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; matches: 匹配点对
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; &amp;#34;&amp;#34;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;# 创建特征检测器&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; feature_type &lt;span style="color:#f92672"&gt;==&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#39;SIFT&amp;#39;&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; detector &lt;span style="color:#f92672"&gt;=&lt;/span&gt; cv2&lt;span style="color:#f92672"&gt;.&lt;/span&gt;SIFT_create()
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;elif&lt;/span&gt; feature_type &lt;span style="color:#f92672"&gt;==&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#39;ORB&amp;#39;&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; detector &lt;span style="color:#f92672"&gt;=&lt;/span&gt; cv2&lt;span style="color:#f92672"&gt;.&lt;/span&gt;ORB_create()
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;# 检测关键点和描述符&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; kp1, des1 &lt;span style="color:#f92672"&gt;=&lt;/span&gt; detector&lt;span style="color:#f92672"&gt;.&lt;/span&gt;detectAndCompute(img1, &lt;span style="color:#66d9ef"&gt;None&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; kp2, des2 &lt;span style="color:#f92672"&gt;=&lt;/span&gt; detector&lt;span style="color:#f92672"&gt;.&lt;/span&gt;detectAndCompute(img2, &lt;span style="color:#66d9ef"&gt;None&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;# 特征匹配&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; feature_type &lt;span style="color:#f92672"&gt;==&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#39;SIFT&amp;#39;&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; matcher &lt;span style="color:#f92672"&gt;=&lt;/span&gt; cv2&lt;span style="color:#f92672"&gt;.&lt;/span&gt;BFMatcher()
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; matches &lt;span style="color:#f92672"&gt;=&lt;/span&gt; matcher&lt;span style="color:#f92672"&gt;.&lt;/span&gt;knnMatch(des1, des2, k&lt;span style="color:#f92672"&gt;=&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;2&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;# 筛选好的匹配&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; good_matches &lt;span style="color:#f92672"&gt;=&lt;/span&gt; []
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;for&lt;/span&gt; m, n &lt;span style="color:#f92672"&gt;in&lt;/span&gt; matches:
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; m&lt;span style="color:#f92672"&gt;.&lt;/span&gt;distance &lt;span style="color:#f92672"&gt;&amp;lt;&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;0.7&lt;/span&gt; &lt;span style="color:#f92672"&gt;*&lt;/span&gt; n&lt;span style="color:#f92672"&gt;.&lt;/span&gt;distance:
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; good_matches&lt;span style="color:#f92672"&gt;.&lt;/span&gt;append(m)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;else&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; matcher &lt;span style="color:#f92672"&gt;=&lt;/span&gt; cv2&lt;span style="color:#f92672"&gt;.&lt;/span&gt;BFMatcher(cv2&lt;span style="color:#f92672"&gt;.&lt;/span&gt;NORM_HAMMING, crossCheck&lt;span style="color:#f92672"&gt;=&lt;/span&gt;&lt;span style="color:#66d9ef"&gt;True&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; good_matches &lt;span style="color:#f92672"&gt;=&lt;/span&gt; matcher&lt;span style="color:#f92672"&gt;.&lt;/span&gt;&lt;span style="color:#66d9ef"&gt;match&lt;/span&gt;(des1, des2)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; good_matches &lt;span style="color:#f92672"&gt;=&lt;/span&gt; sorted(good_matches, key&lt;span style="color:#f92672"&gt;=&lt;/span&gt;&lt;span style="color:#66d9ef"&gt;lambda&lt;/span&gt; x: x&lt;span style="color:#f92672"&gt;.&lt;/span&gt;distance)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;# 提取匹配点坐标&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; len(good_matches) &lt;span style="color:#f92672"&gt;&amp;gt;=&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;4&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; src_pts &lt;span style="color:#f92672"&gt;=&lt;/span&gt; np&lt;span style="color:#f92672"&gt;.&lt;/span&gt;float32([kp1[m&lt;span style="color:#f92672"&gt;.&lt;/span&gt;queryIdx]&lt;span style="color:#f92672"&gt;.&lt;/span&gt;pt &lt;span style="color:#66d9ef"&gt;for&lt;/span&gt; m &lt;span style="color:#f92672"&gt;in&lt;/span&gt; good_matches])&lt;span style="color:#f92672"&gt;.&lt;/span&gt;reshape(&lt;span style="color:#f92672"&gt;-&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;, &lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;, &lt;span style="color:#ae81ff"&gt;2&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; dst_pts &lt;span style="color:#f92672"&gt;=&lt;/span&gt; np&lt;span style="color:#f92672"&gt;.&lt;/span&gt;float32([kp2[m&lt;span style="color:#f92672"&gt;.&lt;/span&gt;trainIdx]&lt;span style="color:#f92672"&gt;.&lt;/span&gt;pt &lt;span style="color:#66d9ef"&gt;for&lt;/span&gt; m &lt;span style="color:#f92672"&gt;in&lt;/span&gt; good_matches])&lt;span style="color:#f92672"&gt;.&lt;/span&gt;reshape(&lt;span style="color:#f92672"&gt;-&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;, &lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;, &lt;span style="color:#ae81ff"&gt;2&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;# 计算单应性矩阵&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; H, mask &lt;span style="color:#f92672"&gt;=&lt;/span&gt; cv2&lt;span style="color:#f92672"&gt;.&lt;/span&gt;findHomography(src_pts, dst_pts, cv2&lt;span style="color:#f92672"&gt;.&lt;/span&gt;RANSAC, &lt;span style="color:#ae81ff"&gt;5.0&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; H, good_matches
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;else&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; print(&lt;span style="color:#e6db74"&gt;&amp;#34;匹配点数量不足!&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;None&lt;/span&gt;, &lt;span style="color:#66d9ef"&gt;None&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;# 使用示例&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;def&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;demo_feature_matching&lt;/span&gt;():
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;# 加载两张图像（需要替换为实际图像路径）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;# img1 = cv2.imread(&amp;#39;image1.jpg&amp;#39;, cv2.IMREAD_GRAYSCALE)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;# img2 = cv2.imread(&amp;#39;image2.jpg&amp;#39;, cv2.IMREAD_GRAYSCALE)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;# 创建模拟图像进行演示&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; img1 &lt;span style="color:#f92672"&gt;=&lt;/span&gt; np&lt;span style="color:#f92672"&gt;.&lt;/span&gt;zeros((&lt;span style="color:#ae81ff"&gt;400&lt;/span&gt;, &lt;span style="color:#ae81ff"&gt;400&lt;/span&gt;), dtype&lt;span style="color:#f92672"&gt;=&lt;/span&gt;np&lt;span style="color:#f92672"&gt;.&lt;/span&gt;uint8)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; cv2&lt;span style="color:#f92672"&gt;.&lt;/span&gt;rectangle(img1, (&lt;span style="color:#ae81ff"&gt;100&lt;/span&gt;, &lt;span style="color:#ae81ff"&gt;100&lt;/span&gt;), (&lt;span style="color:#ae81ff"&gt;300&lt;/span&gt;, &lt;span style="color:#ae81ff"&gt;300&lt;/span&gt;), &lt;span style="color:#ae81ff"&gt;255&lt;/span&gt;, &lt;span style="color:#ae81ff"&gt;2&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; cv2&lt;span style="color:#f92672"&gt;.&lt;/span&gt;circle(img1, (&lt;span style="color:#ae81ff"&gt;200&lt;/span&gt;, &lt;span style="color:#ae81ff"&gt;200&lt;/span&gt;), &lt;span style="color:#ae81ff"&gt;50&lt;/span&gt;, &lt;span style="color:#ae81ff"&gt;128&lt;/span&gt;, &lt;span style="color:#f92672"&gt;-&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;# 创建变换后的图像&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; H_demo &lt;span style="color:#f92672"&gt;=&lt;/span&gt; np&lt;span style="color:#f92672"&gt;.&lt;/span&gt;array([[&lt;span style="color:#ae81ff"&gt;1.2&lt;/span&gt;, &lt;span style="color:#ae81ff"&gt;0.3&lt;/span&gt;, &lt;span style="color:#f92672"&gt;-&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;50&lt;/span&gt;], [&lt;span style="color:#f92672"&gt;-&lt;/span&gt;&lt;span style="color:#ae81ff"&gt;0.1&lt;/span&gt;, &lt;span style="color:#ae81ff"&gt;1.1&lt;/span&gt;, &lt;span style="color:#ae81ff"&gt;30&lt;/span&gt;], [&lt;span style="color:#ae81ff"&gt;0.001&lt;/span&gt;, &lt;span style="color:#ae81ff"&gt;0.002&lt;/span&gt;, &lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;]])
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; img2 &lt;span style="color:#f92672"&gt;=&lt;/span&gt; cv2&lt;span style="color:#f92672"&gt;.&lt;/span&gt;warpPerspective(img1, H_demo, (&lt;span style="color:#ae81ff"&gt;400&lt;/span&gt;, &lt;span style="color:#ae81ff"&gt;400&lt;/span&gt;))
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;# 添加一些噪声&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; noise &lt;span style="color:#f92672"&gt;=&lt;/span&gt; np&lt;span style="color:#f92672"&gt;.&lt;/span&gt;random&lt;span style="color:#f92672"&gt;.&lt;/span&gt;randint(&lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;, &lt;span style="color:#ae81ff"&gt;50&lt;/span&gt;, img2&lt;span style="color:#f92672"&gt;.&lt;/span&gt;shape, dtype&lt;span style="color:#f92672"&gt;=&lt;/span&gt;np&lt;span style="color:#f92672"&gt;.&lt;/span&gt;uint8)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; img2 &lt;span style="color:#f92672"&gt;=&lt;/span&gt; cv2&lt;span style="color:#f92672"&gt;.&lt;/span&gt;add(img2, noise)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;# 计算单应性&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; H, matches &lt;span style="color:#f92672"&gt;=&lt;/span&gt; feature_based_homography(img1, img2, &lt;span style="color:#e6db74"&gt;&amp;#39;ORB&amp;#39;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; H &lt;span style="color:#f92672"&gt;is&lt;/span&gt; &lt;span style="color:#f92672"&gt;not&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;None&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; print(&lt;span style="color:#e6db74"&gt;&amp;#34;检测到的单应性矩阵:&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; print(H)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; print(&lt;span style="color:#e6db74"&gt;f&lt;/span&gt;&lt;span style="color:#e6db74"&gt;&amp;#34;匹配点数量: &lt;/span&gt;&lt;span style="color:#e6db74"&gt;{&lt;/span&gt;len(matches)&lt;span style="color:#e6db74"&gt;}&lt;/span&gt;&lt;span style="color:#e6db74"&gt;&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;# 验证变换效果&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; warped &lt;span style="color:#f92672"&gt;=&lt;/span&gt; cv2&lt;span style="color:#f92672"&gt;.&lt;/span&gt;warpPerspective(img1, H, (&lt;span style="color:#ae81ff"&gt;400&lt;/span&gt;, &lt;span style="color:#ae81ff"&gt;400&lt;/span&gt;))
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; plt&lt;span style="color:#f92672"&gt;.&lt;/span&gt;figure(figsize&lt;span style="color:#f92672"&gt;=&lt;/span&gt;(&lt;span style="color:#ae81ff"&gt;15&lt;/span&gt;, &lt;span style="color:#ae81ff"&gt;5&lt;/span&gt;))
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; plt&lt;span style="color:#f92672"&gt;.&lt;/span&gt;subplot(&lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;, &lt;span style="color:#ae81ff"&gt;3&lt;/span&gt;, &lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; plt&lt;span style="color:#f92672"&gt;.&lt;/span&gt;imshow(img1, cmap&lt;span style="color:#f92672"&gt;=&lt;/span&gt;&lt;span style="color:#e6db74"&gt;&amp;#39;gray&amp;#39;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; plt&lt;span style="color:#f92672"&gt;.&lt;/span&gt;title(&lt;span style="color:#e6db74"&gt;&amp;#39;原始图像&amp;#39;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; plt&lt;span style="color:#f92672"&gt;.&lt;/span&gt;axis(&lt;span style="color:#e6db74"&gt;&amp;#39;off&amp;#39;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; plt&lt;span style="color:#f92672"&gt;.&lt;/span&gt;subplot(&lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;, &lt;span style="color:#ae81ff"&gt;3&lt;/span&gt;, &lt;span style="color:#ae81ff"&gt;2&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; plt&lt;span style="color:#f92672"&gt;.&lt;/span&gt;imshow(img2, cmap&lt;span style="color:#f92672"&gt;=&lt;/span&gt;&lt;span style="color:#e6db74"&gt;&amp;#39;gray&amp;#39;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; plt&lt;span style="color:#f92672"&gt;.&lt;/span&gt;title(&lt;span style="color:#e6db74"&gt;&amp;#39;目标图像&amp;#39;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; plt&lt;span style="color:#f92672"&gt;.&lt;/span&gt;axis(&lt;span style="color:#e6db74"&gt;&amp;#39;off&amp;#39;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; plt&lt;span style="color:#f92672"&gt;.&lt;/span&gt;subplot(&lt;span style="color:#ae81ff"&gt;1&lt;/span&gt;, &lt;span style="color:#ae81ff"&gt;3&lt;/span&gt;, &lt;span style="color:#ae81ff"&gt;3&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; plt&lt;span style="color:#f92672"&gt;.&lt;/span&gt;imshow(warped, cmap&lt;span style="color:#f92672"&gt;=&lt;/span&gt;&lt;span style="color:#e6db74"&gt;&amp;#39;gray&amp;#39;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; plt&lt;span style="color:#f92672"&gt;.&lt;/span&gt;title(&lt;span style="color:#e6db74"&gt;&amp;#39;单应性变换结果&amp;#39;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; plt&lt;span style="color:#f92672"&gt;.&lt;/span&gt;axis(&lt;span style="color:#e6db74"&gt;&amp;#39;off&amp;#39;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; plt&lt;span style="color:#f92672"&gt;.&lt;/span&gt;tight_layout()
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; plt&lt;span style="color:#f92672"&gt;.&lt;/span&gt;show()
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;# 运行演示&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; __name__ &lt;span style="color:#f92672"&gt;==&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;__main__&amp;#34;&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; demo_feature_matching()
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="实际应用场景"&gt;实际应用场景
+&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;图像拼接&lt;/strong&gt;：全景照片制作&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;文档校正&lt;/strong&gt;：倾斜文档的几何校正&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;增强现实&lt;/strong&gt;：虚拟物体的透视匹配&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;相机标定&lt;/strong&gt;：内参和外参估计&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;平面跟踪&lt;/strong&gt;：广告牌、书页等平面目标跟踪&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id="关键要点"&gt;关键要点
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;平面假设&lt;/strong&gt;：只适用于平面场景&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;点数要求&lt;/strong&gt;：至少4对对应点&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;鲁棒性&lt;/strong&gt;：使用RANSAC处理异常值&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;数值稳定性&lt;/strong&gt;：注意矩阵条件数和归一化&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;单应性标定看似复杂，但本质就是找到两个平面之间的投影变换关系。掌握了基本原理和实现，你就能在各种计算机视觉任务中灵活运用这个强大的工具！&lt;/p&gt;</description></item></channel></rss>
