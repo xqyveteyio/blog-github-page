@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>壁纸设置 on keyboard blog</title><link>http://localhost:1313/tags/%E5%A3%81%E7%BA%B8%E8%AE%BE%E7%BD%AE/</link><description>Recent content in 壁纸设置 on keyboard blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sat, 22 Mar 2025 10:00:00 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/%E5%A3%81%E7%BA%B8%E8%AE%BE%E7%BD%AE/index.xml" rel="self" type="application/rss+xml"/><item><title>Ubuntu24多显示器设置不同壁纸</title><link>http://localhost:1313/posts/2025/03-22/ubuntu24%E5%A4%9A%E6%98%BE%E7%A4%BA%E5%99%A8%E8%AE%BE%E7%BD%AE%E4%B8%8D%E5%90%8C%E5%A3%81%E7%BA%B8/</link><pubDate>Sat, 22 Mar 2025 10:00:00 +0800</pubDate><guid>http://localhost:1313/posts/2025/03-22/ubuntu24%E5%A4%9A%E6%98%BE%E7%A4%BA%E5%99%A8%E8%AE%BE%E7%BD%AE%E4%B8%8D%E5%90%8C%E5%A3%81%E7%BA%B8/</guid><description>&lt;p&gt;Ubuntu 24 并不支持多显示器设置不同壁纸，但是可以通过设置一个大的拉伸壁纸来实现这个效果。&lt;/p&gt;
+&lt;h2 id="效果图"&gt;效果图
+&lt;/h2&gt;&lt;p&gt;&lt;img src="http://localhost:1313/posts/2025/03-22/ubuntu24%E5%A4%9A%E6%98%BE%E7%A4%BA%E5%99%A8%E8%AE%BE%E7%BD%AE%E4%B8%8D%E5%90%8C%E5%A3%81%E7%BA%B8/images/1.png"
+width="5754"
+height="1080"
+srcset="http://localhost:1313/posts/2025/03-22/ubuntu24%E5%A4%9A%E6%98%BE%E7%A4%BA%E5%99%A8%E8%AE%BE%E7%BD%AE%E4%B8%8D%E5%90%8C%E5%A3%81%E7%BA%B8/images/1_hu_95dae87f55dbe2ef.png 480w, http://localhost:1313/posts/2025/03-22/ubuntu24%E5%A4%9A%E6%98%BE%E7%A4%BA%E5%99%A8%E8%AE%BE%E7%BD%AE%E4%B8%8D%E5%90%8C%E5%A3%81%E7%BA%B8/images/1_hu_51e382d75d5fea15.png 1024w"
+loading="lazy"
+alt="tmp"
+class="gallery-image"
+data-flex-grow="532"
+data-flex-basis="1278px"
+&gt;&lt;/p&gt;
+&lt;h2 id="设置壁纸方法"&gt;设置壁纸方法
+&lt;/h2&gt;&lt;p&gt;提示：可能需要安装 dconf-editor 工具，可以通过 sudo apt install dconf-editor 安装。&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-python" data-lang="python"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#f92672"&gt;import&lt;/span&gt; os
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;def&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;set_wallpaper&lt;/span&gt;(path, mode&lt;span style="color:#f92672"&gt;=&lt;/span&gt;&lt;span style="color:#e6db74"&gt;&amp;#34;zoom&amp;#34;&lt;/span&gt;):
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; cmd &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#e6db74"&gt;f&lt;/span&gt;&lt;span style="color:#e6db74"&gt;&amp;#34;&amp;#34;&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt;dconf write /org/gnome/desktop/background/picture-uri-dark &amp;#34;&amp;#39;file://&lt;/span&gt;&lt;span style="color:#e6db74"&gt;{&lt;/span&gt;path&lt;span style="color:#e6db74"&gt;}&lt;/span&gt;&lt;span style="color:#e6db74"&gt;&amp;#39;&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt;dconf write /org/gnome/desktop/background/picture-uri &amp;#34;&amp;#39;file://&lt;/span&gt;&lt;span style="color:#e6db74"&gt;{&lt;/span&gt;path&lt;span style="color:#e6db74"&gt;}&lt;/span&gt;&lt;span style="color:#e6db74"&gt;&amp;#39;&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt;dconf write /org/gnome/desktop/background/picture-options &amp;#34;&amp;#39;&lt;/span&gt;&lt;span style="color:#e6db74"&gt;{&lt;/span&gt;mode&lt;span style="color:#e6db74"&gt;}&lt;/span&gt;&lt;span style="color:#e6db74"&gt;&amp;#39;&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt;&amp;#34;&amp;#34;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; os&lt;span style="color:#f92672"&gt;.&lt;/span&gt;system(cmd)
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="横向拼接多张图片"&gt;横向拼接多张图片
+&lt;/h2&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-python" data-lang="python"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#f92672"&gt;from&lt;/span&gt; PIL &lt;span style="color:#f92672"&gt;import&lt;/span&gt; Image
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;def&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;horizontal_concatenate&lt;/span&gt;(images):
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;&amp;#34;&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; 横向拼接多张图片。
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; :param images: 图片文件路径的列表
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; :return: 拼接后的图片对象
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#e6db74"&gt; &amp;#34;&amp;#34;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;# 打开所有图片&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; img_list &lt;span style="color:#f92672"&gt;=&lt;/span&gt; [Image&lt;span style="color:#f92672"&gt;.&lt;/span&gt;open(img) &lt;span style="color:#66d9ef"&gt;for&lt;/span&gt; img &lt;span style="color:#f92672"&gt;in&lt;/span&gt; images]
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;# 获取图片的宽度和高度&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; widths, heights &lt;span style="color:#f92672"&gt;=&lt;/span&gt; zip(&lt;span style="color:#f92672"&gt;*&lt;/span&gt;(img&lt;span style="color:#f92672"&gt;.&lt;/span&gt;size &lt;span style="color:#66d9ef"&gt;for&lt;/span&gt; img &lt;span style="color:#f92672"&gt;in&lt;/span&gt; img_list))
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;# 计算拼接后图片的总宽度和最大高度&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; total_width &lt;span style="color:#f92672"&gt;=&lt;/span&gt; sum(widths)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; max_height &lt;span style="color:#f92672"&gt;=&lt;/span&gt; max(heights)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;# 创建一个新的空白图片，大小为（总宽度, 最大高度）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; new_img &lt;span style="color:#f92672"&gt;=&lt;/span&gt; Image&lt;span style="color:#f92672"&gt;.&lt;/span&gt;new(&lt;span style="color:#e6db74"&gt;&amp;#34;RGB&amp;#34;&lt;/span&gt;, (total_width, max_height))
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;# 将每张图片粘贴到新图片上&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; x_offset &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt; &lt;span style="color:#75715e"&gt;# 当前的横向偏移量&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;for&lt;/span&gt; img &lt;span style="color:#f92672"&gt;in&lt;/span&gt; img_list:
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; new_img&lt;span style="color:#f92672"&gt;.&lt;/span&gt;paste(img, (x_offset, &lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;))
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; x_offset &lt;span style="color:#f92672"&gt;+=&lt;/span&gt; img&lt;span style="color:#f92672"&gt;.&lt;/span&gt;size[&lt;span style="color:#ae81ff"&gt;0&lt;/span&gt;] &lt;span style="color:#75715e"&gt;# 更新偏移量&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; new_img
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="使用示例"&gt;使用示例
+&lt;/h2&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-python" data-lang="python"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;def&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;main&lt;/span&gt;():
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;# 三张图片的路径&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; image_paths &lt;span style="color:#f92672"&gt;=&lt;/span&gt; [
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;/home/ogumo/文档/GitHub/Multiple-Monitors-Wallpaper/img/1.jpg&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;/home/ogumo/文档/GitHub/Multiple-Monitors-Wallpaper/img/2.png&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;/home/ogumo/文档/GitHub/Multiple-Monitors-Wallpaper/img/3.jpg&amp;#34;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; ]
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;# 横向拼接图片&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; result &lt;span style="color:#f92672"&gt;=&lt;/span&gt; horizontal_concatenate(image_paths)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;# 保存结果&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; result&lt;span style="color:#f92672"&gt;.&lt;/span&gt;save(&lt;span style="color:#e6db74"&gt;&amp;#34;result.png&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;# result.show() # 显示拼接后的图片&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; path &lt;span style="color:#f92672"&gt;=&lt;/span&gt; os&lt;span style="color:#f92672"&gt;.&lt;/span&gt;path&lt;span style="color:#f92672"&gt;.&lt;/span&gt;join(os&lt;span style="color:#f92672"&gt;.&lt;/span&gt;getcwd(), &lt;span style="color:#e6db74"&gt;&amp;#34;/home/ogumo/文档/GitHub/Multiple-Monitors-Wallpaper/result.png&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; set_wallpaper(path, &lt;span style="color:#e6db74"&gt;&amp;#34;spanned&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#66d9ef"&gt;if&lt;/span&gt; __name__ &lt;span style="color:#f92672"&gt;==&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#34;__main__&amp;#34;&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; main()
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description></item></channel></rss>
