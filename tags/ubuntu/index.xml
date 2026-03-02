@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Ubuntu on keyboard blog</title><link>https://blog.keyboard2005.net/tags/ubuntu/</link><description>Recent content in Ubuntu on keyboard blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sun, 02 Nov 2025 23:15:00 +0800</lastBuildDate><atom:link href="https://blog.keyboard2005.net/tags/ubuntu/index.xml" rel="self" type="application/rss+xml"/><item><title>Ubuntu 安装最新版 Docker 并配置用户权限</title><link>https://blog.keyboard2005.net/posts/2025/ubuntu%E5%AE%89%E8%A3%85%E6%9C%80%E6%96%B0%E7%89%88docker%E5%B9%B6%E9%85%8D%E7%BD%AE%E6%9D%83%E9%99%90/</link><pubDate>Sun, 02 Nov 2025 23:15:00 +0800</pubDate><guid>https://blog.keyboard2005.net/posts/2025/ubuntu%E5%AE%89%E8%A3%85%E6%9C%80%E6%96%B0%E7%89%88docker%E5%B9%B6%E9%85%8D%E7%BD%AE%E6%9D%83%E9%99%90/</guid><description>&lt;h1 id="ubuntu-安装最新版-docker-并配置用户权限"&gt;Ubuntu 安装最新版 Docker 并配置用户权限
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Ubuntu on keyboard blog</title><link>https://keyboard2005.github.io/tags/ubuntu/</link><description>Recent content in Ubuntu on keyboard blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sun, 02 Nov 2025 23:15:00 +0800</lastBuildDate><atom:link href="https://keyboard2005.github.io/tags/ubuntu/index.xml" rel="self" type="application/rss+xml"/><item><title>Ubuntu 安装最新版 Docker 并配置用户权限</title><link>https://keyboard2005.github.io/posts/2025/ubuntu%E5%AE%89%E8%A3%85%E6%9C%80%E6%96%B0%E7%89%88docker%E5%B9%B6%E9%85%8D%E7%BD%AE%E6%9D%83%E9%99%90/</link><pubDate>Sun, 02 Nov 2025 23:15:00 +0800</pubDate><guid>https://keyboard2005.github.io/posts/2025/ubuntu%E5%AE%89%E8%A3%85%E6%9C%80%E6%96%B0%E7%89%88docker%E5%B9%B6%E9%85%8D%E7%BD%AE%E6%9D%83%E9%99%90/</guid><description>&lt;h1 id="ubuntu-安装最新版-docker-并配置用户权限"&gt;Ubuntu 安装最新版 Docker 并配置用户权限
 &lt;/h1&gt;&lt;p&gt;最简单直接的 Docker 安装教程，三步搞定。&lt;/p&gt;
 &lt;hr&gt;
 &lt;h2 id="1-添加-docker-官方源"&gt;1. 添加 Docker 官方源
@@ -60,10 +60,10 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;echo &lt;span style="color:#e6db74"&gt;&amp;#34;安装完成！请重启系统或注销重新登录后生效。&amp;#34;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
-&lt;p&gt;就这么简单，不需要那么多步骤。&lt;/p&gt;</description></item><item><title>Ubuntu 使用 KVM 虚拟化技术完整指南</title><link>https://blog.keyboard2005.net/posts/2025/ubunut%E4%BD%BF%E7%94%A8kvm/</link><pubDate>Mon, 20 Oct 2025 23:41:40 +0000</pubDate><guid>https://blog.keyboard2005.net/posts/2025/ubunut%E4%BD%BF%E7%94%A8kvm/</guid><description>&lt;p&gt;&lt;img src="https://blog.keyboard2005.net/posts/2025/ubunut%E4%BD%BF%E7%94%A8kvm/image.png"
+&lt;p&gt;就这么简单，不需要那么多步骤。&lt;/p&gt;</description></item><item><title>Ubuntu 使用 KVM 虚拟化技术完整指南</title><link>https://keyboard2005.github.io/posts/2025/ubunut%E4%BD%BF%E7%94%A8kvm/</link><pubDate>Mon, 20 Oct 2025 23:41:40 +0000</pubDate><guid>https://keyboard2005.github.io/posts/2025/ubunut%E4%BD%BF%E7%94%A8kvm/</guid><description>&lt;p&gt;&lt;img src="https://keyboard2005.github.io/posts/2025/ubunut%E4%BD%BF%E7%94%A8kvm/image.png"
 width="2560"
 height="1440"
-srcset="https://blog.keyboard2005.net/posts/2025/ubunut%E4%BD%BF%E7%94%A8kvm/image_hu_a722f5aa3d248244.png 480w, https://blog.keyboard2005.net/posts/2025/ubunut%E4%BD%BF%E7%94%A8kvm/image_hu_66cf8c0ba3b78faf.png 1024w"
+srcset="https://keyboard2005.github.io/posts/2025/ubunut%E4%BD%BF%E7%94%A8kvm/image_hu_a722f5aa3d248244.png 480w, https://keyboard2005.github.io/posts/2025/ubunut%E4%BD%BF%E7%94%A8kvm/image_hu_66cf8c0ba3b78faf.png 1024w"
 loading="lazy"
 alt="alt text"
 class="gallery-image"
@@ -106,12 +106,12 @@ data-flex-basis="426px"
 &lt;/ol&gt;
 &lt;p&gt;KVM 提供了高性能的虚拟化解决方案，特别适合开发和测试环境使用。&lt;/p&gt;
 &lt;hr&gt;
-&lt;p&gt;&lt;em&gt;如果您在安装过程中遇到任何问题，欢迎在评论区留言讨论！&lt;/em&gt;&lt;/p&gt;</description></item><item><title>Ubuntu24多显示器设置不同壁纸</title><link>https://blog.keyboard2005.net/posts/2025/03-22/ubuntu24%E5%A4%9A%E6%98%BE%E7%A4%BA%E5%99%A8%E8%AE%BE%E7%BD%AE%E4%B8%8D%E5%90%8C%E5%A3%81%E7%BA%B8/</link><pubDate>Sat, 22 Mar 2025 10:00:00 +0800</pubDate><guid>https://blog.keyboard2005.net/posts/2025/03-22/ubuntu24%E5%A4%9A%E6%98%BE%E7%A4%BA%E5%99%A8%E8%AE%BE%E7%BD%AE%E4%B8%8D%E5%90%8C%E5%A3%81%E7%BA%B8/</guid><description>&lt;p&gt;Ubuntu 24 并不支持多显示器设置不同壁纸，但是可以通过设置一个大的拉伸壁纸来实现这个效果。&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;如果您在安装过程中遇到任何问题，欢迎在评论区留言讨论！&lt;/em&gt;&lt;/p&gt;</description></item><item><title>Ubuntu24多显示器设置不同壁纸</title><link>https://keyboard2005.github.io/posts/2025/03-22/ubuntu24%E5%A4%9A%E6%98%BE%E7%A4%BA%E5%99%A8%E8%AE%BE%E7%BD%AE%E4%B8%8D%E5%90%8C%E5%A3%81%E7%BA%B8/</link><pubDate>Sat, 22 Mar 2025 10:00:00 +0800</pubDate><guid>https://keyboard2005.github.io/posts/2025/03-22/ubuntu24%E5%A4%9A%E6%98%BE%E7%A4%BA%E5%99%A8%E8%AE%BE%E7%BD%AE%E4%B8%8D%E5%90%8C%E5%A3%81%E7%BA%B8/</guid><description>&lt;p&gt;Ubuntu 24 并不支持多显示器设置不同壁纸，但是可以通过设置一个大的拉伸壁纸来实现这个效果。&lt;/p&gt;
 &lt;h2 id="效果图"&gt;效果图
-&lt;/h2&gt;&lt;p&gt;&lt;img src="https://blog.keyboard2005.net/posts/2025/03-22/ubuntu24%E5%A4%9A%E6%98%BE%E7%A4%BA%E5%99%A8%E8%AE%BE%E7%BD%AE%E4%B8%8D%E5%90%8C%E5%A3%81%E7%BA%B8/images/1.png"
+&lt;/h2&gt;&lt;p&gt;&lt;img src="https://keyboard2005.github.io/posts/2025/03-22/ubuntu24%E5%A4%9A%E6%98%BE%E7%A4%BA%E5%99%A8%E8%AE%BE%E7%BD%AE%E4%B8%8D%E5%90%8C%E5%A3%81%E7%BA%B8/images/1.png"
 width="5754"
 height="1080"
-srcset="https://blog.keyboard2005.net/posts/2025/03-22/ubuntu24%E5%A4%9A%E6%98%BE%E7%A4%BA%E5%99%A8%E8%AE%BE%E7%BD%AE%E4%B8%8D%E5%90%8C%E5%A3%81%E7%BA%B8/images/1_hu_95dae87f55dbe2ef.png 480w, https://blog.keyboard2005.net/posts/2025/03-22/ubuntu24%E5%A4%9A%E6%98%BE%E7%A4%BA%E5%99%A8%E8%AE%BE%E7%BD%AE%E4%B8%8D%E5%90%8C%E5%A3%81%E7%BA%B8/images/1_hu_51e382d75d5fea15.png 1024w"
+srcset="https://keyboard2005.github.io/posts/2025/03-22/ubuntu24%E5%A4%9A%E6%98%BE%E7%A4%BA%E5%99%A8%E8%AE%BE%E7%BD%AE%E4%B8%8D%E5%90%8C%E5%A3%81%E7%BA%B8/images/1_hu_95dae87f55dbe2ef.png 480w, https://keyboard2005.github.io/posts/2025/03-22/ubuntu24%E5%A4%9A%E6%98%BE%E7%A4%BA%E5%99%A8%E8%AE%BE%E7%BD%AE%E4%B8%8D%E5%90%8C%E5%A3%81%E7%BA%B8/images/1_hu_51e382d75d5fea15.png 1024w"
 loading="lazy"
 alt="tmp"
 class="gallery-image"

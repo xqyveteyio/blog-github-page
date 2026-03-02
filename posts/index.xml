@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on keyboard blog</title><link>https://blog.keyboard2005.net/posts/</link><description>Recent content in Posts on keyboard blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Mon, 23 Feb 2026 01:38:00 +0800</lastBuildDate><atom:link href="https://blog.keyboard2005.net/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Fedora优雅开发ROS2指南</title><link>https://blog.keyboard2005.net/posts/2026/02-23/fedora%E4%BD%BF%E7%94%A8distrobox%E5%BC%80%E5%8F%91ros2/</link><pubDate>Mon, 23 Feb 2026 01:38:00 +0800</pubDate><guid>https://blog.keyboard2005.net/posts/2026/02-23/fedora%E4%BD%BF%E7%94%A8distrobox%E5%BC%80%E5%8F%91ros2/</guid><description>&lt;h1 id="fedora优雅开发ros2指南"&gt;Fedora优雅开发ROS2指南
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on keyboard blog</title><link>https://keyboard2005.github.io/posts/</link><description>Recent content in Posts on keyboard blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Mon, 23 Feb 2026 01:38:00 +0800</lastBuildDate><atom:link href="https://keyboard2005.github.io/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Fedora优雅开发ROS2指南</title><link>https://keyboard2005.github.io/posts/2026/02-23/fedora%E4%BD%BF%E7%94%A8distrobox%E5%BC%80%E5%8F%91ros2/</link><pubDate>Mon, 23 Feb 2026 01:38:00 +0800</pubDate><guid>https://keyboard2005.github.io/posts/2026/02-23/fedora%E4%BD%BF%E7%94%A8distrobox%E5%BC%80%E5%8F%91ros2/</guid><description>&lt;h1 id="fedora优雅开发ros2指南"&gt;Fedora优雅开发ROS2指南
 &lt;/h1&gt;&lt;p&gt;ros2官方并不支持Fedora系统，想要少踩坑 不管是在win 还是非官方支持的linux系统上开发ros2
 虚拟机永远是比较好的选择，当然不是那种传统的虚拟机，而是基于容器技术的虚拟机 这种虚拟机的性能和效率都非常好，几乎和直接在主机上开发一样，甚至更好&lt;/p&gt;
 &lt;p&gt;win上可以简单的使用wsl直接安装ubuntu系统，安装ros2后就可以直接开发了，效率非常高，几乎没有什么性能损失&lt;/p&gt;
@@ -18,7 +18,7 @@
 &lt;/h1&gt;&lt;p&gt;fedora是默认使用wayland的，而ros2的gui默认是x11的，所以需要安装xwayland来支持ros2的gui显示
 sudo dnf install xwayland&lt;/p&gt;
 &lt;p&gt;export QT_QPA_PLATFORM=xcb
-export DISPLAY=:0&lt;/p&gt;</description></item><item><title>Fedora 使用 KVM 虚拟化技术完整指南</title><link>https://blog.keyboard2005.net/posts/2026/02-03/fedora-%E4%BD%BF%E7%94%A8-kvm-%E8%99%9A%E6%8B%9F%E5%8C%96%E6%8A%80%E6%9C%AF%E5%AE%8C%E6%95%B4%E6%8C%87%E5%8D%97/</link><pubDate>Tue, 03 Feb 2026 17:45:00 +0800</pubDate><guid>https://blog.keyboard2005.net/posts/2026/02-03/fedora-%E4%BD%BF%E7%94%A8-kvm-%E8%99%9A%E6%8B%9F%E5%8C%96%E6%8A%80%E6%9C%AF%E5%AE%8C%E6%95%B4%E6%8C%87%E5%8D%97/</guid><description>&lt;h2 id="1-安装需要的软件包fedora"&gt;1) 安装需要的软件包（Fedora）
+export DISPLAY=:0&lt;/p&gt;</description></item><item><title>Fedora 使用 KVM 虚拟化技术完整指南</title><link>https://keyboard2005.github.io/posts/2026/02-03/fedora-%E4%BD%BF%E7%94%A8-kvm-%E8%99%9A%E6%8B%9F%E5%8C%96%E6%8A%80%E6%9C%AF%E5%AE%8C%E6%95%B4%E6%8C%87%E5%8D%97/</link><pubDate>Tue, 03 Feb 2026 17:45:00 +0800</pubDate><guid>https://keyboard2005.github.io/posts/2026/02-03/fedora-%E4%BD%BF%E7%94%A8-kvm-%E8%99%9A%E6%8B%9F%E5%8C%96%E6%8A%80%E6%9C%AF%E5%AE%8C%E6%95%B4%E6%8C%87%E5%8D%97/</guid><description>&lt;h2 id="1-安装需要的软件包fedora"&gt;1) 安装需要的软件包（Fedora）
 &lt;/h2&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;sudo dnf install -y qemu-kvm libvirt virt-install virt-manager bridge-utils
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="2-启用并启动-libvirtfedora-用-systemd"&gt;2) 启用并启动 libvirt（Fedora 用 systemd）
 &lt;/h2&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;sudo systemctl enable --now libvirtd
@@ -30,7 +30,7 @@ export DISPLAY=:0&lt;/p&gt;</description></item><item><title>Fedora 使用 KVM �
 &lt;h2 id="4-验证-kvm-是否可用"&gt;4) 验证 KVM 是否可用
 &lt;/h2&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;lsmod | grep kvm
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;sudo virsh list --all
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;</description></item><item><title>gnome alt+tab切换软件展开多浏览器</title><link>https://blog.keyboard2005.net/posts/2026/02-02/gnome-alt+tab%E5%88%87%E6%8D%A2%E8%BD%AF%E4%BB%B6%E5%B1%95%E5%BC%80%E5%A4%9A%E6%B5%8F%E8%A7%88%E5%99%A8/</link><pubDate>Mon, 02 Feb 2026 00:19:00 +0800</pubDate><guid>https://blog.keyboard2005.net/posts/2026/02-02/gnome-alt+tab%E5%88%87%E6%8D%A2%E8%BD%AF%E4%BB%B6%E5%B1%95%E5%BC%80%E5%A4%9A%E6%B5%8F%E8%A7%88%E5%99%A8/</guid><description>&lt;p&gt;在 GNOME 桌面环境中，默认的 &lt;strong&gt;Alt+Tab&lt;/strong&gt; 切换窗口行为是按应用程序分组的（即同一应用的多个窗口会合并为一个图标）。这对于某些用户来说可能不太方便，尤其是当你同时打开多个浏览器窗口时。&lt;/p&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;</description></item><item><title>gnome alt+tab切换软件展开多浏览器</title><link>https://keyboard2005.github.io/posts/2026/02-02/gnome-alt+tab%E5%88%87%E6%8D%A2%E8%BD%AF%E4%BB%B6%E5%B1%95%E5%BC%80%E5%A4%9A%E6%B5%8F%E8%A7%88%E5%99%A8/</link><pubDate>Mon, 02 Feb 2026 00:19:00 +0800</pubDate><guid>https://keyboard2005.github.io/posts/2026/02-02/gnome-alt+tab%E5%88%87%E6%8D%A2%E8%BD%AF%E4%BB%B6%E5%B1%95%E5%BC%80%E5%A4%9A%E6%B5%8F%E8%A7%88%E5%99%A8/</guid><description>&lt;p&gt;在 GNOME 桌面环境中，默认的 &lt;strong&gt;Alt+Tab&lt;/strong&gt; 切换窗口行为是按应用程序分组的（即同一应用的多个窗口会合并为一个图标）。这对于某些用户来说可能不太方便，尤其是当你同时打开多个浏览器窗口时。&lt;/p&gt;
 &lt;h2 id="用-gsettings-改-alttab-行为"&gt;用 gsettings 改 Alt+Tab 行为
 &lt;/h2&gt;&lt;p&gt;打开终端执行：&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;gsettings set org.gnome.desktop.wm.keybindings switch-windows &lt;span style="color:#e6db74"&gt;&amp;#34;[&amp;#39;&amp;lt;Alt&amp;gt;Tab&amp;#39;]&amp;#34;&lt;/span&gt;
@@ -49,9 +49,9 @@ export DISPLAY=:0&lt;/p&gt;</description></item><item><title>Fedora 使用 KVM �
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;gsettings reset org.gnome.desktop.wm.keybindings switch-applications
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;gsettings reset org.gnome.desktop.wm.keybindings switch-applications-backward
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="来回切"&gt;来回切”）
-&lt;/h2&gt;</description></item><item><title>Fedora23打开任何软件卡顿数秒</title><link>https://blog.keyboard2005.net/posts/2026/02-02/fedora%E7%B3%BB%E7%BB%9F%E6%89%93%E5%BC%80%E4%BB%BB%E4%BD%95%E8%BD%AF%E4%BB%B6%E5%8D%A1%E9%A1%BF%E6%95%B0%E7%A7%92/</link><pubDate>Mon, 02 Feb 2026 00:10:00 +0800</pubDate><guid>https://blog.keyboard2005.net/posts/2026/02-02/fedora%E7%B3%BB%E7%BB%9F%E6%89%93%E5%BC%80%E4%BB%BB%E4%BD%95%E8%BD%AF%E4%BB%B6%E5%8D%A1%E9%A1%BF%E6%95%B0%E7%A7%92/</guid><description>&lt;h3 id="最近在-fedora-上遇到一个问题打开任何软件时都会卡顿数秒之后就恢复正常经过排查发现是显卡驱动的问题"&gt;最近在 Fedora 上遇到一个问题：打开任何软件时都会卡顿数秒，之后就恢复正常。经过排查发现是显卡驱动的问题
+&lt;/h2&gt;</description></item><item><title>Fedora23打开任何软件卡顿数秒</title><link>https://keyboard2005.github.io/posts/2026/02-02/fedora%E7%B3%BB%E7%BB%9F%E6%89%93%E5%BC%80%E4%BB%BB%E4%BD%95%E8%BD%AF%E4%BB%B6%E5%8D%A1%E9%A1%BF%E6%95%B0%E7%A7%92/</link><pubDate>Mon, 02 Feb 2026 00:10:00 +0800</pubDate><guid>https://keyboard2005.github.io/posts/2026/02-02/fedora%E7%B3%BB%E7%BB%9F%E6%89%93%E5%BC%80%E4%BB%BB%E4%BD%95%E8%BD%AF%E4%BB%B6%E5%8D%A1%E9%A1%BF%E6%95%B0%E7%A7%92/</guid><description>&lt;h3 id="最近在-fedora-上遇到一个问题打开任何软件时都会卡顿数秒之后就恢复正常经过排查发现是显卡驱动的问题"&gt;最近在 Fedora 上遇到一个问题：打开任何软件时都会卡顿数秒，之后就恢复正常。经过排查发现是显卡驱动的问题
 &lt;/h3&gt;&lt;h3 id="笔记本-特别是混合显卡的用户可能会遇到类似问题安装上显卡驱动就可以了"&gt;笔记本 特别是混合显卡的用户可能会遇到类似问题。安装上显卡驱动就可以了
-&lt;/h3&gt;&lt;p&gt;&lt;a class="link" href="https://blog.keyboard2005.net/posts/2026/2026-02-02/linux%E5%AE%89%E8%A3%85%E8%8B%B1%E4%BC%9F%E8%BE%BE%E9%A9%B1%E5%8A%A8/" &gt;Fedora23安装英伟达驱动教程&lt;/a&gt;&lt;/p&gt;</description></item><item><title>Fedora23 安装英伟达显卡驱动</title><link>https://blog.keyboard2005.net/posts/2026/02-02/linux%E5%AE%89%E8%A3%85%E8%8B%B1%E4%BC%9F%E8%BE%BE%E9%A9%B1%E5%8A%A8/</link><pubDate>Mon, 02 Feb 2026 00:01:00 +0800</pubDate><guid>https://blog.keyboard2005.net/posts/2026/02-02/linux%E5%AE%89%E8%A3%85%E8%8B%B1%E4%BC%9F%E8%BE%BE%E9%A9%B1%E5%8A%A8/</guid><description>&lt;p&gt;下面以 &lt;strong&gt;Fedora Workstation（GNOME）&lt;/strong&gt; 为例，教你在 Fedora 上安装 &lt;strong&gt;NVIDIA（英伟达）专有驱动&lt;/strong&gt;（最常用、也最稳定的方式：RPM Fusion）。命令基本通用到 Fedora 39/40/41。&lt;/p&gt;
+&lt;/h3&gt;&lt;p&gt;&lt;a class="link" href="https://keyboard2005.github.io/posts/2026/2026-02-02/linux%E5%AE%89%E8%A3%85%E8%8B%B1%E4%BC%9F%E8%BE%BE%E9%A9%B1%E5%8A%A8/" &gt;Fedora23安装英伟达驱动教程&lt;/a&gt;&lt;/p&gt;</description></item><item><title>Fedora23 安装英伟达显卡驱动</title><link>https://keyboard2005.github.io/posts/2026/02-02/linux%E5%AE%89%E8%A3%85%E8%8B%B1%E4%BC%9F%E8%BE%BE%E9%A9%B1%E5%8A%A8/</link><pubDate>Mon, 02 Feb 2026 00:01:00 +0800</pubDate><guid>https://keyboard2005.github.io/posts/2026/02-02/linux%E5%AE%89%E8%A3%85%E8%8B%B1%E4%BC%9F%E8%BE%BE%E9%A9%B1%E5%8A%A8/</guid><description>&lt;p&gt;下面以 &lt;strong&gt;Fedora Workstation（GNOME）&lt;/strong&gt; 为例，教你在 Fedora 上安装 &lt;strong&gt;NVIDIA（英伟达）专有驱动&lt;/strong&gt;（最常用、也最稳定的方式：RPM Fusion）。命令基本通用到 Fedora 39/40/41。&lt;/p&gt;
 &lt;hr&gt;
 &lt;h2 id="0先确认你的显卡型号可选但建议"&gt;0）先确认你的显卡型号（可选但建议）
 &lt;/h2&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;lspci | grep -E &lt;span style="color:#e6db74"&gt;&amp;#34;VGA|3D&amp;#34;&lt;/span&gt;
@@ -133,7 +133,7 @@ export DISPLAY=:0&lt;/p&gt;</description></item><item><title>Fedora 使用 KVM �
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;uname -r
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;mokutil --sb-state 2&amp;gt;/dev/null &lt;span style="color:#f92672"&gt;||&lt;/span&gt; echo &lt;span style="color:#e6db74"&gt;&amp;#34;mokutil not installed&amp;#34;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;lspci | grep -E &lt;span style="color:#e6db74"&gt;&amp;#34;VGA|3D&amp;#34;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description></item><item><title>Fedora 安装最新版 Docker 并配置用户权限</title><link>https://blog.keyboard2005.net/posts/2026/01/fedora%E5%AE%89%E8%A3%85docker/</link><pubDate>Sat, 31 Jan 2026 03:22:00 +0800</pubDate><guid>https://blog.keyboard2005.net/posts/2026/01/fedora%E5%AE%89%E8%A3%85docker/</guid><description>&lt;hr&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description></item><item><title>Fedora 安装最新版 Docker 并配置用户权限</title><link>https://keyboard2005.github.io/posts/2026/01/fedora%E5%AE%89%E8%A3%85docker/</link><pubDate>Sat, 31 Jan 2026 03:22:00 +0800</pubDate><guid>https://keyboard2005.github.io/posts/2026/01/fedora%E5%AE%89%E8%A3%85docker/</guid><description>&lt;hr&gt;
 &lt;h3 id="1-安装插件"&gt;1) 安装插件
 &lt;/h3&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;sudo dnf -y install dnf-plugins-core
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id="2-用新命令添加-repofedora-43-适用"&gt;2) 用新命令添加 repo（Fedora 43 适用）
@@ -152,8 +152,8 @@ export DISPLAY=:0&lt;/p&gt;</description></item><item><title>Fedora 使用 KVM �
 &lt;/h3&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;sudo usermod -aG docker $USER
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;newgrp docker &lt;span style="color:#75715e"&gt;# 立即生效&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="注销或者重启系统后普通用户即可使用-docker-命令而无需-sudo"&gt;注销或者重启系统后，普通用户即可使用 Docker 命令而无需 sudo
-&lt;/h2&gt;</description></item><item><title>conda默认不激活base环境命令</title><link>https://blog.keyboard2005.net/posts/2026/01/conda%E9%BB%98%E8%AE%A4%E4%B8%8D%E6%BF%80%E6%B4%BBbase%E7%8E%AF%E5%A2%83/</link><pubDate>Sat, 31 Jan 2026 03:18:00 +0800</pubDate><guid>https://blog.keyboard2005.net/posts/2026/01/conda%E9%BB%98%E8%AE%A4%E4%B8%8D%E6%BF%80%E6%B4%BBbase%E7%8E%AF%E5%A2%83/</guid><description>&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;conda config --set auto_activate_base false
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description></item><item><title>学习C++</title><link>https://blog.keyboard2005.net/posts/2026/01/%E5%AD%A6%E4%B9%A0c++/</link><pubDate>Sat, 17 Jan 2026 17:04:00 +0800</pubDate><guid>https://blog.keyboard2005.net/posts/2026/01/%E5%AD%A6%E4%B9%A0c++/</guid><description>&lt;h2 id="学习计划"&gt;学习计划
+&lt;/h2&gt;</description></item><item><title>conda默认不激活base环境命令</title><link>https://keyboard2005.github.io/posts/2026/01/conda%E9%BB%98%E8%AE%A4%E4%B8%8D%E6%BF%80%E6%B4%BBbase%E7%8E%AF%E5%A2%83/</link><pubDate>Sat, 31 Jan 2026 03:18:00 +0800</pubDate><guid>https://keyboard2005.github.io/posts/2026/01/conda%E9%BB%98%E8%AE%A4%E4%B8%8D%E6%BF%80%E6%B4%BBbase%E7%8E%AF%E5%A2%83/</guid><description>&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;conda config --set auto_activate_base false
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description></item><item><title>学习C++</title><link>https://keyboard2005.github.io/posts/2026/01/%E5%AD%A6%E4%B9%A0c++/</link><pubDate>Sat, 17 Jan 2026 17:04:00 +0800</pubDate><guid>https://keyboard2005.github.io/posts/2026/01/%E5%AD%A6%E4%B9%A0c++/</guid><description>&lt;h2 id="学习计划"&gt;学习计划
 &lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;学习C++基础语法和概念&lt;/li&gt;
 &lt;li&gt;直接上手开发小软件
@@ -163,7 +163,7 @@ export DISPLAY=:0&lt;/p&gt;</description></item><item><title>Fedora 使用 KVM �
 &lt;li&gt;云存档工具&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;/ul&gt;</description></item><item><title>自制无损音乐播放器</title><link>https://blog.keyboard2005.net/posts/2026/01/diy%E9%9F%B3%E4%B9%90%E6%92%AD%E6%94%BE%E5%99%A8/</link><pubDate>Sat, 17 Jan 2026 16:51:00 +0800</pubDate><guid>https://blog.keyboard2005.net/posts/2026/01/diy%E9%9F%B3%E4%B9%90%E6%92%AD%E6%94%BE%E5%99%A8/</guid><description>&lt;h2 id="方案"&gt;方案
+&lt;/ul&gt;</description></item><item><title>自制无损音乐播放器</title><link>https://keyboard2005.github.io/posts/2026/01/diy%E9%9F%B3%E4%B9%90%E6%92%AD%E6%94%BE%E5%99%A8/</link><pubDate>Sat, 17 Jan 2026 16:51:00 +0800</pubDate><guid>https://keyboard2005.github.io/posts/2026/01/diy%E9%9F%B3%E4%B9%90%E6%92%AD%E6%94%BE%E5%99%A8/</guid><description>&lt;h2 id="方案"&gt;方案
 &lt;/h2&gt;&lt;h3 id="硬件部分"&gt;硬件部分
 &lt;/h3&gt;&lt;ul&gt;
 &lt;li&gt;树莓派 Zero 2 W&lt;/li&gt;
@@ -178,7 +178,7 @@ export DISPLAY=:0&lt;/p&gt;</description></item><item><title>Fedora 使用 KVM �
 &lt;li&gt;操作系统：Raspberry Pi OS Lite&lt;/li&gt;
 &lt;li&gt;音乐播放器软件：MPD（Music Player Daemon）&lt;/li&gt;
 &lt;li&gt;前端界面：使用 MPC（Music Player Client）或自定义 Web 界面&lt;/li&gt;
-&lt;/ul&gt;</description></item><item><title>conda 导出环境（conda-pack）</title><link>https://blog.keyboard2005.net/posts/2025/conda%E5%AF%BC%E5%87%BA%E7%8E%AF%E5%A2%83/</link><pubDate>Wed, 07 Jan 2026 19:15:00 +0800</pubDate><guid>https://blog.keyboard2005.net/posts/2025/conda%E5%AF%BC%E5%87%BA%E7%8E%AF%E5%A2%83/</guid><description>&lt;h1 id="conda-导出环境conda-pack"&gt;conda 导出环境（conda-pack）
+&lt;/ul&gt;</description></item><item><title>conda 导出环境（conda-pack）</title><link>https://keyboard2005.github.io/posts/2025/conda%E5%AF%BC%E5%87%BA%E7%8E%AF%E5%A2%83/</link><pubDate>Wed, 07 Jan 2026 19:15:00 +0800</pubDate><guid>https://keyboard2005.github.io/posts/2025/conda%E5%AF%BC%E5%87%BA%E7%8E%AF%E5%A2%83/</guid><description>&lt;h1 id="conda-导出环境conda-pack"&gt;conda 导出环境（conda-pack）
 &lt;/h1&gt;&lt;p&gt;用 &lt;code&gt;conda-pack&lt;/code&gt; 将已有环境打包，拷贝到另一台机器后解包并执行 &lt;code&gt;conda-unpack&lt;/code&gt; 完成修复。&lt;/p&gt;
 &lt;h2 id="1-安装-conda-pack"&gt;1. 安装 conda-pack
 &lt;/h2&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;conda install -n base -c conda-forge conda-pack
@@ -187,7 +187,7 @@ export DISPLAY=:0&lt;/p&gt;</description></item><item><title>Fedora 使用 KVM �
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="3-迁移并解包"&gt;3. 迁移并解包
 &lt;/h2&gt;&lt;p&gt;将 &lt;code&gt;openmmlab_env.tar.gz&lt;/code&gt; 拷贝到目标机器，解压到 &lt;code&gt;envs/&lt;/code&gt; 目录后执行：&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;envs/openmmlab_env/bin/conda-unpack
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description></item><item><title>单应性标定：从原理到实现</title><link>https://blog.keyboard2005.net/posts/2025/%E5%8D%95%E5%BA%94%E6%80%A7%E6%A0%87%E5%AE%9A/</link><pubDate>Thu, 18 Dec 2025 01:00:00 +0800</pubDate><guid>https://blog.keyboard2005.net/posts/2025/%E5%8D%95%E5%BA%94%E6%80%A7%E6%A0%87%E5%AE%9A/</guid><description>&lt;h2 id="什么是单应性"&gt;什么是单应性
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description></item><item><title>单应性标定：从原理到实现</title><link>https://keyboard2005.github.io/posts/2025/%E5%8D%95%E5%BA%94%E6%80%A7%E6%A0%87%E5%AE%9A/</link><pubDate>Thu, 18 Dec 2025 01:00:00 +0800</pubDate><guid>https://keyboard2005.github.io/posts/2025/%E5%8D%95%E5%BA%94%E6%80%A7%E6%A0%87%E5%AE%9A/</guid><description>&lt;h2 id="什么是单应性"&gt;什么是单应性
 &lt;/h2&gt;&lt;p&gt;单应性（Homography）是计算机视觉中的核心概念，描述了&lt;strong&gt;同一平面&lt;/strong&gt;在两个不同视角下的坐标变换关系。简单理解：当你拍摄一张纸，然后换个角度再拍一张，这两张图像之间的像素对应关系就是单应性。&lt;/p&gt;
 &lt;h2 id="核心原理"&gt;核心原理
 &lt;/h2&gt;&lt;h3 id="数学表达"&gt;数学表达
@@ -407,7 +407,7 @@ $$&lt;/p&gt;
 &lt;li&gt;&lt;strong&gt;鲁棒性&lt;/strong&gt;：使用RANSAC处理异常值&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;数值稳定性&lt;/strong&gt;：注意矩阵条件数和归一化&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;单应性标定看似复杂，但本质就是找到两个平面之间的投影变换关系。掌握了基本原理和实现，你就能在各种计算机视觉任务中灵活运用这个强大的工具！&lt;/p&gt;</description></item><item><title>数学公式测试</title><link>https://blog.keyboard2005.net/posts/2025/%E6%95%B0%E5%AD%A6%E5%85%AC%E5%BC%8F%E6%B5%8B%E8%AF%95/</link><pubDate>Thu, 18 Dec 2025 00:30:00 +0800</pubDate><guid>https://blog.keyboard2005.net/posts/2025/%E6%95%B0%E5%AD%A6%E5%85%AC%E5%BC%8F%E6%B5%8B%E8%AF%95/</guid><description>&lt;h2 id="简单测试"&gt;简单测试
+&lt;p&gt;单应性标定看似复杂，但本质就是找到两个平面之间的投影变换关系。掌握了基本原理和实现，你就能在各种计算机视觉任务中灵活运用这个强大的工具！&lt;/p&gt;</description></item><item><title>数学公式测试</title><link>https://keyboard2005.github.io/posts/2025/%E6%95%B0%E5%AD%A6%E5%85%AC%E5%BC%8F%E6%B5%8B%E8%AF%95/</link><pubDate>Thu, 18 Dec 2025 00:30:00 +0800</pubDate><guid>https://keyboard2005.github.io/posts/2025/%E6%95%B0%E5%AD%A6%E5%85%AC%E5%BC%8F%E6%B5%8B%E8%AF%95/</guid><description>&lt;h2 id="简单测试"&gt;简单测试
 &lt;/h2&gt;&lt;p&gt;行内公式：$E = mc^2$&lt;/p&gt;
 &lt;p&gt;块级公式：
 $$x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$$&lt;/p&gt;
@@ -424,7 +424,7 @@ h_{11} &amp;amp; h_{12} &amp;amp; h_{13} \
 h_{21} &amp;amp; h_{22} &amp;amp; h_{23} \
 h_{31} &amp;amp; h_{32} &amp;amp; h_{33}
 \end{bmatrix}
-$$&lt;/p&gt;</description></item><item><title>Ubuntu 安装最新版 Docker 并配置用户权限</title><link>https://blog.keyboard2005.net/posts/2025/ubuntu%E5%AE%89%E8%A3%85%E6%9C%80%E6%96%B0%E7%89%88docker%E5%B9%B6%E9%85%8D%E7%BD%AE%E6%9D%83%E9%99%90/</link><pubDate>Sun, 02 Nov 2025 23:15:00 +0800</pubDate><guid>https://blog.keyboard2005.net/posts/2025/ubuntu%E5%AE%89%E8%A3%85%E6%9C%80%E6%96%B0%E7%89%88docker%E5%B9%B6%E9%85%8D%E7%BD%AE%E6%9D%83%E9%99%90/</guid><description>&lt;h1 id="ubuntu-安装最新版-docker-并配置用户权限"&gt;Ubuntu 安装最新版 Docker 并配置用户权限
+$$&lt;/p&gt;</description></item><item><title>Ubuntu 安装最新版 Docker 并配置用户权限</title><link>https://keyboard2005.github.io/posts/2025/ubuntu%E5%AE%89%E8%A3%85%E6%9C%80%E6%96%B0%E7%89%88docker%E5%B9%B6%E9%85%8D%E7%BD%AE%E6%9D%83%E9%99%90/</link><pubDate>Sun, 02 Nov 2025 23:15:00 +0800</pubDate><guid>https://keyboard2005.github.io/posts/2025/ubuntu%E5%AE%89%E8%A3%85%E6%9C%80%E6%96%B0%E7%89%88docker%E5%B9%B6%E9%85%8D%E7%BD%AE%E6%9D%83%E9%99%90/</guid><description>&lt;h1 id="ubuntu-安装最新版-docker-并配置用户权限"&gt;Ubuntu 安装最新版 Docker 并配置用户权限
 &lt;/h1&gt;&lt;p&gt;最简单直接的 Docker 安装教程，三步搞定。&lt;/p&gt;
 &lt;hr&gt;
 &lt;h2 id="1-添加-docker-官方源"&gt;1. 添加 Docker 官方源
@@ -486,7 +486,7 @@ $$&lt;/p&gt;</description></item><item><title>Ubuntu 安装最新版 Docker 并�
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;echo &lt;span style="color:#e6db74"&gt;&amp;#34;安装完成！请重启系统或注销重新登录后生效。&amp;#34;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
-&lt;p&gt;就这么简单，不需要那么多步骤。&lt;/p&gt;</description></item><item><title>Android App HTTPS 抓包与 SSL Pinning 绕过实战指南</title><link>https://blog.keyboard2005.net/posts/2025/android-app-https-%E6%8A%93%E5%8C%85-+-ssl-pinning-%E7%BB%95%E8%BF%87/</link><pubDate>Sun, 02 Nov 2025 22:51:00 +0800</pubDate><guid>https://blog.keyboard2005.net/posts/2025/android-app-https-%E6%8A%93%E5%8C%85-+-ssl-pinning-%E7%BB%95%E8%BF%87/</guid><description>&lt;h1 id="android-app-https-抓包与-ssl-pinning-绕过"&gt;Android App HTTPS 抓包与 SSL Pinning 绕过
+&lt;p&gt;就这么简单，不需要那么多步骤。&lt;/p&gt;</description></item><item><title>Android App HTTPS 抓包与 SSL Pinning 绕过实战指南</title><link>https://keyboard2005.github.io/posts/2025/android-app-https-%E6%8A%93%E5%8C%85-+-ssl-pinning-%E7%BB%95%E8%BF%87/</link><pubDate>Sun, 02 Nov 2025 22:51:00 +0800</pubDate><guid>https://keyboard2005.github.io/posts/2025/android-app-https-%E6%8A%93%E5%8C%85-+-ssl-pinning-%E7%BB%95%E8%BF%87/</guid><description>&lt;h1 id="android-app-https-抓包与-ssl-pinning-绕过"&gt;Android App HTTPS 抓包与 SSL Pinning 绕过
 &lt;/h1&gt;&lt;p&gt;本文将详细介绍如何搭建完整的 Android App HTTPS 抓包环境，并使用 Frida 动态注入技术绕过 SSL Pinning 证书校验机制。&lt;/p&gt;
 &lt;hr&gt;
 &lt;h2 id="1-环境准备"&gt;1. 环境准备
@@ -668,10 +668,10 @@ $$&lt;/p&gt;</description></item><item><title>Ubuntu 安装最新版 Docker 并�
 [+] Bypassing SSL Pinning via TrustManager
 [+] checkServerTrusted bypassed
 [+] SSL Pinning Bypass Ready!
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;img src="https://blog.keyboard2005.net/posts/2025/android-app-https-%E6%8A%93%E5%8C%85-&amp;#43;-ssl-pinning-%E7%BB%95%E8%BF%87/images/2.png"
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;img src="https://keyboard2005.github.io/posts/2025/android-app-https-%E6%8A%93%E5%8C%85-&amp;#43;-ssl-pinning-%E7%BB%95%E8%BF%87/images/2.png"
 width="1878"
 height="407"
-srcset="https://blog.keyboard2005.net/posts/2025/android-app-https-%E6%8A%93%E5%8C%85-&amp;#43;-ssl-pinning-%E7%BB%95%E8%BF%87/images/2_hu_ac3f38ab47fb404c.png 480w, https://blog.keyboard2005.net/posts/2025/android-app-https-%E6%8A%93%E5%8C%85-&amp;#43;-ssl-pinning-%E7%BB%95%E8%BF%87/images/2_hu_c350f26262e962e1.png 1024w"
+srcset="https://keyboard2005.github.io/posts/2025/android-app-https-%E6%8A%93%E5%8C%85-&amp;#43;-ssl-pinning-%E7%BB%95%E8%BF%87/images/2_hu_ac3f38ab47fb404c.png 480w, https://keyboard2005.github.io/posts/2025/android-app-https-%E6%8A%93%E5%8C%85-&amp;#43;-ssl-pinning-%E7%BB%95%E8%BF%87/images/2_hu_c350f26262e962e1.png 1024w"
 loading="lazy"
 alt="Frida 成功绕过 SSL Pinning"
 class="gallery-image"
@@ -685,10 +685,10 @@ POST /login
 Content-Type: application/json
 {&amp;#34;username&amp;#34;: &amp;#34;test&amp;#34;, &amp;#34;password&amp;#34;: &amp;#34;123456&amp;#34;}
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;可以实时查看、修改、重放请求和响应内容。&lt;/p&gt;
-&lt;p&gt;&lt;img src="https://blog.keyboard2005.net/posts/2025/android-app-https-%E6%8A%93%E5%8C%85-&amp;#43;-ssl-pinning-%E7%BB%95%E8%BF%87/images/1.png"
+&lt;p&gt;&lt;img src="https://keyboard2005.github.io/posts/2025/android-app-https-%E6%8A%93%E5%8C%85-&amp;#43;-ssl-pinning-%E7%BB%95%E8%BF%87/images/1.png"
 width="1920"
 height="1080"
-srcset="https://blog.keyboard2005.net/posts/2025/android-app-https-%E6%8A%93%E5%8C%85-&amp;#43;-ssl-pinning-%E7%BB%95%E8%BF%87/images/1_hu_6aa5f0066ec4626.png 480w, https://blog.keyboard2005.net/posts/2025/android-app-https-%E6%8A%93%E5%8C%85-&amp;#43;-ssl-pinning-%E7%BB%95%E8%BF%87/images/1_hu_48ef1c22e0405cc0.png 1024w"
+srcset="https://keyboard2005.github.io/posts/2025/android-app-https-%E6%8A%93%E5%8C%85-&amp;#43;-ssl-pinning-%E7%BB%95%E8%BF%87/images/1_hu_6aa5f0066ec4626.png 480w, https://keyboard2005.github.io/posts/2025/android-app-https-%E6%8A%93%E5%8C%85-&amp;#43;-ssl-pinning-%E7%BB%95%E8%BF%87/images/1_hu_48ef1c22e0405cc0.png 1024w"
 loading="lazy"
 alt="mitmproxy 成功抓取 HTTPS 流量"
 class="gallery-image"
@@ -795,13 +795,13 @@ data-flex-basis="426px"
 &lt;/ol&gt;
 &lt;p&gt;这套方案适用于大多数 Android App 的安全测试和逆向分析场景。对于采用更复杂保护机制的应用（如 Native 层校验、代码混淆、反调试等），需要结合更高级的技术手段。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;免责声明&lt;/strong&gt;：本文内容仅供学习研究使用，请勿用于非法用途。未经授权对他人应用进行抓包分析可能违反法律法规。&lt;/p&gt;
-&lt;hr&gt;</description></item><item><title>关于我</title><link>https://blog.keyboard2005.net/posts/2025/%E5%85%B3%E4%BA%8E%E6%88%91/</link><pubDate>Mon, 27 Oct 2025 16:09:00 +0800</pubDate><guid>https://blog.keyboard2005.net/posts/2025/%E5%85%B3%E4%BA%8E%E6%88%91/</guid><description>&lt;h2 id="个人简介"&gt;个人简介
+&lt;hr&gt;</description></item><item><title>关于我</title><link>https://keyboard2005.github.io/posts/2025/%E5%85%B3%E4%BA%8E%E6%88%91/</link><pubDate>Mon, 27 Oct 2025 16:09:00 +0800</pubDate><guid>https://keyboard2005.github.io/posts/2025/%E5%85%B3%E4%BA%8E%E6%88%91/</guid><description>&lt;h2 id="个人简介"&gt;个人简介
 &lt;/h2&gt;&lt;p&gt;你好 我叫 大蜘蛛 恩 然后下面有我的项目经验和技术栈介绍&lt;/p&gt;
 &lt;h3 id="私人存储库贡献图-95-外包项目贡献"&gt;私人存储库贡献图 (95% 外包项目贡献)
-&lt;/h3&gt;&lt;p&gt;&lt;img src="https://blog.keyboard2005.net/posts/2025/%E5%85%B3%E4%BA%8E%E6%88%91/image-1.png"
+&lt;/h3&gt;&lt;p&gt;&lt;img src="https://keyboard2005.github.io/posts/2025/%E5%85%B3%E4%BA%8E%E6%88%91/image-1.png"
 width="958"
 height="611"
-srcset="https://blog.keyboard2005.net/posts/2025/%E5%85%B3%E4%BA%8E%E6%88%91/image-1_hu_abe00044bbb77f0c.png 480w, https://blog.keyboard2005.net/posts/2025/%E5%85%B3%E4%BA%8E%E6%88%91/image-1_hu_7cdccfa204ddf067.png 1024w"
+srcset="https://keyboard2005.github.io/posts/2025/%E5%85%B3%E4%BA%8E%E6%88%91/image-1_hu_abe00044bbb77f0c.png 480w, https://keyboard2005.github.io/posts/2025/%E5%85%B3%E4%BA%8E%E6%88%91/image-1_hu_7cdccfa204ddf067.png 1024w"
 loading="lazy"
 alt="私人存储库贡献图"
 class="gallery-image"
@@ -857,40 +857,40 @@ data-flex-basis="376px"
 &lt;/h3&gt;&lt;p&gt;&lt;strong&gt;order_amazon&lt;/strong&gt; | &lt;a class="link" href="https://github.com/keyboard2005/order_amazon_3000" target="_blank" rel="noopener"
 &gt;GitHub&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;专业的跨境代购管理平台,为Amazon代购业务提供完整的订单管理解决方案。&lt;/p&gt;
-&lt;p&gt;&lt;img src="https://blog.keyboard2005.net/posts/2025/%E5%85%B3%E4%BA%8E%E6%88%91/images/14.png"
+&lt;p&gt;&lt;img src="https://keyboard2005.github.io/posts/2025/%E5%85%B3%E4%BA%8E%E6%88%91/images/14.png"
 width="1920"
 height="1080"
-srcset="https://blog.keyboard2005.net/posts/2025/%E5%85%B3%E4%BA%8E%E6%88%91/images/14_hu_fdec209ce20104dd.png 480w, https://blog.keyboard2005.net/posts/2025/%E5%85%B3%E4%BA%8E%E6%88%91/images/14_hu_454fc04ff40441d.png 1024w"
+srcset="https://keyboard2005.github.io/posts/2025/%E5%85%B3%E4%BA%8E%E6%88%91/images/14_hu_fdec209ce20104dd.png 480w, https://keyboard2005.github.io/posts/2025/%E5%85%B3%E4%BA%8E%E6%88%91/images/14_hu_454fc04ff40441d.png 1024w"
 loading="lazy"
 alt="猫咪电商 - 订单管理界面"
 class="gallery-image"
 data-flex-grow="177"
 data-flex-basis="426px"
 &gt;
-&lt;img src="https://blog.keyboard2005.net/posts/2025/%E5%85%B3%E4%BA%8E%E6%88%91/images/15.png"
+&lt;img src="https://keyboard2005.github.io/posts/2025/%E5%85%B3%E4%BA%8E%E6%88%91/images/15.png"
 width="1920"
 height="1080"
-srcset="https://blog.keyboard2005.net/posts/2025/%E5%85%B3%E4%BA%8E%E6%88%91/images/15_hu_b1e4b017446ba055.png 480w, https://blog.keyboard2005.net/posts/2025/%E5%85%B3%E4%BA%8E%E6%88%91/images/15_hu_a78bbd45739b47fa.png 1024w"
+srcset="https://keyboard2005.github.io/posts/2025/%E5%85%B3%E4%BA%8E%E6%88%91/images/15_hu_b1e4b017446ba055.png 480w, https://keyboard2005.github.io/posts/2025/%E5%85%B3%E4%BA%8E%E6%88%91/images/15_hu_a78bbd45739b47fa.png 1024w"
 loading="lazy"
 alt="猫咪电商 - 数据统计"
 class="gallery-image"
 data-flex-grow="177"
 data-flex-basis="426px"
 &gt;
-&lt;img src="https://blog.keyboard2005.net/posts/2025/%E5%85%B3%E4%BA%8E%E6%88%91/images/16.png"
+&lt;img src="https://keyboard2005.github.io/posts/2025/%E5%85%B3%E4%BA%8E%E6%88%91/images/16.png"
 width="1920"
 height="1080"
-srcset="https://blog.keyboard2005.net/posts/2025/%E5%85%B3%E4%BA%8E%E6%88%91/images/16_hu_afd7472123244657.png 480w, https://blog.keyboard2005.net/posts/2025/%E5%85%B3%E4%BA%8E%E6%88%91/images/16_hu_8ee101c88b322d64.png 1024w"
+srcset="https://keyboard2005.github.io/posts/2025/%E5%85%B3%E4%BA%8E%E6%88%91/images/16_hu_afd7472123244657.png 480w, https://keyboard2005.github.io/posts/2025/%E5%85%B3%E4%BA%8E%E6%88%91/images/16_hu_8ee101c88b322d64.png 1024w"
 loading="lazy"
 alt="猫咪电商 - 订单详情"
 class="gallery-image"
 data-flex-grow="177"
 data-flex-basis="426px"
 &gt;
-&lt;img src="https://blog.keyboard2005.net/posts/2025/%E5%85%B3%E4%BA%8E%E6%88%91/images/17.png"
+&lt;img src="https://keyboard2005.github.io/posts/2025/%E5%85%B3%E4%BA%8E%E6%88%91/images/17.png"
 width="1920"
 height="1080"
-srcset="https://blog.keyboard2005.net/posts/2025/%E5%85%B3%E4%BA%8E%E6%88%91/images/17_hu_9d4a84c68f6ab249.png 480w, https://blog.keyboard2005.net/posts/2025/%E5%85%B3%E4%BA%8E%E6%88%91/images/17_hu_5ca59fb5b0fd1110.png 1024w"
+srcset="https://keyboard2005.github.io/posts/2025/%E5%85%B3%E4%BA%8E%E6%88%91/images/17_hu_9d4a84c68f6ab249.png 480w, https://keyboard2005.github.io/posts/2025/%E5%85%B3%E4%BA%8E%E6%88%91/images/17_hu_5ca59fb5b0fd1110.png 1024w"
 loading="lazy"
 alt="猫咪电商 - 系统功能"
 class="gallery-image"
@@ -935,10 +935,10 @@ data-flex-basis="426px"
 &lt;/h3&gt;&lt;p&gt;&lt;strong&gt;order_caizong_match_gui_3d_printer&lt;/strong&gt; | &lt;a class="link" href="https://github.com/keyboard2005/order_caizong_match_gui_3d_printer" target="_blank" rel="noopener"
 &gt;GitHub&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;专业的建筑级3D打印机控制软件,集成模型处理、切片预览、设备联机、实时监控等功能的完整打印解决方案。&lt;/p&gt;
-&lt;p&gt;&lt;img src="https://blog.keyboard2005.net/posts/2025/%E5%85%B3%E4%BA%8E%E6%88%91/images/3d.png"
+&lt;p&gt;&lt;img src="https://keyboard2005.github.io/posts/2025/%E5%85%B3%E4%BA%8E%E6%88%91/images/3d.png"
 width="1920"
 height="1080"
-srcset="https://blog.keyboard2005.net/posts/2025/%E5%85%B3%E4%BA%8E%E6%88%91/images/3d_hu_dcf07acb32571092.png 480w, https://blog.keyboard2005.net/posts/2025/%E5%85%B3%E4%BA%8E%E6%88%91/images/3d_hu_770d2c8adabe9ee9.png 1024w"
+srcset="https://keyboard2005.github.io/posts/2025/%E5%85%B3%E4%BA%8E%E6%88%91/images/3d_hu_dcf07acb32571092.png 480w, https://keyboard2005.github.io/posts/2025/%E5%85%B3%E4%BA%8E%E6%88%91/images/3d_hu_770d2c8adabe9ee9.png 1024w"
 loading="lazy"
 alt="3D打印机控制系统"
 class="gallery-image"
@@ -994,20 +994,20 @@ data-flex-basis="426px"
 &lt;/h3&gt;&lt;p&gt;&lt;strong&gt;lonic-postion-save&lt;/strong&gt; | &lt;a class="link" href="https://github.com/keyboard2005/lonic-postion-save" target="_blank" rel="noopener"
 &gt;GitHub&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;基于Ionic框架的跨平台移动应用,专为建筑工程图纸标注和点位记录设计的现场管理工具。&lt;/p&gt;
-&lt;p&gt;&lt;img src="https://blog.keyboard2005.net/posts/2025/%E5%85%B3%E4%BA%8E%E6%88%91/images/10.jpg"
+&lt;p&gt;&lt;img src="https://keyboard2005.github.io/posts/2025/%E5%85%B3%E4%BA%8E%E6%88%91/images/10.jpg"
 width="1116"
 height="2480"
-srcset="https://blog.keyboard2005.net/posts/2025/%E5%85%B3%E4%BA%8E%E6%88%91/images/10_hu_5c2cea7fc4f37548.jpg 480w, https://blog.keyboard2005.net/posts/2025/%E5%85%B3%E4%BA%8E%E6%88%91/images/10_hu_11252c9b231fb52c.jpg 1024w"
+srcset="https://keyboard2005.github.io/posts/2025/%E5%85%B3%E4%BA%8E%E6%88%91/images/10_hu_5c2cea7fc4f37548.jpg 480w, https://keyboard2005.github.io/posts/2025/%E5%85%B3%E4%BA%8E%E6%88%91/images/10_hu_11252c9b231fb52c.jpg 1024w"
 loading="lazy"
 alt="图纸点位记录系统 - 移动端界面"
 class="gallery-image"
 data-flex-grow="45"
 data-flex-basis="108px"
 &gt;
-&lt;img src="https://blog.keyboard2005.net/posts/2025/%E5%85%B3%E4%BA%8E%E6%88%91/images/11.jpg"
+&lt;img src="https://keyboard2005.github.io/posts/2025/%E5%85%B3%E4%BA%8E%E6%88%91/images/11.jpg"
 width="1116"
 height="2480"
-srcset="https://blog.keyboard2005.net/posts/2025/%E5%85%B3%E4%BA%8E%E6%88%91/images/11_hu_c523f8a428330537.jpg 480w, https://blog.keyboard2005.net/posts/2025/%E5%85%B3%E4%BA%8E%E6%88%91/images/11_hu_76ae9043d8d355df.jpg 1024w"
+srcset="https://keyboard2005.github.io/posts/2025/%E5%85%B3%E4%BA%8E%E6%88%91/images/11_hu_c523f8a428330537.jpg 480w, https://keyboard2005.github.io/posts/2025/%E5%85%B3%E4%BA%8E%E6%88%91/images/11_hu_76ae9043d8d355df.jpg 1024w"
 loading="lazy"
 alt="图纸点位记录系统 - 标注功能"
 class="gallery-image"
@@ -1073,20 +1073,20 @@ data-flex-basis="108px"
 &lt;/h3&gt;&lt;p&gt;&lt;strong&gt;order_chatAI&lt;/strong&gt; | &lt;a class="link" href="https://github.com/keyboard2005/order_chatAI" target="_blank" rel="noopener"
 &gt;GitHub&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;功能丰富的多模态AI聊天系统,集成OpenAI API,支持文本、图片等多模态输入的企业级智能对话平台。&lt;/p&gt;
-&lt;p&gt;&lt;img src="https://blog.keyboard2005.net/posts/2025/%E5%85%B3%E4%BA%8E%E6%88%91/images/7.png"
+&lt;p&gt;&lt;img src="https://keyboard2005.github.io/posts/2025/%E5%85%B3%E4%BA%8E%E6%88%91/images/7.png"
 width="1920"
 height="1080"
-srcset="https://blog.keyboard2005.net/posts/2025/%E5%85%B3%E4%BA%8E%E6%88%91/images/7_hu_574648f39c187398.png 480w, https://blog.keyboard2005.net/posts/2025/%E5%85%B3%E4%BA%8E%E6%88%91/images/7_hu_10ec48accab28c51.png 1024w"
+srcset="https://keyboard2005.github.io/posts/2025/%E5%85%B3%E4%BA%8E%E6%88%91/images/7_hu_574648f39c187398.png 480w, https://keyboard2005.github.io/posts/2025/%E5%85%B3%E4%BA%8E%E6%88%91/images/7_hu_10ec48accab28c51.png 1024w"
 loading="lazy"
 alt="Order ChatAI 界面展示"
 class="gallery-image"
 data-flex-grow="177"
 data-flex-basis="426px"
 &gt;
-&lt;img src="https://blog.keyboard2005.net/posts/2025/%E5%85%B3%E4%BA%8E%E6%88%91/images/8.png"
+&lt;img src="https://keyboard2005.github.io/posts/2025/%E5%85%B3%E4%BA%8E%E6%88%91/images/8.png"
 width="407"
 height="877"
-srcset="https://blog.keyboard2005.net/posts/2025/%E5%85%B3%E4%BA%8E%E6%88%91/images/8_hu_ec05393deae047e9.png 480w, https://blog.keyboard2005.net/posts/2025/%E5%85%B3%E4%BA%8E%E6%88%91/images/8_hu_8b82e4250db832e1.png 1024w"
+srcset="https://keyboard2005.github.io/posts/2025/%E5%85%B3%E4%BA%8E%E6%88%91/images/8_hu_ec05393deae047e9.png 480w, https://keyboard2005.github.io/posts/2025/%E5%85%B3%E4%BA%8E%E6%88%91/images/8_hu_8b82e4250db832e1.png 1024w"
 loading="lazy"
 alt="Order ChatAI 聊天界面"
 class="gallery-image"
@@ -1175,7 +1175,7 @@ data-flex-basis="111px"
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;hr&gt;</description></item><item><title>Hugo 静态网站生成器用法指南</title><link>https://blog.keyboard2005.net/posts/2025/hugo%E7%94%A8%E6%B3%95/</link><pubDate>Mon, 27 Oct 2025 15:00:00 +0800</pubDate><guid>https://blog.keyboard2005.net/posts/2025/hugo%E7%94%A8%E6%B3%95/</guid><description>&lt;h2 id="hugo-简介"&gt;Hugo 简介
+&lt;hr&gt;</description></item><item><title>Hugo 静态网站生成器用法指南</title><link>https://keyboard2005.github.io/posts/2025/hugo%E7%94%A8%E6%B3%95/</link><pubDate>Mon, 27 Oct 2025 15:00:00 +0800</pubDate><guid>https://keyboard2005.github.io/posts/2025/hugo%E7%94%A8%E6%B3%95/</guid><description>&lt;h2 id="hugo-简介"&gt;Hugo 简介
 &lt;/h2&gt;&lt;p&gt;Hugo 是一个用 Go 语言编写的静态网站生成器，以其速度快、配置简单而闻名。它可以快速将 Markdown 文件转换为静态 HTML 网站。&lt;/p&gt;
 &lt;h2 id="最常用的-hugo-命令"&gt;最常用的 Hugo 命令
 &lt;/h2&gt;&lt;h3 id="1-创建新站点"&gt;1. 创建新站点
@@ -1273,10 +1273,10 @@ data-flex-basis="111px"
 &lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;hugo --minify
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;Hugo 的强大之处在于其简洁性和速度，掌握这些基本命令就能高效地管理静态网站了。&lt;/p&gt;</description></item><item><title>Ubuntu 使用 KVM 虚拟化技术完整指南</title><link>https://blog.keyboard2005.net/posts/2025/ubunut%E4%BD%BF%E7%94%A8kvm/</link><pubDate>Mon, 20 Oct 2025 23:41:40 +0000</pubDate><guid>https://blog.keyboard2005.net/posts/2025/ubunut%E4%BD%BF%E7%94%A8kvm/</guid><description>&lt;p&gt;&lt;img src="https://blog.keyboard2005.net/posts/2025/ubunut%E4%BD%BF%E7%94%A8kvm/image.png"
+&lt;p&gt;Hugo 的强大之处在于其简洁性和速度，掌握这些基本命令就能高效地管理静态网站了。&lt;/p&gt;</description></item><item><title>Ubuntu 使用 KVM 虚拟化技术完整指南</title><link>https://keyboard2005.github.io/posts/2025/ubunut%E4%BD%BF%E7%94%A8kvm/</link><pubDate>Mon, 20 Oct 2025 23:41:40 +0000</pubDate><guid>https://keyboard2005.github.io/posts/2025/ubunut%E4%BD%BF%E7%94%A8kvm/</guid><description>&lt;p&gt;&lt;img src="https://keyboard2005.github.io/posts/2025/ubunut%E4%BD%BF%E7%94%A8kvm/image.png"
 width="2560"
 height="1440"
-srcset="https://blog.keyboard2005.net/posts/2025/ubunut%E4%BD%BF%E7%94%A8kvm/image_hu_a722f5aa3d248244.png 480w, https://blog.keyboard2005.net/posts/2025/ubunut%E4%BD%BF%E7%94%A8kvm/image_hu_66cf8c0ba3b78faf.png 1024w"
+srcset="https://keyboard2005.github.io/posts/2025/ubunut%E4%BD%BF%E7%94%A8kvm/image_hu_a722f5aa3d248244.png 480w, https://keyboard2005.github.io/posts/2025/ubunut%E4%BD%BF%E7%94%A8kvm/image_hu_66cf8c0ba3b78faf.png 1024w"
 loading="lazy"
 alt="alt text"
 class="gallery-image"
@@ -1319,7 +1319,7 @@ data-flex-basis="426px"
 &lt;/ol&gt;
 &lt;p&gt;KVM 提供了高性能的虚拟化解决方案，特别适合开发和测试环境使用。&lt;/p&gt;
 &lt;hr&gt;
-&lt;p&gt;&lt;em&gt;如果您在安装过程中遇到任何问题，欢迎在评论区留言讨论！&lt;/em&gt;&lt;/p&gt;</description></item><item><title>vue3接入高德地图(AMAP)</title><link>https://blog.keyboard2005.net/posts/2025/03-27/</link><pubDate>Thu, 27 Mar 2025 10:00:00 +0800</pubDate><guid>https://blog.keyboard2005.net/posts/2025/03-27/</guid><description>&lt;h2 id="前言"&gt;前言
+&lt;p&gt;&lt;em&gt;如果您在安装过程中遇到任何问题，欢迎在评论区留言讨论！&lt;/em&gt;&lt;/p&gt;</description></item><item><title>vue3接入高德地图(AMAP)</title><link>https://keyboard2005.github.io/posts/2025/03-27/</link><pubDate>Thu, 27 Mar 2025 10:00:00 +0800</pubDate><guid>https://keyboard2005.github.io/posts/2025/03-27/</guid><description>&lt;h2 id="前言"&gt;前言
 &lt;/h2&gt;&lt;p&gt;本文记录在 Vue3 项目中集成高德地图（AMAP），并调用搜索地点服务。&lt;/p&gt;
 &lt;h2 id="设置地图与搜索服务"&gt;设置地图与搜索服务
 &lt;/h2&gt;&lt;p&gt;下面示例包含地图初始化与请求“医院/诊所”数据的逻辑。&lt;/p&gt;
@@ -1392,12 +1392,12 @@ data-flex-basis="426px"
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;width&lt;/span&gt;: &lt;span style="color:#ae81ff"&gt;100&lt;/span&gt;&lt;span style="color:#66d9ef"&gt;%&lt;/span&gt;;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;height&lt;/span&gt;: &lt;span style="color:#ae81ff"&gt;100&lt;/span&gt;&lt;span style="color:#66d9ef"&gt;%&lt;/span&gt;;
 &lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;}
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description></item><item><title>Ubuntu24多显示器设置不同壁纸</title><link>https://blog.keyboard2005.net/posts/2025/03-22/ubuntu24%E5%A4%9A%E6%98%BE%E7%A4%BA%E5%99%A8%E8%AE%BE%E7%BD%AE%E4%B8%8D%E5%90%8C%E5%A3%81%E7%BA%B8/</link><pubDate>Sat, 22 Mar 2025 10:00:00 +0800</pubDate><guid>https://blog.keyboard2005.net/posts/2025/03-22/ubuntu24%E5%A4%9A%E6%98%BE%E7%A4%BA%E5%99%A8%E8%AE%BE%E7%BD%AE%E4%B8%8D%E5%90%8C%E5%A3%81%E7%BA%B8/</guid><description>&lt;p&gt;Ubuntu 24 并不支持多显示器设置不同壁纸，但是可以通过设置一个大的拉伸壁纸来实现这个效果。&lt;/p&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description></item><item><title>Ubuntu24多显示器设置不同壁纸</title><link>https://keyboard2005.github.io/posts/2025/03-22/ubuntu24%E5%A4%9A%E6%98%BE%E7%A4%BA%E5%99%A8%E8%AE%BE%E7%BD%AE%E4%B8%8D%E5%90%8C%E5%A3%81%E7%BA%B8/</link><pubDate>Sat, 22 Mar 2025 10:00:00 +0800</pubDate><guid>https://keyboard2005.github.io/posts/2025/03-22/ubuntu24%E5%A4%9A%E6%98%BE%E7%A4%BA%E5%99%A8%E8%AE%BE%E7%BD%AE%E4%B8%8D%E5%90%8C%E5%A3%81%E7%BA%B8/</guid><description>&lt;p&gt;Ubuntu 24 并不支持多显示器设置不同壁纸，但是可以通过设置一个大的拉伸壁纸来实现这个效果。&lt;/p&gt;
 &lt;h2 id="效果图"&gt;效果图
-&lt;/h2&gt;&lt;p&gt;&lt;img src="https://blog.keyboard2005.net/posts/2025/03-22/ubuntu24%E5%A4%9A%E6%98%BE%E7%A4%BA%E5%99%A8%E8%AE%BE%E7%BD%AE%E4%B8%8D%E5%90%8C%E5%A3%81%E7%BA%B8/images/1.png"
+&lt;/h2&gt;&lt;p&gt;&lt;img src="https://keyboard2005.github.io/posts/2025/03-22/ubuntu24%E5%A4%9A%E6%98%BE%E7%A4%BA%E5%99%A8%E8%AE%BE%E7%BD%AE%E4%B8%8D%E5%90%8C%E5%A3%81%E7%BA%B8/images/1.png"
 width="5754"
 height="1080"
-srcset="https://blog.keyboard2005.net/posts/2025/03-22/ubuntu24%E5%A4%9A%E6%98%BE%E7%A4%BA%E5%99%A8%E8%AE%BE%E7%BD%AE%E4%B8%8D%E5%90%8C%E5%A3%81%E7%BA%B8/images/1_hu_95dae87f55dbe2ef.png 480w, https://blog.keyboard2005.net/posts/2025/03-22/ubuntu24%E5%A4%9A%E6%98%BE%E7%A4%BA%E5%99%A8%E8%AE%BE%E7%BD%AE%E4%B8%8D%E5%90%8C%E5%A3%81%E7%BA%B8/images/1_hu_51e382d75d5fea15.png 1024w"
+srcset="https://keyboard2005.github.io/posts/2025/03-22/ubuntu24%E5%A4%9A%E6%98%BE%E7%A4%BA%E5%99%A8%E8%AE%BE%E7%BD%AE%E4%B8%8D%E5%90%8C%E5%A3%81%E7%BA%B8/images/1_hu_95dae87f55dbe2ef.png 480w, https://keyboard2005.github.io/posts/2025/03-22/ubuntu24%E5%A4%9A%E6%98%BE%E7%A4%BA%E5%99%A8%E8%AE%BE%E7%BD%AE%E4%B8%8D%E5%90%8C%E5%A3%81%E7%BA%B8/images/1_hu_51e382d75d5fea15.png 1024w"
 loading="lazy"
 alt="tmp"
 class="gallery-image"
