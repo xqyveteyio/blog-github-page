@@ -1,3 +1,22 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>性能优化 on keyboard blog</title><link>https://keyboard2005.github.io/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/</link><description>Recent content in 性能优化 on keyboard blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Mon, 02 Feb 2026 00:10:00 +0800</lastBuildDate><atom:link href="https://keyboard2005.github.io/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/index.xml" rel="self" type="application/rss+xml"/><item><title>Fedora23打开任何软件卡顿数秒</title><link>https://keyboard2005.github.io/posts/2026/02-02/fedora%E7%B3%BB%E7%BB%9F%E6%89%93%E5%BC%80%E4%BB%BB%E4%BD%95%E8%BD%AF%E4%BB%B6%E5%8D%A1%E9%A1%BF%E6%95%B0%E7%A7%92/</link><pubDate>Mon, 02 Feb 2026 00:10:00 +0800</pubDate><guid>https://keyboard2005.github.io/posts/2026/02-02/fedora%E7%B3%BB%E7%BB%9F%E6%89%93%E5%BC%80%E4%BB%BB%E4%BD%95%E8%BD%AF%E4%BB%B6%E5%8D%A1%E9%A1%BF%E6%95%B0%E7%A7%92/</guid><description>&lt;h3 id="最近在-fedora-上遇到一个问题打开任何软件时都会卡顿数秒之后就恢复正常经过排查发现是显卡驱动的问题"&gt;最近在 Fedora 上遇到一个问题：打开任何软件时都会卡顿数秒，之后就恢复正常。经过排查发现是显卡驱动的问题
-&lt;/h3&gt;&lt;h3 id="笔记本-特别是混合显卡的用户可能会遇到类似问题安装上显卡驱动就可以了"&gt;笔记本 特别是混合显卡的用户可能会遇到类似问题。安装上显卡驱动就可以了
-&lt;/h3&gt;&lt;p&gt;&lt;a class="link" href="https://keyboard2005.github.io/posts/2026/2026-02-02/linux%E5%AE%89%E8%A3%85%E8%8B%B1%E4%BC%9F%E8%BE%BE%E9%A9%B1%E5%8A%A8/" &gt;Fedora23安装英伟达驱动教程&lt;/a&gt;&lt;/p&gt;</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>性能优化 on keyboard blog</title>
+        <link>https://keyboard2005.github.io/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/</link>
+        <description>Recent content in 性能优化 on keyboard blog</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <lastBuildDate>Mon, 02 Feb 2026 00:10:00 +0800</lastBuildDate><atom:link href="https://keyboard2005.github.io/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Fedora23打开任何软件卡顿数秒</title>
+        <link>https://keyboard2005.github.io/posts/2026/02-02/fedora%E7%B3%BB%E7%BB%9F%E6%89%93%E5%BC%80%E4%BB%BB%E4%BD%95%E8%BD%AF%E4%BB%B6%E5%8D%A1%E9%A1%BF%E6%95%B0%E7%A7%92/</link>
+        <pubDate>Mon, 02 Feb 2026 00:10:00 +0800</pubDate>
+        
+        <guid>https://keyboard2005.github.io/posts/2026/02-02/fedora%E7%B3%BB%E7%BB%9F%E6%89%93%E5%BC%80%E4%BB%BB%E4%BD%95%E8%BD%AF%E4%BB%B6%E5%8D%A1%E9%A1%BF%E6%95%B0%E7%A7%92/</guid>
+        <description>&lt;h3 id=&#34;最近在-fedora-上遇到一个问题打开任何软件时都会卡顿数秒之后就恢复正常经过排查发现是显卡驱动的问题&#34;&gt;最近在 Fedora 上遇到一个问题：打开任何软件时都会卡顿数秒，之后就恢复正常。经过排查发现是显卡驱动的问题
+&lt;/h3&gt;&lt;h3 id=&#34;笔记本-特别是混合显卡的用户可能会遇到类似问题安装上显卡驱动就可以了&#34;&gt;笔记本 特别是混合显卡的用户可能会遇到类似问题。安装上显卡驱动就可以了
+&lt;/h3&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://keyboard2005.github.io/posts/2026/2026-02-02/linux%E5%AE%89%E8%A3%85%E8%8B%B1%E4%BC%9F%E8%BE%BE%E9%A9%B1%E5%8A%A8/&#34; &gt;Fedora23安装英伟达驱动教程&lt;/a&gt;&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

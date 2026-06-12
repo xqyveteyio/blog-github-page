@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="解决 Fedora GNOME 下 Flatpak 版 Spotify 无法被 Spicetify 修改、权限问题、Marketplace/主题不生效以及 GNOME Wayland 下蓝色标题栏等问题的最终笔记。">
+<title>Fedora GNOME 下 Flatpak Spotify &#43; Spicetify 最终笔记</title>
+
+<link rel='canonical' href='https://keyboard2005.github.io/posts/2026/03-12/fedora-gnome-%E4%B8%8B-flatpak-spotify-&#43;-spicetify-%E6%9C%80%E7%BB%88%E7%AC%94%E8%AE%B0/'>
+
+<link rel="stylesheet" href="/scss/style.min.b0e76e98cdd4f7082d1fc36f7af7e0843a81201db2197c03ca426751dc923735.css"><meta property='og:title' content="Fedora GNOME 下 Flatpak Spotify + Spicetify 最终笔记">
+<meta property='og:description' content="解决 Fedora GNOME 下 Flatpak 版 Spotify 无法被 Spicetify 修改、权限问题、Marketplace/主题不生效以及 GNOME Wayland 下蓝色标题栏等问题的最终笔记。">
+<meta property='og:url' content='https://keyboard2005.github.io/posts/2026/03-12/fedora-gnome-%E4%B8%8B-flatpak-spotify-&#43;-spicetify-%E6%9C%80%E7%BB%88%E7%AC%94%E8%AE%B0/'>
+<meta property='og:site_name' content='keyboard blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Posts' /><meta property='article:tag' content='Fedora' /><meta property='article:tag' content='GNOME' /><meta property='article:tag' content='Flatpak' /><meta property='article:tag' content='Spotify' /><meta property='article:tag' content='Spicetify' /><meta property='article:published_time' content='2026-03-12T16:29:00&#43;08:00'/><meta property='article:modified_time' content='2026-03-12T16:29:00&#43;08:00'/>
+<meta name="twitter:title" content="Fedora GNOME 下 Flatpak Spotify + Spicetify 最终笔记">
+<meta name="twitter:description" content="解决 Fedora GNOME 下 Flatpak 版 Spotify 无法被 Spicetify 修改、权限问题、Marketplace/主题不生效以及 GNOME Wayland 下蓝色标题栏等问题的最终笔记。">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    <img src="https://catbox.moe/pictures/qts/1429510703681.png" width="300" height="300" class="site-logo" loading="lazy" alt="Avatar">
+                
+                </a>
+                
+                    <span class="emoji">💻</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">keyboard blog</a></h1>
+            <h2 class="site-description">梦想是改变世界</h2>
+        </div>
+    </header><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/page/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>首页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/page/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/page/diary/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><path fill="none" stroke="#7f7f80" stroke-linecap="round" stroke-linejoin="round" d="M8.4 6.5v35a2 2 0 0 0 2 2h2.33v-39H10.4a2 2 0 0 0-2 2m4.33-2v39H37.6a2 2 0 0 0 2-2v-35a2 2 0 0 0-2-2Z" stroke-width="1"/><path fill="none" stroke="#7f7f80" stroke-linecap="round" stroke-linejoin="round" d="M20.267 11.656h11.796v5.941H20.267z" stroke-width="1"/></svg>
+                
+                <span>日记</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#目标">目标</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#1-查找-spotify-安装路径">1. 查找 Spotify 安装路径</a>
+      <ul>
+        <li><a href="#如果输出是-varlibflatpak">如果输出是 <code>/var/lib/flatpak/...</code></a></li>
+        <li><a href="#如果输出是-localshareflatpak">如果输出是 <code>~/.local/share/flatpak/...</code></a></li>
+      </ul>
+    </li>
+    <li><a href="#2-如果是系统级改装为用户级">2. 如果是系统级，改装为用户级</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#1-设置-prefs_path">1. 设置 <code>prefs_path</code></a></li>
+    <li><a href="#2-查找用户级-spotify_path">2. 查找用户级 <code>spotify_path</code></a></li>
+    <li><a href="#3-设置-spotify_path">3. 设置 <code>spotify_path</code></a></li>
+    <li><a href="#4-检查配置">4. 检查配置</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#常见错误permission-denied">常见错误：<code>permission denied</code></a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#问题现象">问题现象</a></li>
+    <li><a href="#解决思路">解决思路</a></li>
+    <li><a href="#1-找到并复制-desktop-文件">1. 找到并复制 desktop 文件</a></li>
+    <li><a href="#2-确认原始-exec">2. 确认原始 <code>Exec=</code></a></li>
+    <li><a href="#3-备份-desktop-文件">3. 备份 desktop 文件</a></li>
+    <li><a href="#4-修改-exec">4. 修改 <code>Exec=</code></a></li>
+    <li><a href="#5-刷新缓存并关闭-spotify">5. 刷新缓存并关闭 Spotify</a></li>
+    <li><a href="#6-启动测试">6. 启动测试</a></li>
+    <li><a href="#7-如果图标启动还是旧效果">7. 如果图标启动还是旧效果</a></li>
+    <li><a href="#8-恢复默认启动方式">8. 恢复默认启动方式</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#查看-spicetify-配置">查看 Spicetify 配置</a></li>
+    <li><a href="#查看-marketplace-是否安装">查看 Marketplace 是否安装</a></li>
+    <li><a href="#查看主题列表">查看主题列表</a></li>
+    <li><a href="#查看当前-desktop-启动参数">查看当前 desktop 启动参数</a></li>
+    <li><a href="#查找-spotify-的-desktop-文件">查找 Spotify 的 desktop 文件</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#spicetify-配置">Spicetify 配置</a></li>
+    <li><a href="#首次应用">首次应用</a></li>
+    <li><a href="#之后重新应用">之后重新应用</a></li>
+    <li><a href="#安装-marketplace">安装 Marketplace</a></li>
+    <li><a href="#修复-gnome-蓝色标题栏">修复 GNOME 蓝色标题栏</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#这次问题的本质">这次问题的本质</a></li>
+  </ul>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/linux/" >
+                Linux
+            </a>
+        
+            <a href="/categories/spotify/" >
+                Spotify
+            </a>
+        
+            <a href="/categories/spicetify/" >
+                Spicetify
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/posts/2026/03-12/fedora-gnome-%E4%B8%8B-flatpak-spotify-&#43;-spicetify-%E6%9C%80%E7%BB%88%E7%AC%94%E8%AE%B0/">Fedora GNOME 下 Flatpak Spotify &#43; Spicetify 最终笔记</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            解决 Fedora GNOME 下 Flatpak 版 Spotify 无法被 Spicetify 修改、权限问题、Marketplace/主题不生效以及 GNOME Wayland 下蓝色标题栏等问题的最终笔记。
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published" datetime='2026-03-12T16:29:00&#43;08:00'>2026-03-12 16:29</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 3 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h1 id="fedora-gnome-下-flatpak-spotify--spicetify-最终笔记">Fedora GNOME 下 Flatpak Spotify + Spicetify 最终笔记
+</h1><h2 id="目标">目标
+</h2><p>解决这几类问题：</p>
+<ul>
+<li>Flatpak 版 Spotify 无法被 Spicetify 修改</li>
+<li><code>permission denied</code></li>
+<li>Marketplace/主题不生效</li>
+<li>Spotify 更新后在 GNOME Wayland 下出现丑的系统蓝色标题栏</li>
+</ul>
+<hr>
+<h1 id="一确认安装的是用户级-flatpak-spotify">一、确认安装的是用户级 Flatpak Spotify
+</h1><h2 id="1-查找-spotify-安装路径">1. 查找 Spotify 安装路径
+</h2><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>find /var/lib/flatpak ~/.local/share/flatpak -type d 2&gt;/dev/null | grep <span style="color:#e6db74">&#39;/com.spotify.Client/.*/files/extra/share/spotify$&#39;</span>
+</span></span></code></pre></div><h3 id="如果输出是-varlibflatpak">如果输出是 <code>/var/lib/flatpak/...</code>
+</h3><p>说明是<strong>系统级安装</strong>，Spicetify 可能没有权限修改。</p>
+<h3 id="如果输出是-localshareflatpak">如果输出是 <code>~/.local/share/flatpak/...</code>
+</h3><p>说明是<strong>用户级安装</strong>，推荐使用这个。</p>
+<hr>
+<h2 id="2-如果是系统级改装为用户级">2. 如果是系统级，改装为用户级
+</h2><p>先卸载系统级：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>flatpak uninstall com.spotify.Client
+</span></span></code></pre></div><p>如果还没添加 Flathub，先加：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+</span></span></code></pre></div><p>再安装用户级：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>flatpak install --user flathub com.spotify.Client
+</span></span></code></pre></div><p>启动一次：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>flatpak run com.spotify.Client
+</span></span></code></pre></div><p>然后关闭。</p>
+<hr>
+<h1 id="二配置-spicetify">二、配置 Spicetify
+</h1><h2 id="1-设置-prefs_path">1. 设置 <code>prefs_path</code>
+</h2><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>spicetify config prefs_path /home/你的用户名/.var/app/com.spotify.Client/config/spotify/prefs
+</span></span></code></pre></div><p>例如：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>spicetify config prefs_path /home/ogumo/.var/app/com.spotify.Client/config/spotify/prefs
+</span></span></code></pre></div><hr>
+<h2 id="2-查找用户级-spotify_path">2. 查找用户级 <code>spotify_path</code>
+</h2><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>find ~/.local/share/flatpak -type d 2&gt;/dev/null | grep <span style="color:#e6db74">&#39;/com.spotify.Client/.*/files/extra/share/spotify$&#39;</span>
+</span></span></code></pre></div><p>例如可能得到：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>/home/ogumo/.local/share/flatpak/app/com.spotify.Client/x86_64/stable/哈希值/files/extra/share/spotify
+</span></span></code></pre></div><hr>
+<h2 id="3-设置-spotify_path">3. 设置 <code>spotify_path</code>
+</h2><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>spicetify config spotify_path 你上一步找到的路径
+</span></span></code></pre></div><p>例如：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>spicetify config spotify_path /home/ogumo/.local/share/flatpak/app/com.spotify.Client/x86_64/stable/d5ba61e0e06ba34e0dd2f9bd61c71fd1f41db0e2dfcafb4043856623458b6076/files/extra/share/spotify
+</span></span></code></pre></div><hr>
+<h2 id="4-检查配置">4. 检查配置
+</h2><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>spicetify config
+</span></span></code></pre></div><p>至少确认这两项正确：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-ini" data-lang="ini"><span style="display:flex;"><span><span style="color:#a6e22e">prefs_path</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">/home/ogumo/.var/app/com.spotify.Client/config/spotify/prefs</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">spotify_path</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">/home/ogumo/.local/share/flatpak/app/com.spotify.Client/.../files/extra/share/spotify</span>
+</span></span></code></pre></div><hr>
+<h1 id="三应用-spicetify">三、应用 Spicetify
+</h1><p>先关闭 Spotify：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>flatpak kill com.spotify.Client 2&gt;/dev/null
+</span></span><span style="display:flex;"><span>pkill spotify 2&gt;/dev/null
+</span></span></code></pre></div><p>首次应用：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>spicetify backup apply
+</span></span></code></pre></div><p>如果已经做过备份并应用过，再用：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>spicetify apply
+</span></span></code></pre></div><hr>
+<h2 id="常见错误permission-denied">常见错误：<code>permission denied</code>
+</h2><p>如果报类似：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>fatal unlinkat ... permission denied
+</span></span></code></pre></div><p>说明你在改系统级 Flatpak 路径 <code>/var/lib/flatpak/...</code>。<br>
+解决方法：<strong>改用用户级 Flatpak 安装</strong>。</p>
+<hr>
+<h1 id="四安装-marketplace">四、安装 Marketplace
+</h1><p>安装脚本：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl -fsSL https://raw.githubusercontent.com/spicetify/marketplace/main/resources/install.sh | sh
+</span></span></code></pre></div><p>再应用：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>spicetify apply
+</span></span></code></pre></div><p>检查 Marketplace 是否存在：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ls ~/.config/spicetify/CustomApps
+</span></span></code></pre></div><p>应看到：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>marketplace
+</span></span></code></pre></div><hr>
+<h1 id="五关于没有任何样式变化">五、关于“没有任何样式变化”
+</h1><p>这通常不是失败，而是：</p>
+<ul>
+<li>Spicetify 已经生效</li>
+<li>但你装的是 Marketplace，不是明显换皮肤的主题</li>
+</ul>
+<p>Marketplace 更像“主题/扩展商店”，不会自动把界面改得很夸张。</p>
+<p>如果想要明显变化：</p>
+<ol>
+<li>打开 Spotify</li>
+<li>进入 Marketplace</li>
+<li>安装一个主题</li>
+</ol>
+<p>也可以看本地主题：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ls ~/.config/spicetify/Themes
+</span></span></code></pre></div><hr>
+<h1 id="六gnome-wayland-下-spotify-蓝色系统边框修复">六、GNOME Wayland 下 Spotify 蓝色系统边框修复
+</h1><h2 id="问题现象">问题现象
+</h2><p>Spotify 更新后，在 GNOME Wayland 下出现很丑的系统标题栏/蓝色边框。<br>
+这不是 Spicetify 的问题，而是 Spotify 窗口行为更新导致的。</p>
+<hr>
+<h2 id="解决思路">解决思路
+</h2><p>对 Flatpak Spotify 的桌面启动器加参数，强制它走 X11/XWayland：</p>
+<ul>
+<li><code>WAYLAND_DISPLAY=</code></li>
+<li><code>--ozone-platform=x11</code></li>
+<li><code>--disable-features=UseOzonePlatform</code></li>
+</ul>
+<hr>
+<h2 id="1-找到并复制-desktop-文件">1. 找到并复制 desktop 文件
+</h2><p>用户级 Flatpak 一般用这个：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>~/.local/share/flatpak/exports/share/applications/com.spotify.Client.desktop
+</span></span></code></pre></div><p>复制到本地应用目录：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mkdir -p ~/.local/share/applications
+</span></span><span style="display:flex;"><span>cp ~/.local/share/flatpak/exports/share/applications/com.spotify.Client.desktop ~/.local/share/applications/
+</span></span></code></pre></div><hr>
+<h2 id="2-确认原始-exec">2. 确认原始 <code>Exec=</code>
+</h2><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>grep <span style="color:#e6db74">&#39;^Exec=&#39;</span> ~/.local/share/applications/com.spotify.Client.desktop
+</span></span></code></pre></div><p>原始内容一般像这样：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-ini" data-lang="ini"><span style="display:flex;"><span><span style="color:#a6e22e">Exec</span><span style="color:#f92672">=</span><span style="color:#e6db74">/usr/bin/flatpak run --branch=stable --arch=x86_64 --command=spotify --file-forwarding com.spotify.Client @@u %U @@</span>
+</span></span></code></pre></div><hr>
+<h2 id="3-备份-desktop-文件">3. 备份 desktop 文件
+</h2><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cp ~/.local/share/applications/com.spotify.Client.desktop ~/.local/share/applications/com.spotify.Client.desktop.bak
+</span></span></code></pre></div><hr>
+<h2 id="4-修改-exec">4. 修改 <code>Exec=</code>
+</h2><p>执行：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sed -i <span style="color:#e6db74">&#39;s#^Exec=.*#Exec=env WAYLAND_DISPLAY= /usr/bin/flatpak run --branch=stable --arch=x86_64 --command=spotify com.spotify.Client --ozone-platform=x11 --disable-features=UseOzonePlatform %U#&#39;</span> ~/.local/share/applications/com.spotify.Client.desktop
+</span></span></code></pre></div><p>检查是否写入成功：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>grep <span style="color:#e6db74">&#39;^Exec=&#39;</span> ~/.local/share/applications/com.spotify.Client.desktop
+</span></span></code></pre></div><p>应看到：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-ini" data-lang="ini"><span style="display:flex;"><span><span style="color:#a6e22e">Exec</span><span style="color:#f92672">=</span><span style="color:#e6db74">env WAYLAND_DISPLAY= /usr/bin/flatpak run --branch=stable --arch=x86_64 --command=spotify com.spotify.Client --ozone-platform=x11 --disable-features=UseOzonePlatform %U</span>
+</span></span></code></pre></div><hr>
+<h2 id="5-刷新缓存并关闭-spotify">5. 刷新缓存并关闭 Spotify
+</h2><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>update-desktop-database ~/.local/share/applications 2&gt;/dev/null
+</span></span><span style="display:flex;"><span>flatpak kill com.spotify.Client 2&gt;/dev/null
+</span></span><span style="display:flex;"><span>pkill spotify 2&gt;/dev/null
+</span></span></code></pre></div><hr>
+<h2 id="6-启动测试">6. 启动测试
+</h2><p>可以先用：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>gtk-launch com.spotify.Client
+</span></span></code></pre></div><p>如果这样启动标题栏正常，说明修复成功。</p>
+<p>之后从 GNOME 应用菜单打开 Spotify 即可。</p>
+<hr>
+<h2 id="7-如果图标启动还是旧效果">7. 如果图标启动还是旧效果
+</h2><p>这通常是 GNOME/Dock 缓存问题。</p>
+<p>解决办法：</p>
+<ul>
+<li>把 Dock 上旧的 Spotify 图标取消固定</li>
+<li>从应用菜单重新打开</li>
+<li>再重新固定</li>
+</ul>
+<p>或者简单移动/刷新图标，有时也会生效。</p>
+<hr>
+<h2 id="8-恢复默认启动方式">8. 恢复默认启动方式
+</h2><p>如果以后想恢复：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cp ~/.local/share/applications/com.spotify.Client.desktop.bak ~/.local/share/applications/com.spotify.Client.desktop
+</span></span><span style="display:flex;"><span>update-desktop-database ~/.local/share/applications 2&gt;/dev/null
+</span></span></code></pre></div><hr>
+<h1 id="七常用检查命令">七、常用检查命令
+</h1><h2 id="查看-spicetify-配置">查看 Spicetify 配置
+</h2><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>spicetify config
+</span></span></code></pre></div><h2 id="查看-marketplace-是否安装">查看 Marketplace 是否安装
+</h2><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ls ~/.config/spicetify/CustomApps
+</span></span></code></pre></div><h2 id="查看主题列表">查看主题列表
+</h2><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ls ~/.config/spicetify/Themes
+</span></span></code></pre></div><h2 id="查看当前-desktop-启动参数">查看当前 desktop 启动参数
+</h2><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>grep <span style="color:#e6db74">&#39;^Exec=&#39;</span> ~/.local/share/applications/com.spotify.Client.desktop
+</span></span></code></pre></div><h2 id="查找-spotify-的-desktop-文件">查找 Spotify 的 desktop 文件
+</h2><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>find /var/lib/flatpak ~/.local/share/flatpak /var/lib/flatpak/exports ~/.local/share/flatpak/exports -name <span style="color:#e6db74">&#39;com.spotify.Client.desktop&#39;</span> 2&gt;/dev/null
+</span></span></code></pre></div><hr>
+<h1 id="八最终关键命令汇总">八、最终关键命令汇总
+</h1><h2 id="spicetify-配置">Spicetify 配置
+</h2><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>spicetify config prefs_path /home/ogumo/.var/app/com.spotify.Client/config/spotify/prefs
+</span></span><span style="display:flex;"><span>spicetify config spotify_path /home/ogumo/.local/share/flatpak/app/com.spotify.Client/x86_64/stable/你的哈希/files/extra/share/spotify
+</span></span></code></pre></div><h2 id="首次应用">首次应用
+</h2><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>flatpak kill com.spotify.Client 2&gt;/dev/null
+</span></span><span style="display:flex;"><span>pkill spotify 2&gt;/dev/null
+</span></span><span style="display:flex;"><span>spicetify backup apply
+</span></span></code></pre></div><h2 id="之后重新应用">之后重新应用
+</h2><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>spicetify apply
+</span></span></code></pre></div><h2 id="安装-marketplace">安装 Marketplace
+</h2><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl -fsSL https://raw.githubusercontent.com/spicetify/marketplace/main/resources/install.sh | sh
+</span></span><span style="display:flex;"><span>spicetify apply
+</span></span></code></pre></div><h2 id="修复-gnome-蓝色标题栏">修复 GNOME 蓝色标题栏
+</h2><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mkdir -p ~/.local/share/applications
+</span></span><span style="display:flex;"><span>cp ~/.local/share/flatpak/exports/share/applications/com.spotify.Client.desktop ~/.local/share/applications/
+</span></span><span style="display:flex;"><span>cp ~/.local/share/applications/com.spotify.Client.desktop ~/.local/share/applications/com.spotify.Client.desktop.bak
+</span></span><span style="display:flex;"><span>sed -i <span style="color:#e6db74">&#39;s#^Exec=.*#Exec=env WAYLAND_DISPLAY= /usr/bin/flatpak run --branch=stable --arch=x86_64 --command=spotify com.spotify.Client --ozone-platform=x11 --disable-features=UseOzonePlatform %U#&#39;</span> ~/.local/share/applications/com.spotify.Client.desktop
+</span></span><span style="display:flex;"><span>update-desktop-database ~/.local/share/applications 2&gt;/dev/null
+</span></span><span style="display:flex;"><span>flatpak kill com.spotify.Client 2&gt;/dev/null
+</span></span></code></pre></div><p>测试启动：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>gtk-launch com.spotify.Client
+</span></span></code></pre></div><hr>
+<h1 id="九经验总结">九、经验总结
+</h1><h2 id="这次问题的本质">这次问题的本质
+</h2><ol>
+<li><strong>Spicetify 权限问题</strong>：因为最开始是系统级 Flatpak，普通用户不能修改 <code>/var/lib/flatpak/...</code></li>
+<li><strong>GNOME 标题栏问题</strong>：是 Spotify 更新后在 Wayland 下的窗口行为变化，不是 Spicetify 弄坏的</li>
+<li><strong>图标启动不生效</strong>：是 GNOME/Dock 缓存问题，不是修复失败</li>
+</ol>
+<hr>
+<p>如果你愿意，我还可以再帮你把这份笔记整理成一个更短的 <strong>“只保留关键命令版”速查表</strong>。</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/fedora/">Fedora</a>
+        
+            <a href="/tags/gnome/">GNOME</a>
+        
+            <a href="/tags/flatpak/">Flatpak</a>
+        
+            <a href="/tags/spotify/">Spotify</a>
+        
+            <a href="/tags/spicetify/">Spicetify</a>
+        
+    </section>
+
+
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        const elementsToRender = [".main-article", ".widget--toc"];
+
+        elementsToRender.forEach(selector => {
+            const element = document.querySelector(selector);
+            if (element) {
+                renderMathInElement(element, {
+                    delimiters: [
+                        { left: "$$", right: "$$", display: true },
+                        { left: "$", right: "$", display: false },
+                        { left: "\\(", right: "\\)", display: false },
+                        { left: "\\[", right: "\\]", display: true }
+                    ],
+                    ignoredClasses: ["gist"]
+                });
+            }
+        });
+    });
+</script>
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/posts/2026/02-02/gnome-alt&#43;tab%E5%88%87%E6%8D%A2%E8%BD%AF%E4%BB%B6%E5%B1%95%E5%BC%80%E5%A4%9A%E6%B5%8F%E8%A7%88%E5%99%A8/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">gnome alt&#43;tab切换软件展开多浏览器</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/2026/02-03/fedora-%E4%BD%BF%E7%94%A8-kvm-%E8%99%9A%E6%8B%9F%E5%8C%96%E6%8A%80%E6%9C%AF%E5%AE%8C%E6%95%B4%E6%8C%87%E5%8D%97/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Fedora 使用 KVM 虚拟化技术完整指南</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/2026/02-02/fedora%E7%B3%BB%E7%BB%9F%E6%89%93%E5%BC%80%E4%BB%BB%E4%BD%95%E8%BD%AF%E4%BB%B6%E5%8D%A1%E9%A1%BF%E6%95%B0%E7%A7%92/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Fedora23打开任何软件卡顿数秒</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/2026/02-02/linux%E5%AE%89%E8%A3%85%E8%8B%B1%E4%BC%9F%E8%BE%BE%E9%A9%B1%E5%8A%A8/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Fedora23 安装英伟达显卡驱动</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/posts/2026/01/fedora%E5%AE%89%E8%A3%85docker/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Fedora 安装最新版 Docker 并配置用户权限</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2026 keyboard blog
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.32.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.c922af694cc257bf1ecc41c0dd7b0430f9114ec280ccf67cd2c6ad55f5316c4e.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

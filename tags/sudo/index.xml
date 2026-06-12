@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Sudo on keyboard blog</title>
+        <link>https://keyboard2005.github.io/tags/sudo/</link>
+        <description>Recent content in Sudo on keyboard blog</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <lastBuildDate>Thu, 11 Jun 2026 14:00:00 +0800</lastBuildDate><atom:link href="https://keyboard2005.github.io/tags/sudo/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Linux 终端输入密码时显示星号</title>
+        <link>https://keyboard2005.github.io/posts/2026/06-11/linux%E7%BB%88%E7%AB%AF%E8%BE%93%E5%85%A5%E5%AF%86%E7%A0%81%E6%98%BE%E7%A4%BA%E6%98%9F%E5%8F%B7/</link>
+        <pubDate>Thu, 11 Jun 2026 14:00:00 +0800</pubDate>
+        
+        <guid>https://keyboard2005.github.io/posts/2026/06-11/linux%E7%BB%88%E7%AB%AF%E8%BE%93%E5%85%A5%E5%AF%86%E7%A0%81%E6%98%BE%E7%A4%BA%E6%98%9F%E5%8F%B7/</guid>
+        <description>&lt;p&gt;Linux 默认在终端输入密码时不显示任何字符，这是为了防止旁人根据输入长度猜密码。如果你希望输入时能看到 &lt;code&gt;*&lt;/code&gt; 提示，改一下 sudo 配置就行。&lt;/p&gt;
+&lt;h2 id=&#34;操作步骤&#34;&gt;操作步骤
+&lt;/h2&gt;&lt;p&gt;打开 sudo 配置文件：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo visudo
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;找到这一行：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Defaults env_reset
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;在末尾加上 &lt;code&gt;,pwfeedback&lt;/code&gt;：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Defaults env_reset,pwfeedback
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;如果找不到 &lt;code&gt;Defaults env_reset&lt;/code&gt;，直接新起一行写：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Defaults pwfeedback
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;保存退出（nano 下 &lt;code&gt;Ctrl+O&lt;/code&gt; 保存，&lt;code&gt;Ctrl+X&lt;/code&gt; 退出）。配置立即生效，下次 &lt;code&gt;sudo&lt;/code&gt; 输入密码时就会显示星号了。&lt;/p&gt;
+&lt;h2 id=&#34;恢复默认&#34;&gt;恢复默认
+&lt;/h2&gt;&lt;p&gt;想改回什么都不显示，再次运行 &lt;code&gt;sudo visudo&lt;/code&gt;，删掉 &lt;code&gt;,pwfeedback&lt;/code&gt; 即可。&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

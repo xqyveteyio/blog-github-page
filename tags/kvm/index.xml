@@ -1,30 +1,57 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>KVM on keyboard blog</title><link>https://keyboard2005.github.io/tags/kvm/</link><description>Recent content in KVM on keyboard blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Tue, 03 Feb 2026 17:45:00 +0800</lastBuildDate><atom:link href="https://keyboard2005.github.io/tags/kvm/index.xml" rel="self" type="application/rss+xml"/><item><title>Fedora 使用 KVM 虚拟化技术完整指南</title><link>https://keyboard2005.github.io/posts/2026/02-03/fedora-%E4%BD%BF%E7%94%A8-kvm-%E8%99%9A%E6%8B%9F%E5%8C%96%E6%8A%80%E6%9C%AF%E5%AE%8C%E6%95%B4%E6%8C%87%E5%8D%97/</link><pubDate>Tue, 03 Feb 2026 17:45:00 +0800</pubDate><guid>https://keyboard2005.github.io/posts/2026/02-03/fedora-%E4%BD%BF%E7%94%A8-kvm-%E8%99%9A%E6%8B%9F%E5%8C%96%E6%8A%80%E6%9C%AF%E5%AE%8C%E6%95%B4%E6%8C%87%E5%8D%97/</guid><description>&lt;h2 id="1-安装需要的软件包fedora"&gt;1) 安装需要的软件包（Fedora）
-&lt;/h2&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;sudo dnf install -y qemu-kvm libvirt virt-install virt-manager bridge-utils
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="2-启用并启动-libvirtfedora-用-systemd"&gt;2) 启用并启动 libvirt（Fedora 用 systemd）
-&lt;/h2&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;sudo systemctl enable --now libvirtd
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>KVM on keyboard blog</title>
+        <link>https://keyboard2005.github.io/tags/kvm/</link>
+        <description>Recent content in KVM on keyboard blog</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <lastBuildDate>Tue, 03 Feb 2026 17:45:00 +0800</lastBuildDate><atom:link href="https://keyboard2005.github.io/tags/kvm/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Fedora 使用 KVM 虚拟化技术完整指南</title>
+        <link>https://keyboard2005.github.io/posts/2026/02-03/fedora-%E4%BD%BF%E7%94%A8-kvm-%E8%99%9A%E6%8B%9F%E5%8C%96%E6%8A%80%E6%9C%AF%E5%AE%8C%E6%95%B4%E6%8C%87%E5%8D%97/</link>
+        <pubDate>Tue, 03 Feb 2026 17:45:00 +0800</pubDate>
+        
+        <guid>https://keyboard2005.github.io/posts/2026/02-03/fedora-%E4%BD%BF%E7%94%A8-kvm-%E8%99%9A%E6%8B%9F%E5%8C%96%E6%8A%80%E6%9C%AF%E5%AE%8C%E6%95%B4%E6%8C%87%E5%8D%97/</guid>
+        <description>&lt;h2 id=&#34;1-安装需要的软件包fedora&#34;&gt;1) 安装需要的软件包（Fedora）
+&lt;/h2&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo dnf install -y qemu-kvm libvirt virt-install virt-manager bridge-utils
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;2-启用并启动-libvirtfedora-用-systemd&#34;&gt;2) 启用并启动 libvirt（Fedora 用 systemd）
+&lt;/h2&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo systemctl enable --now libvirtd
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;检查状态：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;systemctl status libvirtd
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="3-让当前用户无需-sudo-管理虚拟机推荐"&gt;3) 让当前用户无需 sudo 管理虚拟机（推荐）
-&lt;/h2&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;sudo usermod -aG libvirt,kvm $USER
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;systemctl status libvirtd
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;3-让当前用户无需-sudo-管理虚拟机推荐&#34;&gt;3) 让当前用户无需 sudo 管理虚拟机（推荐）
+&lt;/h2&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo usermod -aG libvirt,kvm $USER
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;然后&lt;strong&gt;注销/重新登录&lt;/strong&gt;一次（或重启）让组权限生效。&lt;/p&gt;
-&lt;h2 id="4-验证-kvm-是否可用"&gt;4) 验证 KVM 是否可用
-&lt;/h2&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;lsmod | grep kvm
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;sudo virsh list --all
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;</description></item><item><title>Ubuntu 使用 KVM 虚拟化技术完整指南</title><link>https://keyboard2005.github.io/posts/2025/ubunut%E4%BD%BF%E7%94%A8kvm/</link><pubDate>Mon, 20 Oct 2025 23:41:40 +0000</pubDate><guid>https://keyboard2005.github.io/posts/2025/ubunut%E4%BD%BF%E7%94%A8kvm/</guid><description>&lt;p&gt;&lt;img src="https://keyboard2005.github.io/posts/2025/ubunut%E4%BD%BF%E7%94%A8kvm/image.png"
-width="2560"
-height="1440"
-srcset="https://keyboard2005.github.io/posts/2025/ubunut%E4%BD%BF%E7%94%A8kvm/image_hu_a722f5aa3d248244.png 480w, https://keyboard2005.github.io/posts/2025/ubunut%E4%BD%BF%E7%94%A8kvm/image_hu_66cf8c0ba3b78faf.png 1024w"
-loading="lazy"
-alt="alt text"
-class="gallery-image"
-data-flex-grow="177"
-data-flex-basis="426px"
+&lt;h2 id=&#34;4-验证-kvm-是否可用&#34;&gt;4) 验证 KVM 是否可用
+&lt;/h2&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;lsmod | grep kvm
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo virsh list --all
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
+</description>
+        </item>
+        <item>
+        <title>Ubuntu 使用 KVM 虚拟化技术完整指南</title>
+        <link>https://keyboard2005.github.io/posts/2025/ubunut%E4%BD%BF%E7%94%A8kvm/</link>
+        <pubDate>Mon, 20 Oct 2025 23:41:40 +0000</pubDate>
+        
+        <guid>https://keyboard2005.github.io/posts/2025/ubunut%E4%BD%BF%E7%94%A8kvm/</guid>
+        <description>&lt;p&gt;&lt;img src=&#34;https://keyboard2005.github.io/posts/2025/ubunut%E4%BD%BF%E7%94%A8kvm/image.png&#34;
+	width=&#34;2560&#34;
+	height=&#34;1440&#34;
+	srcset=&#34;https://keyboard2005.github.io/posts/2025/ubunut%E4%BD%BF%E7%94%A8kvm/image_hu_79d72c44d216c02d.png 480w, https://keyboard2005.github.io/posts/2025/ubunut%E4%BD%BF%E7%94%A8kvm/image_hu_7f223fcf48ff0c05.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;alt text&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;177&#34;
+		data-flex-basis=&#34;426px&#34;
+	
 &gt;&lt;/p&gt;
 &lt;p&gt;KVM（Kernel-based Virtual Machine）是 Linux 内核的虚拟化模块，它允许 Linux 主机运行多个虚拟机。本文将详细介绍在 Ubuntu 系统上安装和配置 KVM 的完整步骤。&lt;/p&gt;
-&lt;h2 id="-二安装-kvm-及管理工具"&gt;🔧 二、安装 KVM 及管理工具
+&lt;h2 id=&#34;-二安装-kvm-及管理工具&#34;&gt;🔧 二、安装 KVM 及管理工具
 &lt;/h2&gt;&lt;p&gt;首先更新软件包列表，然后安装必要的 KVM 组件：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;sudo apt update
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;sudo apt install -y qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils virt-manager
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo apt update
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo apt install -y qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils virt-manager
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;安装的组件说明：&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;qemu-kvm&lt;/code&gt;: KVM 虚拟化核心组件&lt;/li&gt;
@@ -33,21 +60,21 @@ data-flex-basis="426px"
 &lt;li&gt;&lt;code&gt;bridge-utils&lt;/code&gt;: 网络桥接工具&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;virt-manager&lt;/code&gt;: 图形化管理界面&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id="-三启用并启动服务"&gt;🚀 三、启用并启动服务
+&lt;h2 id=&#34;-三启用并启动服务&#34;&gt;🚀 三、启用并启动服务
 &lt;/h2&gt;&lt;p&gt;安装完成后，启用并启动 libvirtd 服务：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;sudo systemctl enable --now libvirtd
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo systemctl enable --now libvirtd
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;检查服务是否正常运行：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;sudo systemctl status libvirtd
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo systemctl status libvirtd
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;如果服务运行正常，您应该看到 &lt;code&gt;Active: active (running)&lt;/code&gt; 状态。&lt;/p&gt;
-&lt;h2 id="-四使用-virt-manager-图形界面"&gt;🧑‍💻 四、使用 virt-manager 图形界面
-&lt;/h2&gt;&lt;h3 id="启动图形管理界面"&gt;启动图形管理界面
+&lt;h2 id=&#34;-四使用-virt-manager-图形界面&#34;&gt;🧑‍💻 四、使用 virt-manager 图形界面
+&lt;/h2&gt;&lt;h3 id=&#34;启动图形管理界面&#34;&gt;启动图形管理界面
 &lt;/h3&gt;&lt;p&gt;运行以下命令启动 virt-manager：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;virt-manager
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id="配置用户权限"&gt;配置用户权限
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;virt-manager
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;配置用户权限&#34;&gt;配置用户权限
 &lt;/h3&gt;&lt;p&gt;为了能够正常使用 virt-manager，需要将当前用户添加到 libvirt 组：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;sudo usermod -aG libvirt &lt;span style="color:#66d9ef"&gt;$(&lt;/span&gt;whoami&lt;span style="color:#66d9ef"&gt;)&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo usermod -aG libvirt &lt;span style=&#34;color:#66d9ef&#34;&gt;$(&lt;/span&gt;whoami&lt;span style=&#34;color:#66d9ef&#34;&gt;)&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;重要提示：&lt;/strong&gt; 执行权限配置后，需要重新登录或重启系统才能生效。&lt;/p&gt;
-&lt;h2 id="-总结"&gt;📋 总结
+&lt;h2 id=&#34;-总结&#34;&gt;📋 总结
 &lt;/h2&gt;&lt;p&gt;通过以上步骤，您已经成功在 Ubuntu 系统上安装了 KVM 虚拟化环境。现在您可以：&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;使用 &lt;code&gt;virt-manager&lt;/code&gt; 创建和管理虚拟机&lt;/li&gt;
@@ -56,4 +83,9 @@ data-flex-basis="426px"
 &lt;/ol&gt;
 &lt;p&gt;KVM 提供了高性能的虚拟化解决方案，特别适合开发和测试环境使用。&lt;/p&gt;
 &lt;hr&gt;
-&lt;p&gt;&lt;em&gt;如果您在安装过程中遇到任何问题，欢迎在评论区留言讨论！&lt;/em&gt;&lt;/p&gt;</description></item></channel></rss>
+&lt;p&gt;&lt;em&gt;如果您在安装过程中遇到任何问题，欢迎在评论区留言讨论！&lt;/em&gt;&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

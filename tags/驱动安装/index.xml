@@ -1,58 +1,72 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>驱动安装 on keyboard blog</title><link>https://keyboard2005.github.io/tags/%E9%A9%B1%E5%8A%A8%E5%AE%89%E8%A3%85/</link><description>Recent content in 驱动安装 on keyboard blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Mon, 02 Feb 2026 00:01:00 +0800</lastBuildDate><atom:link href="https://keyboard2005.github.io/tags/%E9%A9%B1%E5%8A%A8%E5%AE%89%E8%A3%85/index.xml" rel="self" type="application/rss+xml"/><item><title>Fedora23 安装英伟达显卡驱动</title><link>https://keyboard2005.github.io/posts/2026/02-02/linux%E5%AE%89%E8%A3%85%E8%8B%B1%E4%BC%9F%E8%BE%BE%E9%A9%B1%E5%8A%A8/</link><pubDate>Mon, 02 Feb 2026 00:01:00 +0800</pubDate><guid>https://keyboard2005.github.io/posts/2026/02-02/linux%E5%AE%89%E8%A3%85%E8%8B%B1%E4%BC%9F%E8%BE%BE%E9%A9%B1%E5%8A%A8/</guid><description>&lt;p&gt;下面以 &lt;strong&gt;Fedora Workstation（GNOME）&lt;/strong&gt; 为例，教你在 Fedora 上安装 &lt;strong&gt;NVIDIA（英伟达）专有驱动&lt;/strong&gt;（最常用、也最稳定的方式：RPM Fusion）。命令基本通用到 Fedora 39/40/41。&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>驱动安装 on keyboard blog</title>
+        <link>https://keyboard2005.github.io/tags/%E9%A9%B1%E5%8A%A8%E5%AE%89%E8%A3%85/</link>
+        <description>Recent content in 驱动安装 on keyboard blog</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <lastBuildDate>Mon, 02 Feb 2026 00:01:00 +0800</lastBuildDate><atom:link href="https://keyboard2005.github.io/tags/%E9%A9%B1%E5%8A%A8%E5%AE%89%E8%A3%85/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Fedora23 安装英伟达显卡驱动</title>
+        <link>https://keyboard2005.github.io/posts/2026/02-02/linux%E5%AE%89%E8%A3%85%E8%8B%B1%E4%BC%9F%E8%BE%BE%E9%A9%B1%E5%8A%A8/</link>
+        <pubDate>Mon, 02 Feb 2026 00:01:00 +0800</pubDate>
+        
+        <guid>https://keyboard2005.github.io/posts/2026/02-02/linux%E5%AE%89%E8%A3%85%E8%8B%B1%E4%BC%9F%E8%BE%BE%E9%A9%B1%E5%8A%A8/</guid>
+        <description>&lt;p&gt;下面以 &lt;strong&gt;Fedora Workstation（GNOME）&lt;/strong&gt; 为例，教你在 Fedora 上安装 &lt;strong&gt;NVIDIA（英伟达）专有驱动&lt;/strong&gt;（最常用、也最稳定的方式：RPM Fusion）。命令基本通用到 Fedora 39/40/41。&lt;/p&gt;
 &lt;hr&gt;
-&lt;h2 id="0先确认你的显卡型号可选但建议"&gt;0）先确认你的显卡型号（可选但建议）
-&lt;/h2&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;lspci | grep -E &lt;span style="color:#e6db74"&gt;&amp;#34;VGA|3D&amp;#34;&lt;/span&gt;
+&lt;h2 id=&#34;0先确认你的显卡型号可选但建议&#34;&gt;0）先确认你的显卡型号（可选但建议）
+&lt;/h2&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;lspci | grep -E &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;VGA|3D&amp;#34;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;如果看到 &lt;code&gt;NVIDIA&lt;/code&gt;，继续。&lt;/p&gt;
 &lt;hr&gt;
-&lt;h2 id="1更新系统并启用-rpm-fusion-源关键"&gt;1）更新系统并启用 RPM Fusion 源（关键）
+&lt;h2 id=&#34;1更新系统并启用-rpm-fusion-源关键&#34;&gt;1）更新系统并启用 RPM Fusion 源（关键）
 &lt;/h2&gt;&lt;ol&gt;
 &lt;li&gt;更新系统：&lt;/li&gt;
 &lt;/ol&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;sudo dnf upgrade --refresh -y
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start="2"&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo dnf upgrade --refresh -y
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;2&#34;&gt;
 &lt;li&gt;启用 RPM Fusion（free + nonfree）：
 把下面两条都执行（会自动匹配你的 Fedora 版本）：&lt;/li&gt;
 &lt;/ol&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;sudo dnf install -y &lt;span style="color:#ae81ff"&gt;\
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#ae81ff"&gt;&lt;/span&gt; https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-&lt;span style="color:#66d9ef"&gt;$(&lt;/span&gt;rpm -E %fedora&lt;span style="color:#66d9ef"&gt;)&lt;/span&gt;.noarch.rpm &lt;span style="color:#ae81ff"&gt;\
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#ae81ff"&gt;&lt;/span&gt; https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-&lt;span style="color:#66d9ef"&gt;$(&lt;/span&gt;rpm -E %fedora&lt;span style="color:#66d9ef"&gt;)&lt;/span&gt;.noarch.rpm
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start="3"&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo dnf install -y &lt;span style=&#34;color:#ae81ff&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-&lt;span style=&#34;color:#66d9ef&#34;&gt;$(&lt;/span&gt;rpm -E %fedora&lt;span style=&#34;color:#66d9ef&#34;&gt;)&lt;/span&gt;.noarch.rpm &lt;span style=&#34;color:#ae81ff&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-&lt;span style=&#34;color:#66d9ef&#34;&gt;$(&lt;/span&gt;rpm -E %fedora&lt;span style=&#34;color:#66d9ef&#34;&gt;)&lt;/span&gt;.noarch.rpm
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;3&#34;&gt;
 &lt;li&gt;再刷新一次：&lt;/li&gt;
 &lt;/ol&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;sudo dnf upgrade --refresh -y
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo dnf upgrade --refresh -y
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
-&lt;h2 id="2安装-nvidia-驱动rpm-fusion-的-akmod-方案推荐"&gt;2）安装 NVIDIA 驱动（RPM Fusion 的 akmod 方案，推荐）
-&lt;/h2&gt;&lt;h3 id="方案-a大多数用户推荐"&gt;方案 A：大多数用户（推荐）
-&lt;/h3&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;sudo dnf install -y akmod-nvidia
+&lt;h2 id=&#34;2安装-nvidia-驱动rpm-fusion-的-akmod-方案推荐&#34;&gt;2）安装 NVIDIA 驱动（RPM Fusion 的 akmod 方案，推荐）
+&lt;/h2&gt;&lt;h3 id=&#34;方案-a大多数用户推荐&#34;&gt;方案 A：大多数用户（推荐）
+&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo dnf install -y akmod-nvidia
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;然后（强烈建议）装上 CUDA 库与视频解码相关组件（可选但常用）：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;sudo dnf install -y xorg-x11-drv-nvidia-cuda xorg-x11-drv-nvidia-cuda-libs
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo dnf install -y xorg-x11-drv-nvidia-cuda xorg-x11-drv-nvidia-cuda-libs
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
 &lt;p&gt;说明：&lt;code&gt;akmod-nvidia&lt;/code&gt; 会在你当前内核上&lt;strong&gt;自动编译&lt;/strong&gt;对应的驱动模块，后续内核升级也能自动跟上（比手动装 .run 安装包省心很多）。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;hr&gt;
-&lt;h2 id="3重启并等待模块构建完成"&gt;3）重启并等待模块构建完成
+&lt;h2 id=&#34;3重启并等待模块构建完成&#34;&gt;3）重启并等待模块构建完成
 &lt;/h2&gt;&lt;p&gt;安装后请 &lt;strong&gt;重启&lt;/strong&gt;：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;sudo reboot
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo reboot
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;重启进系统后，第一次会自动编译模块，可能需要 1–5 分钟。你可以用下面命令确认驱动是否就绪：&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;看模块是否加载：&lt;/li&gt;
 &lt;/ol&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;lsmod | grep -i nvidia
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start="2"&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;lsmod | grep -i nvidia
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;2&#34;&gt;
 &lt;li&gt;看 nvidia-smi：&lt;/li&gt;
 &lt;/ol&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;nvidia-smi
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;nvidia-smi
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;正常会显示显卡型号、驱动版本、显存占用等信息。&lt;/p&gt;
 &lt;hr&gt;
-&lt;h2 id="4可选wayland--x11-说明"&gt;4）（可选）Wayland / X11 说明
+&lt;h2 id=&#34;4可选wayland--x11-说明&#34;&gt;4）（可选）Wayland / X11 说明
 &lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;Fedora 默认是 &lt;strong&gt;Wayland&lt;/strong&gt;，NVIDIA 新驱动一般没问题。&lt;/li&gt;
 &lt;li&gt;如果你遇到登录黑屏/花屏/扩展屏异常，可临时在登录界面齿轮里选 &lt;strong&gt;“GNOME on Xorg”&lt;/strong&gt; 测试。&lt;/li&gt;
 &lt;li&gt;Secure Boot（安全启动）开启时，常见问题是 &lt;strong&gt;驱动模块无法加载&lt;/strong&gt;（见下方排错）。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;hr&gt;
-&lt;h1 id="常见问题排错很实用"&gt;常见问题排错（很实用）
-&lt;/h1&gt;&lt;h2 id="a开了-secure-boot驱动装了但加载不了"&gt;A）开了 Secure Boot，驱动装了但加载不了
+&lt;h1 id=&#34;常见问题排错很实用&#34;&gt;常见问题排错（很实用）
+&lt;/h1&gt;&lt;h2 id=&#34;a开了-secure-boot驱动装了但加载不了&#34;&gt;A）开了 Secure Boot，驱动装了但加载不了
 &lt;/h2&gt;&lt;p&gt;症状：&lt;code&gt;nvidia-smi&lt;/code&gt; 报错、&lt;code&gt;lsmod&lt;/code&gt; 没有 nvidia、系统日志提示 module verification failed。&lt;/p&gt;
 &lt;p&gt;解决思路有两种（二选一）：&lt;/p&gt;
 &lt;ol&gt;
@@ -60,24 +74,28 @@
 &lt;li&gt;&lt;strong&gt;更规范&lt;/strong&gt;：给 NVIDIA 内核模块做 &lt;strong&gt;MOK 签名&lt;/strong&gt;（步骤相对繁琐，不同机器略有差异）。如果你想走“签名”这条路，把你系统版本和是否启用 Secure Boot 告诉我，我可以按你机器情况给你一套可执行步骤。&lt;/li&gt;
 &lt;/ol&gt;
 &lt;hr&gt;
-&lt;h2 id="b内核刚升级后进不去--驱动没编译好"&gt;B）内核刚升级后进不去 / 驱动没编译好
+&lt;h2 id=&#34;b内核刚升级后进不去--驱动没编译好&#34;&gt;B）内核刚升级后进不去 / 驱动没编译好
 &lt;/h2&gt;&lt;p&gt;可以先确认 akmods 编译状态：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;sudo systemctl status akmods
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo systemctl status akmods
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;强制重建一次（常用于升级后）：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;sudo akmods --force
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;sudo dracut --force
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;sudo reboot
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo akmods --force
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo dracut --force
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo reboot
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
-&lt;h2 id="c你是很老的显卡需要-470xx390xx-等旧分支"&gt;C）你是很老的显卡（需要 470xx/390xx 等旧分支）
+&lt;h2 id=&#34;c你是很老的显卡需要-470xx390xx-等旧分支&#34;&gt;C）你是很老的显卡（需要 470xx/390xx 等旧分支）
 &lt;/h2&gt;&lt;p&gt;新卡通常直接用 &lt;code&gt;akmod-nvidia&lt;/code&gt;；但 &lt;strong&gt;较老&lt;/strong&gt;的卡可能要用特定分支包。你可以把 &lt;code&gt;lspci&lt;/code&gt; 显示的型号发我，我帮你判断该装哪个分支（例如 470xx）。&lt;/p&gt;
 &lt;hr&gt;
-&lt;h2 id="d笔记本双显卡intelamd--nvidiaoptimus"&gt;D）笔记本双显卡（Intel/AMD + NVIDIA，Optimus）
+&lt;h2 id=&#34;d笔记本双显卡intelamd--nvidiaoptimus&#34;&gt;D）笔记本双显卡（Intel/AMD + NVIDIA，Optimus）
 &lt;/h2&gt;&lt;p&gt;Fedora 上通常也能直接用 &lt;code&gt;akmod-nvidia&lt;/code&gt;，但“只在需要时启用独显”会涉及 PRIME offload 等。你告诉我你是 &lt;strong&gt;台式机&lt;/strong&gt; 还是 &lt;strong&gt;笔记本双显卡&lt;/strong&gt;，我可以给你对应的最佳设置方式（省电/外接显示器/游戏优先）。&lt;/p&gt;
 &lt;hr&gt;
-&lt;h1 id="我需要你补充-3-个信息我就能给你精确到你机器的步骤"&gt;我需要你补充 3 个信息（我就能给你精确到你机器的步骤）
+&lt;h1 id=&#34;我需要你补充-3-个信息我就能给你精确到你机器的步骤&#34;&gt;我需要你补充 3 个信息（我就能给你精确到你机器的步骤）
 &lt;/h1&gt;&lt;p&gt;把下面三条命令输出贴出来即可：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;rpm -E %fedora
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;uname -r
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;mokutil --sb-state 2&amp;gt;/dev/null &lt;span style="color:#f92672"&gt;||&lt;/span&gt; echo &lt;span style="color:#e6db74"&gt;&amp;#34;mokutil not installed&amp;#34;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;lspci | grep -E &lt;span style="color:#e6db74"&gt;&amp;#34;VGA|3D&amp;#34;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description></item></channel></rss>
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;rpm -E %fedora
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;uname -r
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;mokutil --sb-state 2&amp;gt;/dev/null &lt;span style=&#34;color:#f92672&#34;&gt;||&lt;/span&gt; echo &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;mokutil not installed&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;lspci | grep -E &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;VGA|3D&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+        </item>
+        
+    </channel>
+</rss>

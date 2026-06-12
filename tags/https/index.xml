@@ -1,69 +1,83 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>HTTPS on keyboard blog</title><link>https://keyboard2005.github.io/tags/https/</link><description>Recent content in HTTPS on keyboard blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sun, 02 Nov 2025 22:51:00 +0800</lastBuildDate><atom:link href="https://keyboard2005.github.io/tags/https/index.xml" rel="self" type="application/rss+xml"/><item><title>Android App HTTPS 抓包与 SSL Pinning 绕过实战指南</title><link>https://keyboard2005.github.io/posts/2025/android-app-https-%E6%8A%93%E5%8C%85-+-ssl-pinning-%E7%BB%95%E8%BF%87/</link><pubDate>Sun, 02 Nov 2025 22:51:00 +0800</pubDate><guid>https://keyboard2005.github.io/posts/2025/android-app-https-%E6%8A%93%E5%8C%85-+-ssl-pinning-%E7%BB%95%E8%BF%87/</guid><description>&lt;h1 id="android-app-https-抓包与-ssl-pinning-绕过"&gt;Android App HTTPS 抓包与 SSL Pinning 绕过
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>HTTPS on keyboard blog</title>
+        <link>https://keyboard2005.github.io/tags/https/</link>
+        <description>Recent content in HTTPS on keyboard blog</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <lastBuildDate>Sun, 02 Nov 2025 22:51:00 +0800</lastBuildDate><atom:link href="https://keyboard2005.github.io/tags/https/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Android App HTTPS 抓包与 SSL Pinning 绕过实战指南</title>
+        <link>https://keyboard2005.github.io/posts/2025/android-app-https-%E6%8A%93%E5%8C%85-&#43;-ssl-pinning-%E7%BB%95%E8%BF%87/</link>
+        <pubDate>Sun, 02 Nov 2025 22:51:00 +0800</pubDate>
+        
+        <guid>https://keyboard2005.github.io/posts/2025/android-app-https-%E6%8A%93%E5%8C%85-&#43;-ssl-pinning-%E7%BB%95%E8%BF%87/</guid>
+        <description>&lt;h1 id=&#34;android-app-https-抓包与-ssl-pinning-绕过&#34;&gt;Android App HTTPS 抓包与 SSL Pinning 绕过
 &lt;/h1&gt;&lt;p&gt;本文将详细介绍如何搭建完整的 Android App HTTPS 抓包环境，并使用 Frida 动态注入技术绕过 SSL Pinning 证书校验机制。&lt;/p&gt;
 &lt;hr&gt;
-&lt;h2 id="1-环境准备"&gt;1. 环境准备
+&lt;h2 id=&#34;1-环境准备&#34;&gt;1. 环境准备
 &lt;/h2&gt;&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;组件&lt;/th&gt;
-&lt;th&gt;版本要求&lt;/th&gt;
-&lt;th&gt;用途&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;strong&gt;Ubuntu / macOS / Windows&lt;/strong&gt;&lt;/td&gt;
-&lt;td&gt;任意&lt;/td&gt;
-&lt;td&gt;主机环境（安装 Frida、mitmproxy）&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;strong&gt;Android 模拟器&lt;/strong&gt;&lt;/td&gt;
-&lt;td&gt;API 34&lt;/td&gt;
-&lt;td&gt;运行目标 App&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;strong&gt;Frida&lt;/strong&gt;&lt;/td&gt;
-&lt;td&gt;17.x+&lt;/td&gt;
-&lt;td&gt;动态注入 / 绕过 SSL Pinning&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;strong&gt;mitmproxy&lt;/strong&gt;&lt;/td&gt;
-&lt;td&gt;最新版&lt;/td&gt;
-&lt;td&gt;HTTP/HTTPS 抓包分析器&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;组件&lt;/th&gt;
+          &lt;th&gt;版本要求&lt;/th&gt;
+          &lt;th&gt;用途&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;Ubuntu / macOS / Windows&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;任意&lt;/td&gt;
+          &lt;td&gt;主机环境（安装 Frida、mitmproxy）&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;Android 模拟器&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;API 34&lt;/td&gt;
+          &lt;td&gt;运行目标 App&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;Frida&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;17.x+&lt;/td&gt;
+          &lt;td&gt;动态注入 / 绕过 SSL Pinning&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;mitmproxy&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;最新版&lt;/td&gt;
+          &lt;td&gt;HTTP/HTTPS 抓包分析器&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;h3 id="安装必要工具"&gt;安装必要工具
-&lt;/h3&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;pip install frida-tools mitmproxy
+&lt;h3 id=&#34;安装必要工具&#34;&gt;安装必要工具
+&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;pip install frida-tools mitmproxy
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
-&lt;h2 id="2-下载并配置-android-模拟器"&gt;2. 下载并配置 Android 模拟器
-&lt;/h2&gt;&lt;h3 id="21-安装-android-sdk-command-line-tools"&gt;2.1 安装 Android SDK Command-line Tools
+&lt;h2 id=&#34;2-下载并配置-android-模拟器&#34;&gt;2. 下载并配置 Android 模拟器
+&lt;/h2&gt;&lt;h3 id=&#34;21-安装-android-sdk-command-line-tools&#34;&gt;2.1 安装 Android SDK Command-line Tools
 &lt;/h3&gt;&lt;ol&gt;
 &lt;li&gt;
-&lt;p&gt;下载 &lt;a class="link" href="https://developer.android.com/studio#command-tools" target="_blank" rel="noopener"
-&gt;Android Command Line Tools&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;下载 &lt;a class=&#34;link&#34; href=&#34;https://developer.android.com/studio#command-tools&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Android Command Line Tools&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;解压并配置环境变量：&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;export ANDROID_HOME&lt;span style="color:#f92672"&gt;=&lt;/span&gt;$HOME/Android/Sdk
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;export PATH&lt;span style="color:#f92672"&gt;=&lt;/span&gt;$PATH:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$ANDROID_HOME/emulator
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id="22-下载系统镜像"&gt;2.2 下载系统镜像
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;export ANDROID_HOME&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;$HOME/Android/Sdk
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;export PATH&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;$PATH:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$ANDROID_HOME/emulator
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;22-下载系统镜像&#34;&gt;2.2 下载系统镜像
 &lt;/h3&gt;&lt;p&gt;使用 &lt;code&gt;sdkmanager&lt;/code&gt; 下载 Android 34 (API Level 34) 的 x86_64 镜像：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;sdkmanager &lt;span style="color:#e6db74"&gt;&amp;#34;system-images;android-34;google_apis;x86_64&amp;#34;&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sdkmanager &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;system-images;android-34;google_apis;x86_64&amp;#34;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;注意&lt;/strong&gt;：选择 &lt;code&gt;google_apis&lt;/code&gt; 而非 &lt;code&gt;google_apis_playstore&lt;/code&gt;，后者限制较多，不便于 root 和注入操作。&lt;/p&gt;
-&lt;h3 id="23-创建-avd-android-virtual-device"&gt;2.3 创建 AVD (Android Virtual Device)
-&lt;/h3&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;avdmanager create avd -n Pixel_API_34 &lt;span style="color:#ae81ff"&gt;\
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#ae81ff"&gt;&lt;/span&gt; -k &lt;span style="color:#e6db74"&gt;&amp;#34;system-images;android-34;google_apis;x86_64&amp;#34;&lt;/span&gt; &lt;span style="color:#ae81ff"&gt;\
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#ae81ff"&gt;&lt;/span&gt; --device &lt;span style="color:#e6db74"&gt;&amp;#34;pixel&amp;#34;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id="24-启动模拟器可写系统分区"&gt;2.4 启动模拟器（可写系统分区）
-&lt;/h3&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;emulator -avd Pixel_API_34 &lt;span style="color:#ae81ff"&gt;\
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#ae81ff"&gt;&lt;/span&gt; -no-snapshot &lt;span style="color:#ae81ff"&gt;\
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#ae81ff"&gt;&lt;/span&gt; -gpu swiftshader_indirect &lt;span style="color:#ae81ff"&gt;\
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#ae81ff"&gt;&lt;/span&gt; -netdelay none &lt;span style="color:#ae81ff"&gt;\
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#ae81ff"&gt;&lt;/span&gt; -netspeed full &lt;span style="color:#ae81ff"&gt;\
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#ae81ff"&gt;&lt;/span&gt; -writable-system
+&lt;h3 id=&#34;23-创建-avd-android-virtual-device&#34;&gt;2.3 创建 AVD (Android Virtual Device)
+&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;avdmanager create avd -n Pixel_API_34 &lt;span style=&#34;color:#ae81ff&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  -k &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;system-images;android-34;google_apis;x86_64&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  --device &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;pixel&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;24-启动模拟器可写系统分区&#34;&gt;2.4 启动模拟器（可写系统分区）
+&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;emulator -avd Pixel_API_34 &lt;span style=&#34;color:#ae81ff&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  -no-snapshot &lt;span style=&#34;color:#ae81ff&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  -gpu swiftshader_indirect &lt;span style=&#34;color:#ae81ff&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  -netdelay none &lt;span style=&#34;color:#ae81ff&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  -netspeed full &lt;span style=&#34;color:#ae81ff&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  -writable-system
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;参数说明&lt;/strong&gt;：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;-writable-system&lt;/code&gt;：允许修改 /system 分区，用于安装证书&lt;/li&gt;
@@ -72,37 +86,37 @@
 &lt;li&gt;&lt;code&gt;-netdelay none -netspeed full&lt;/code&gt;：移除网络延迟限制&lt;/li&gt;
 &lt;/ul&gt;
 &lt;hr&gt;
-&lt;h2 id="3-准备-frida-server"&gt;3. 准备 frida-server
-&lt;/h2&gt;&lt;h3 id="31-下载对应版本的-frida-server"&gt;3.1 下载对应版本的 frida-server
-&lt;/h3&gt;&lt;p&gt;前往 &lt;a class="link" href="https://github.com/frida/frida/releases" target="_blank" rel="noopener"
-&gt;Frida Releases&lt;/a&gt; 下载与本机 frida-tools 版本一致的 &lt;code&gt;frida-server-android-x86_64&lt;/code&gt;。&lt;/p&gt;
+&lt;h2 id=&#34;3-准备-frida-server&#34;&gt;3. 准备 frida-server
+&lt;/h2&gt;&lt;h3 id=&#34;31-下载对应版本的-frida-server&#34;&gt;3.1 下载对应版本的 frida-server
+&lt;/h3&gt;&lt;p&gt;前往 &lt;a class=&#34;link&#34; href=&#34;https://github.com/frida/frida/releases&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Frida Releases&lt;/a&gt; 下载与本机 frida-tools 版本一致的 &lt;code&gt;frida-server-android-x86_64&lt;/code&gt;。&lt;/p&gt;
 &lt;p&gt;查看本机 Frida 版本：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;frida --version
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id="32-推送到模拟器"&gt;3.2 推送到模拟器
-&lt;/h3&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;adb push frida-server /data/local/tmp/
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;adb shell &lt;span style="color:#e6db74"&gt;&amp;#34;chmod 755 /data/local/tmp/frida-server&amp;#34;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id="33-启动-frida-server"&gt;3.3 启动 frida-server
-&lt;/h3&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;adb shell &lt;span style="color:#e6db74"&gt;&amp;#34;/data/local/tmp/frida-server &amp;amp;&amp;#34;&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;frida --version
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;32-推送到模拟器&#34;&gt;3.2 推送到模拟器
+&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;adb push frida-server /data/local/tmp/
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;adb shell &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;chmod 755 /data/local/tmp/frida-server&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;33-启动-frida-server&#34;&gt;3.3 启动 frida-server
+&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;adb shell &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;/data/local/tmp/frida-server &amp;amp;&amp;#34;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;验证运行状态：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;adb shell &lt;span style="color:#e6db74"&gt;&amp;#34;ps | grep frida&amp;#34;&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;adb shell &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;ps | grep frida&amp;#34;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
-&lt;h2 id="4-配置代理与-mitmproxy"&gt;4. 配置代理与 mitmproxy
-&lt;/h2&gt;&lt;h3 id="41-启动-mitmproxy"&gt;4.1 启动 mitmproxy
+&lt;h2 id=&#34;4-配置代理与-mitmproxy&#34;&gt;4. 配置代理与 mitmproxy
+&lt;/h2&gt;&lt;h3 id=&#34;41-启动-mitmproxy&#34;&gt;4.1 启动 mitmproxy
 &lt;/h3&gt;&lt;p&gt;在宿主机上启动代理服务：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;mitmproxy --listen-host 0.0.0.0 --listen-port &lt;span style="color:#ae81ff"&gt;8080&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;mitmproxy --listen-host 0.0.0.0 --listen-port &lt;span style=&#34;color:#ae81ff&#34;&gt;8080&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;也可以使用 Web 界面版本：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;mitmweb --listen-host 0.0.0.0 --listen-port &lt;span style="color:#ae81ff"&gt;8080&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id="42-配置模拟器系统代理"&gt;4.2 配置模拟器系统代理
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;mitmweb --listen-host 0.0.0.0 --listen-port &lt;span style=&#34;color:#ae81ff&#34;&gt;8080&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;42-配置模拟器系统代理&#34;&gt;4.2 配置模拟器系统代理
 &lt;/h3&gt;&lt;p&gt;Android 模拟器访问宿主机使用特殊 IP &lt;code&gt;10.0.2.2&lt;/code&gt;：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;adb shell settings put global http_proxy 10.0.2.2:8080
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;adb shell settings put global http_proxy 10.0.2.2:8080
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;验证代理配置：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;adb shell settings get global http_proxy
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;# 输出：10.0.2.2:8080&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id="43-安装-ca-证书"&gt;4.3 安装 CA 证书
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;adb shell settings get global http_proxy
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 输出：10.0.2.2:8080&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;43-安装-ca-证书&#34;&gt;4.3 安装 CA 证书
 &lt;/h3&gt;&lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;在模拟器浏览器中访问：&lt;/p&gt;
-&lt;pre tabindex="0"&gt;&lt;code&gt;http://mitm.it
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;http://mitm.it
 &lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;选择 &amp;ldquo;Android&amp;rdquo; 下载证书&lt;/p&gt;
@@ -112,49 +126,49 @@
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;hr&gt;
-&lt;h2 id="5-准备-ssl-pinning-绕过脚本"&gt;5. 准备 SSL Pinning 绕过脚本
+&lt;h2 id=&#34;5-准备-ssl-pinning-绕过脚本&#34;&gt;5. 准备 SSL Pinning 绕过脚本
 &lt;/h2&gt;&lt;p&gt;创建 &lt;code&gt;unpinning.js&lt;/code&gt; 文件，用于 Hook Java 层的证书校验逻辑：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-javascript" data-lang="javascript"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;// filepath: unpinning.js
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;// Frida script for bypassing SSL Pinning in Android apps
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;&lt;/span&gt;&lt;span style="color:#a6e22e"&gt;Java&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;perform&lt;/span&gt;(&lt;span style="color:#66d9ef"&gt;function&lt;/span&gt; () {
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;console&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;log&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#39;[+] Starting SSL Pinning Bypass...&amp;#39;&lt;/span&gt;);
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;var&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;X509TrustManager&lt;/span&gt; &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;Java&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;use&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#39;javax.net.ssl.X509TrustManager&amp;#39;&lt;/span&gt;);
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;var&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;SSLContext&lt;/span&gt; &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;Java&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;use&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#39;javax.net.ssl.SSLContext&amp;#39;&lt;/span&gt;);
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;// Implement a new TrustManager to ignore cert errors
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;var&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;TrustAll&lt;/span&gt; &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;Java&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;registerClass&lt;/span&gt;({
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;name&lt;/span&gt;&lt;span style="color:#f92672"&gt;:&lt;/span&gt; &lt;span style="color:#e6db74"&gt;&amp;#39;org.hello.TrustAll&amp;#39;&lt;/span&gt;,
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;implements&lt;/span&gt;&lt;span style="color:#f92672"&gt;:&lt;/span&gt; [&lt;span style="color:#a6e22e"&gt;X509TrustManager&lt;/span&gt;],
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;methods&lt;/span&gt;&lt;span style="color:#f92672"&gt;:&lt;/span&gt; {
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;checkClientTrusted&lt;/span&gt;&lt;span style="color:#f92672"&gt;:&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;function&lt;/span&gt; (&lt;span style="color:#a6e22e"&gt;chain&lt;/span&gt;, &lt;span style="color:#a6e22e"&gt;authType&lt;/span&gt;) {
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;console&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;log&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#39;[+] checkClientTrusted bypassed&amp;#39;&lt;/span&gt;);
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; },
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;checkServerTrusted&lt;/span&gt;&lt;span style="color:#f92672"&gt;:&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;function&lt;/span&gt; (&lt;span style="color:#a6e22e"&gt;chain&lt;/span&gt;, &lt;span style="color:#a6e22e"&gt;authType&lt;/span&gt;) {
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;console&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;log&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#39;[+] checkServerTrusted bypassed&amp;#39;&lt;/span&gt;);
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; },
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;getAcceptedIssuers&lt;/span&gt;&lt;span style="color:#f92672"&gt;:&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;function&lt;/span&gt; () {
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;console&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;log&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#39;[+] getAcceptedIssuers bypassed&amp;#39;&lt;/span&gt;);
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#66d9ef"&gt;return&lt;/span&gt; [];
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; }
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; });
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#75715e"&gt;// Replace the default TrustManager with ours
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#75715e"&gt;&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;var&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;initSSLContext&lt;/span&gt; &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#a6e22e"&gt;SSLContext&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;init&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;overload&lt;/span&gt;(
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#e6db74"&gt;&amp;#39;[Ljavax.net.ssl.KeyManager;&amp;#39;&lt;/span&gt;,
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#e6db74"&gt;&amp;#39;[Ljavax.net.ssl.TrustManager;&amp;#39;&lt;/span&gt;,
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#e6db74"&gt;&amp;#39;java.security.SecureRandom&amp;#39;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; );
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;initSSLContext&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;implementation&lt;/span&gt; &lt;span style="color:#f92672"&gt;=&lt;/span&gt; &lt;span style="color:#66d9ef"&gt;function&lt;/span&gt; (&lt;span style="color:#a6e22e"&gt;km&lt;/span&gt;, &lt;span style="color:#a6e22e"&gt;tm&lt;/span&gt;, &lt;span style="color:#a6e22e"&gt;sr&lt;/span&gt;) {
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;console&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;log&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#39;[+] Hooking SSLContext.init()&amp;#39;&lt;/span&gt;);
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;console&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;log&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#39;[+] Bypassing SSL Pinning via TrustManager&amp;#39;&lt;/span&gt;);
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;initSSLContext&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;call&lt;/span&gt;(&lt;span style="color:#66d9ef"&gt;this&lt;/span&gt;, &lt;span style="color:#a6e22e"&gt;km&lt;/span&gt;, [&lt;span style="color:#a6e22e"&gt;TrustAll&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;$new&lt;/span&gt;()], &lt;span style="color:#a6e22e"&gt;sr&lt;/span&gt;);
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; };
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt; &lt;span style="color:#a6e22e"&gt;console&lt;/span&gt;.&lt;span style="color:#a6e22e"&gt;log&lt;/span&gt;(&lt;span style="color:#e6db74"&gt;&amp;#39;[+] SSL Pinning Bypass Ready!&amp;#39;&lt;/span&gt;);
-&lt;/span&gt;&lt;/span&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;});
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-javascript&#34; data-lang=&#34;javascript&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// filepath: unpinning.js
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// Frida script for bypassing SSL Pinning in Android apps
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;Java&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;perform&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; () {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;console&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;log&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;[+] Starting SSL Pinning Bypass...&amp;#39;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;var&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;X509TrustManager&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Java&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;use&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;javax.net.ssl.X509TrustManager&amp;#39;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;var&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;SSLContext&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Java&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;use&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;javax.net.ssl.SSLContext&amp;#39;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;// Implement a new TrustManager to ignore cert errors
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;var&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;TrustAll&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Java&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;registerClass&lt;/span&gt;({
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#a6e22e&#34;&gt;name&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;org.hello.TrustAll&amp;#39;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;implements&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; [&lt;span style=&#34;color:#a6e22e&#34;&gt;X509TrustManager&lt;/span&gt;],
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#a6e22e&#34;&gt;methods&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#a6e22e&#34;&gt;checkClientTrusted&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;chain&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;authType&lt;/span&gt;) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                &lt;span style=&#34;color:#a6e22e&#34;&gt;console&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;log&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;[+] checkClientTrusted bypassed&amp;#39;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            },
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#a6e22e&#34;&gt;checkServerTrusted&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;chain&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;authType&lt;/span&gt;) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                &lt;span style=&#34;color:#a6e22e&#34;&gt;console&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;log&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;[+] checkServerTrusted bypassed&amp;#39;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            },
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#a6e22e&#34;&gt;getAcceptedIssuers&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; () { 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                &lt;span style=&#34;color:#a6e22e&#34;&gt;console&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;log&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;[+] getAcceptedIssuers bypassed&amp;#39;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; []; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    });
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;// Replace the default TrustManager with ours
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;var&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;initSSLContext&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;SSLContext&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;init&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;overload&lt;/span&gt;(
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;[Ljavax.net.ssl.KeyManager;&amp;#39;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;[Ljavax.net.ssl.TrustManager;&amp;#39;&lt;/span&gt;,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;java.security.SecureRandom&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    );
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;initSSLContext&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;implementation&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;function&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;km&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;tm&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;sr&lt;/span&gt;) {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#a6e22e&#34;&gt;console&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;log&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;[+] Hooking SSLContext.init()&amp;#39;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#a6e22e&#34;&gt;console&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;log&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;[+] Bypassing SSL Pinning via TrustManager&amp;#39;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#a6e22e&#34;&gt;initSSLContext&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;call&lt;/span&gt;(&lt;span style=&#34;color:#66d9ef&#34;&gt;this&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;km&lt;/span&gt;, [&lt;span style=&#34;color:#a6e22e&#34;&gt;TrustAll&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;$new&lt;/span&gt;()], &lt;span style=&#34;color:#a6e22e&#34;&gt;sr&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    };
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;console&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;log&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;[+] SSL Pinning Bypass Ready!&amp;#39;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;});
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;工作原理&lt;/strong&gt;：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Hook &lt;code&gt;SSLContext.init()&lt;/code&gt; 方法&lt;/li&gt;
@@ -162,116 +176,124 @@
 &lt;li&gt;自定义 TrustManager 接受所有证书，不进行校验&lt;/li&gt;
 &lt;/ul&gt;
 &lt;hr&gt;
-&lt;h2 id="6-frida-注入与抓包"&gt;6. Frida 注入与抓包
-&lt;/h2&gt;&lt;h3 id="61-查找目标进程"&gt;6.1 查找目标进程
+&lt;h2 id=&#34;6-frida-注入与抓包&#34;&gt;6. Frida 注入与抓包
+&lt;/h2&gt;&lt;h3 id=&#34;61-查找目标进程&#34;&gt;6.1 查找目标进程
 &lt;/h3&gt;&lt;p&gt;启动目标 App 后，查找其进程信息：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;frida-ps -Uai | grep com.example.app
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id="62-注入脚本"&gt;6.2 注入脚本
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;frida-ps -Uai | grep com.example.app
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;62-注入脚本&#34;&gt;6.2 注入脚本
 &lt;/h3&gt;&lt;p&gt;方式一（通过 PID）：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;frida -U -p &amp;lt;PID&amp;gt; -l unpinning.js
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;frida -U -p &amp;lt;PID&amp;gt; -l unpinning.js
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;方式二（通过包名，推荐）：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;frida -U -f com.example.app -l unpinning.js --no-pause
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;frida -U -f com.example.app -l unpinning.js --no-pause
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;方式三（Attach 到运行中的进程）：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;frida -U -n com.example.app -l unpinning.js
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id="63-观察输出"&gt;6.3 观察输出
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;frida -U -n com.example.app -l unpinning.js
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;63-观察输出&#34;&gt;6.3 观察输出
 &lt;/h3&gt;&lt;p&gt;成功注入后会看到类似输出：&lt;/p&gt;
-&lt;pre tabindex="0"&gt;&lt;code&gt;[+] Starting SSL Pinning Bypass...
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;[+] Starting SSL Pinning Bypass...
 [+] Hooking SSLContext.init()
 [+] Bypassing SSL Pinning via TrustManager
 [+] checkServerTrusted bypassed
 [+] SSL Pinning Bypass Ready!
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;img src="https://keyboard2005.github.io/posts/2025/android-app-https-%E6%8A%93%E5%8C%85-&amp;#43;-ssl-pinning-%E7%BB%95%E8%BF%87/images/2.png"
-width="1878"
-height="407"
-srcset="https://keyboard2005.github.io/posts/2025/android-app-https-%E6%8A%93%E5%8C%85-&amp;#43;-ssl-pinning-%E7%BB%95%E8%BF%87/images/2_hu_ac3f38ab47fb404c.png 480w, https://keyboard2005.github.io/posts/2025/android-app-https-%E6%8A%93%E5%8C%85-&amp;#43;-ssl-pinning-%E7%BB%95%E8%BF%87/images/2_hu_c350f26262e962e1.png 1024w"
-loading="lazy"
-alt="Frida 成功绕过 SSL Pinning"
-class="gallery-image"
-data-flex-grow="461"
-data-flex-basis="1107px"
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;img src=&#34;https://keyboard2005.github.io/posts/2025/android-app-https-%E6%8A%93%E5%8C%85-&amp;#43;-ssl-pinning-%E7%BB%95%E8%BF%87/images/2.png&#34;
+	width=&#34;1878&#34;
+	height=&#34;407&#34;
+	srcset=&#34;https://keyboard2005.github.io/posts/2025/android-app-https-%E6%8A%93%E5%8C%85-&amp;#43;-ssl-pinning-%E7%BB%95%E8%BF%87/images/2_hu_6bd8251fa1b26f0b.png 480w, https://keyboard2005.github.io/posts/2025/android-app-https-%E6%8A%93%E5%8C%85-&amp;#43;-ssl-pinning-%E7%BB%95%E8%BF%87/images/2_hu_ba2ef00a3be8c12f.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;Frida 成功绕过 SSL Pinning&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;461&#34;
+		data-flex-basis=&#34;1107px&#34;
+	
 &gt;&lt;/p&gt;
-&lt;h3 id="64-开始抓包"&gt;6.4 开始抓包
+&lt;h3 id=&#34;64-开始抓包&#34;&gt;6.4 开始抓包
 &lt;/h3&gt;&lt;p&gt;保持 mitmproxy 运行状态，在 App 中执行网络请求。此时可在 mitmproxy 界面中看到：&lt;/p&gt;
-&lt;pre tabindex="0"&gt;&lt;code&gt;-&amp;gt; https://api.example.com/login 200 OK
-POST /login
-Content-Type: application/json
-{&amp;#34;username&amp;#34;: &amp;#34;test&amp;#34;, &amp;#34;password&amp;#34;: &amp;#34;123456&amp;#34;}
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;-&amp;gt; https://api.example.com/login 200 OK
+   POST /login
+   Content-Type: application/json
+   {&amp;#34;username&amp;#34;: &amp;#34;test&amp;#34;, &amp;#34;password&amp;#34;: &amp;#34;123456&amp;#34;}
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;可以实时查看、修改、重放请求和响应内容。&lt;/p&gt;
-&lt;p&gt;&lt;img src="https://keyboard2005.github.io/posts/2025/android-app-https-%E6%8A%93%E5%8C%85-&amp;#43;-ssl-pinning-%E7%BB%95%E8%BF%87/images/1.png"
-width="1920"
-height="1080"
-srcset="https://keyboard2005.github.io/posts/2025/android-app-https-%E6%8A%93%E5%8C%85-&amp;#43;-ssl-pinning-%E7%BB%95%E8%BF%87/images/1_hu_6aa5f0066ec4626.png 480w, https://keyboard2005.github.io/posts/2025/android-app-https-%E6%8A%93%E5%8C%85-&amp;#43;-ssl-pinning-%E7%BB%95%E8%BF%87/images/1_hu_48ef1c22e0405cc0.png 1024w"
-loading="lazy"
-alt="mitmproxy 成功抓取 HTTPS 流量"
-class="gallery-image"
-data-flex-grow="177"
-data-flex-basis="426px"
+&lt;p&gt;&lt;img src=&#34;https://keyboard2005.github.io/posts/2025/android-app-https-%E6%8A%93%E5%8C%85-&amp;#43;-ssl-pinning-%E7%BB%95%E8%BF%87/images/1.png&#34;
+	width=&#34;1920&#34;
+	height=&#34;1080&#34;
+	srcset=&#34;https://keyboard2005.github.io/posts/2025/android-app-https-%E6%8A%93%E5%8C%85-&amp;#43;-ssl-pinning-%E7%BB%95%E8%BF%87/images/1_hu_a9af56807392550b.png 480w, https://keyboard2005.github.io/posts/2025/android-app-https-%E6%8A%93%E5%8C%85-&amp;#43;-ssl-pinning-%E7%BB%95%E8%BF%87/images/1_hu_1b42cae9eb9cea1.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;mitmproxy 成功抓取 HTTPS 流量&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;177&#34;
+		data-flex-basis=&#34;426px&#34;
+	
 &gt;&lt;/p&gt;
 &lt;hr&gt;
-&lt;h2 id="7-常用辅助命令"&gt;7. 常用辅助命令
+&lt;h2 id=&#34;7-常用辅助命令&#34;&gt;7. 常用辅助命令
 &lt;/h2&gt;&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;功能&lt;/th&gt;
-&lt;th&gt;命令&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;查看 frida-server 进程&lt;/td&gt;
-&lt;td&gt;`adb shell ps&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;检查代理端口监听&lt;/td&gt;
-&lt;td&gt;&lt;code&gt;sudo lsof -i :8080&lt;/code&gt; 或 `netstat -an&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;测试代理连通性&lt;/td&gt;
-&lt;td&gt;&lt;code&gt;adb shell curl -I http://10.0.2.2:8080&lt;/code&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;清除系统代理设置&lt;/td&gt;
-&lt;td&gt;&lt;code&gt;adb shell settings put global http_proxy :0&lt;/code&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;列出所有 AVD&lt;/td&gt;
-&lt;td&gt;&lt;code&gt;emulator -list-avds&lt;/code&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;查看已连接设备&lt;/td&gt;
-&lt;td&gt;&lt;code&gt;adb devices&lt;/code&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;重启 adb 服务&lt;/td&gt;
-&lt;td&gt;&lt;code&gt;adb kill-server &amp;amp;&amp;amp; adb start-server&lt;/code&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;查看 Frida 版本&lt;/td&gt;
-&lt;td&gt;&lt;code&gt;frida --version&lt;/code&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;功能&lt;/th&gt;
+          &lt;th&gt;命令&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;查看 frida-server 进程&lt;/td&gt;
+          &lt;td&gt;`adb shell ps&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;检查代理端口监听&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;sudo lsof -i :8080&lt;/code&gt; 或 `netstat -an&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;测试代理连通性&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;adb shell curl -I http://10.0.2.2:8080&lt;/code&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;清除系统代理设置&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;adb shell settings put global http_proxy :0&lt;/code&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;列出所有 AVD&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;emulator -list-avds&lt;/code&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;查看已连接设备&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;adb devices&lt;/code&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;重启 adb 服务&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;adb kill-server &amp;amp;&amp;amp; adb start-server&lt;/code&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;查看 Frida 版本&lt;/td&gt;
+          &lt;td&gt;&lt;code&gt;frida --version&lt;/code&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;hr&gt;
-&lt;h2 id="8-整体流程架构"&gt;8. 整体流程架构
-&lt;/h2&gt;&lt;pre tabindex="0"&gt;&lt;code&gt;┌─────────────────────────────────────────────────────┐
-│ Android App │
-│ ↓ │
-│ [Frida Hook 绕过 SSL 校验] │
+&lt;h2 id=&#34;8-整体流程架构&#34;&gt;8. 整体流程架构
+&lt;/h2&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;┌─────────────────────────────────────────────────────┐
+│                    Android App                      │
+│                        ↓                            │
+│            [Frida Hook 绕过 SSL 校验]               │
 └─────────────────────────────────────────────────────┘
-↓
-[系统代理] 10.0.2.2:8080
-↓
+                        ↓
+            [系统代理] 10.0.2.2:8080
+                        ↓
 ┌─────────────────────────────────────────────────────┐
-│ mitmproxy (宿主机) │
-│ • 解密 HTTPS 流量 │
-│ • 查看/修改请求响应 │
-│ • 记录完整会话 │
+│              mitmproxy (宿主机)                     │
+│          • 解密 HTTPS 流量                          │
+│          • 查看/修改请求响应                         │
+│          • 记录完整会话                             │
 └─────────────────────────────────────────────────────┘
-↓
-[真实的后端服务器]
+                        ↓
+              [真实的后端服务器]
 &lt;/code&gt;&lt;/pre&gt;&lt;hr&gt;
-&lt;h2 id="9-常见问题与解决方案"&gt;9. 常见问题与解决方案
-&lt;/h2&gt;&lt;h3 id="91-无法连接到-mitmproxy"&gt;9.1 无法连接到 mitmproxy
+&lt;h2 id=&#34;9-常见问题与解决方案&#34;&gt;9. 常见问题与解决方案
+&lt;/h2&gt;&lt;h3 id=&#34;91-无法连接到-mitmproxy&#34;&gt;9.1 无法连接到 mitmproxy
 &lt;/h3&gt;&lt;p&gt;&lt;strong&gt;问题&lt;/strong&gt;：模拟器无法访问宿主机的 8080 端口&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;解决&lt;/strong&gt;：&lt;/p&gt;
 &lt;ul&gt;
@@ -279,7 +301,7 @@ data-flex-basis="426px"
 &lt;li&gt;确认使用 &lt;code&gt;10.0.2.2&lt;/code&gt; 而非 &lt;code&gt;localhost&lt;/code&gt; 或 &lt;code&gt;127.0.0.1&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;验证 mitmproxy 监听在 &lt;code&gt;0.0.0.0&lt;/code&gt; 而非 &lt;code&gt;127.0.0.1&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3 id="92-证书错误仍然存在"&gt;9.2 证书错误仍然存在
+&lt;h3 id=&#34;92-证书错误仍然存在&#34;&gt;9.2 证书错误仍然存在
 &lt;/h3&gt;&lt;p&gt;&lt;strong&gt;问题&lt;/strong&gt;：即使注入了脚本，仍然提示证书错误&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;解决&lt;/strong&gt;：&lt;/p&gt;
 &lt;ul&gt;
@@ -287,7 +309,7 @@ data-flex-basis="426px"
 &lt;li&gt;某些 App 使用 Native 层校验，需要额外 Hook&lt;/li&gt;
 &lt;li&gt;尝试使用更全面的绕过脚本（如 frida-multiple-unpinning）&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3 id="93-frida-连接失败"&gt;9.3 Frida 连接失败
+&lt;h3 id=&#34;93-frida-连接失败&#34;&gt;9.3 Frida 连接失败
 &lt;/h3&gt;&lt;p&gt;&lt;strong&gt;问题&lt;/strong&gt;：&lt;code&gt;frida-ps -U&lt;/code&gt; 无法列出进程&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;解决&lt;/strong&gt;：&lt;/p&gt;
 &lt;ul&gt;
@@ -296,7 +318,7 @@ data-flex-basis="426px"
 &lt;li&gt;尝试重启 adb 服务：&lt;code&gt;adb kill-server &amp;amp;&amp;amp; adb start-server&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;hr&gt;
-&lt;h2 id="10-总结"&gt;10. 总结
+&lt;h2 id=&#34;10-总结&#34;&gt;10. 总结
 &lt;/h2&gt;&lt;p&gt;通过本文的完整流程，我们实现了：&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;strong&gt;搭建 Android 模拟器环境&lt;/strong&gt;：使用 Google APIs 镜像，启用可写系统分区&lt;/li&gt;
@@ -307,4 +329,9 @@ data-flex-basis="426px"
 &lt;/ol&gt;
 &lt;p&gt;这套方案适用于大多数 Android App 的安全测试和逆向分析场景。对于采用更复杂保护机制的应用（如 Native 层校验、代码混淆、反调试等），需要结合更高级的技术手段。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;免责声明&lt;/strong&gt;：本文内容仅供学习研究使用，请勿用于非法用途。未经授权对他人应用进行抓包分析可能违反法律法规。&lt;/p&gt;
-&lt;hr&gt;</description></item></channel></rss>
+&lt;hr&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

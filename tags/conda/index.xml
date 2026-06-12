@@ -1,11 +1,37 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Conda on keyboard blog</title><link>https://keyboard2005.github.io/tags/conda/</link><description>Recent content in Conda on keyboard blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sat, 31 Jan 2026 03:18:00 +0800</lastBuildDate><atom:link href="https://keyboard2005.github.io/tags/conda/index.xml" rel="self" type="application/rss+xml"/><item><title>conda默认不激活base环境命令</title><link>https://keyboard2005.github.io/posts/2026/01/conda%E9%BB%98%E8%AE%A4%E4%B8%8D%E6%BF%80%E6%B4%BBbase%E7%8E%AF%E5%A2%83/</link><pubDate>Sat, 31 Jan 2026 03:18:00 +0800</pubDate><guid>https://keyboard2005.github.io/posts/2026/01/conda%E9%BB%98%E8%AE%A4%E4%B8%8D%E6%BF%80%E6%B4%BBbase%E7%8E%AF%E5%A2%83/</guid><description>&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;conda config --set auto_activate_base false
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description></item><item><title>conda 导出环境（conda-pack）</title><link>https://keyboard2005.github.io/posts/2025/conda%E5%AF%BC%E5%87%BA%E7%8E%AF%E5%A2%83/</link><pubDate>Wed, 07 Jan 2026 19:15:00 +0800</pubDate><guid>https://keyboard2005.github.io/posts/2025/conda%E5%AF%BC%E5%87%BA%E7%8E%AF%E5%A2%83/</guid><description>&lt;h1 id="conda-导出环境conda-pack"&gt;conda 导出环境（conda-pack）
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Conda on keyboard blog</title>
+        <link>https://keyboard2005.github.io/tags/conda/</link>
+        <description>Recent content in Conda on keyboard blog</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <lastBuildDate>Sat, 31 Jan 2026 03:18:00 +0800</lastBuildDate><atom:link href="https://keyboard2005.github.io/tags/conda/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>conda默认不激活base环境命令</title>
+        <link>https://keyboard2005.github.io/posts/2026/01/conda%E9%BB%98%E8%AE%A4%E4%B8%8D%E6%BF%80%E6%B4%BBbase%E7%8E%AF%E5%A2%83/</link>
+        <pubDate>Sat, 31 Jan 2026 03:18:00 +0800</pubDate>
+        
+        <guid>https://keyboard2005.github.io/posts/2026/01/conda%E9%BB%98%E8%AE%A4%E4%B8%8D%E6%BF%80%E6%B4%BBbase%E7%8E%AF%E5%A2%83/</guid>
+        <description>&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;conda config --set auto_activate_base false
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+        </item>
+        <item>
+        <title>conda 导出环境（conda-pack）</title>
+        <link>https://keyboard2005.github.io/posts/2025/conda%E5%AF%BC%E5%87%BA%E7%8E%AF%E5%A2%83/</link>
+        <pubDate>Wed, 07 Jan 2026 19:15:00 +0800</pubDate>
+        
+        <guid>https://keyboard2005.github.io/posts/2025/conda%E5%AF%BC%E5%87%BA%E7%8E%AF%E5%A2%83/</guid>
+        <description>&lt;h1 id=&#34;conda-导出环境conda-pack&#34;&gt;conda 导出环境（conda-pack）
 &lt;/h1&gt;&lt;p&gt;用 &lt;code&gt;conda-pack&lt;/code&gt; 将已有环境打包，拷贝到另一台机器后解包并执行 &lt;code&gt;conda-unpack&lt;/code&gt; 完成修复。&lt;/p&gt;
-&lt;h2 id="1-安装-conda-pack"&gt;1. 安装 conda-pack
-&lt;/h2&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;conda install -n base -c conda-forge conda-pack
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="2-打包环境"&gt;2. 打包环境
-&lt;/h2&gt;&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;conda pack -n openmmlab_env -o openmmlab_env.tar.gz
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="3-迁移并解包"&gt;3. 迁移并解包
+&lt;h2 id=&#34;1-安装-conda-pack&#34;&gt;1. 安装 conda-pack
+&lt;/h2&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;conda install -n base -c conda-forge conda-pack
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;2-打包环境&#34;&gt;2. 打包环境
+&lt;/h2&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;conda pack -n openmmlab_env -o openmmlab_env.tar.gz
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;3-迁移并解包&#34;&gt;3. 迁移并解包
 &lt;/h2&gt;&lt;p&gt;将 &lt;code&gt;openmmlab_env.tar.gz&lt;/code&gt; 拷贝到目标机器，解压到 &lt;code&gt;envs/&lt;/code&gt; 目录后执行：&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;envs/openmmlab_env/bin/conda-unpack
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description></item></channel></rss>
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;envs/openmmlab_env/bin/conda-unpack
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+        </item>
+        
+    </channel>
+</rss>
