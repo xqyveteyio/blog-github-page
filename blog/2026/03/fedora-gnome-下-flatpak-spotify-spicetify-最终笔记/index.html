@@ -1,0 +1,203 @@
+<!DOCTYPE html><html lang="en"><head><!-- Global Metadata --><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="icon" href="/favicon.ico"><link rel="sitemap" href="/sitemap-index.xml"><link rel="alternate" type="application/rss+xml" title="Ogumo Blog" href="https://keyboard2005.github.io/rss.xml"><meta name="generator" content="Astro v7.0.3"><!-- Canonical URL --><link rel="canonical" href="https://keyboard2005.github.io/blog/2026/03/fedora-gnome-%E4%B8%8B-flatpak-spotify-spicetify-%E6%9C%80%E7%BB%88%E7%AC%94%E8%AE%B0/"><!-- Primary Meta Tags --><title>Fedora GNOME 下 Flatpak Spotify + Spicetify 最终笔记</title><meta name="description" content="解决 Fedora GNOME 下 Flatpak 版 Spotify 无法被 Spicetify 修改、权限问题、Marketplace/主题不生效以及 GNOME Wayland 下蓝色标题栏等问题的最终笔记。"><style>:root{--max-width:800px}body{margin:0;padding:0}.container{max-width:var(--max-width);margin:0 auto;padding:0 1em}main{max-width:var(--max-width);margin:0 auto;padding:1em}img{max-width:100%;height:auto}.sr-only{clip:rect(1px, 1px, 1px, 1px);clip-path:inset(50%);white-space:nowrap;border:0;width:1px;height:1px;margin:0;padding:0;overflow:hidden;position:absolute!important}footer[data-astro-cid-jo6i4kqk]{background-color:#f0f0f0;margin-top:2em}.footer-inner[data-astro-cid-jo6i4kqk]{max-width:800px;margin:0 auto;padding:.6em 1em}a[data-astro-cid-evkijfd6]{text-decoration:none;display:inline-block}a[data-astro-cid-evkijfd6].active{font-weight:bolder;text-decoration:underline}header[data-astro-cid-nen7h5rs]{background-color:#f0f0f0}.header-inner[data-astro-cid-nen7h5rs]{align-items:baseline;gap:1em;max-width:800px;margin:0 auto;padding:.6em 1em .4em;display:flex}.header-left[data-astro-cid-nen7h5rs],.header-right[data-astro-cid-nen7h5rs]{flex:1}.header-right[data-astro-cid-nen7h5rs]{justify-content:flex-end;display:flex}.search-wrap[data-astro-cid-nen7h5rs]{width:260px;max-width:260px;position:relative}.search-wrap[data-astro-cid-nen7h5rs] input[data-astro-cid-nen7h5rs]{box-sizing:border-box;border:1px solid #ccc;border-radius:4px;width:100%;padding:.3em .6em;font-size:.9em}.search-results[data-astro-cid-nen7h5rs]{z-index:100;background:#fff;border:1px solid #ccc;border-radius:4px;max-height:320px;margin:0;padding:0;list-style:none;position:absolute;top:calc(100% + 4px);left:0;right:0;overflow-y:auto;box-shadow:0 4px 12px #0000001f}.search-results[data-astro-cid-nen7h5rs][hidden]{display:none}.search-results[data-astro-cid-nen7h5rs] li[data-astro-cid-nen7h5rs] a[data-astro-cid-nen7h5rs]{color:inherit;padding:.5em .8em;text-decoration:none;display:block}.search-results[data-astro-cid-nen7h5rs] li[data-astro-cid-nen7h5rs] a[data-astro-cid-nen7h5rs]:hover,.search-results[data-astro-cid-nen7h5rs] li[data-astro-cid-nen7h5rs].active a[data-astro-cid-nen7h5rs]{background-color:#f0f0f0}.search-results[data-astro-cid-nen7h5rs] .result-title[data-astro-cid-nen7h5rs]{font-size:.9em;font-weight:600}.search-results[data-astro-cid-nen7h5rs] .result-desc[data-astro-cid-nen7h5rs]{color:#666;margin-top:2px;font-size:.78em}.search-results[data-astro-cid-nen7h5rs] .no-result[data-astro-cid-nen7h5rs]{color:#888;padding:.6em .8em;font-size:.88em}nav[data-astro-cid-nen7h5rs]{flex-shrink:0;gap:1em;display:flex}hr[data-astro-cid-nen7h5rs]{margin:0}
+</style></head><body><header data-astro-cid-nen7h5rs><div class="header-inner" data-astro-cid-nen7h5rs><div class="header-left" data-astro-cid-nen7h5rs><strong data-astro-cid-nen7h5rs><a href="/" data-astro-cid-nen7h5rs>Ogumo Blog</a></strong></div><div class="search-wrap" data-astro-cid-nen7h5rs><input id="search-input" type="search" placeholder="搜索... (Ctrl+K)" autocomplete="off" data-astro-cid-nen7h5rs><ul id="search-results" class="search-results" hidden data-astro-cid-nen7h5rs></ul></div><div class="header-right" data-astro-cid-nen7h5rs><nav data-astro-cid-nen7h5rs><a href="/" data-astro-cid-nen7h5rs="true" data-astro-cid-evkijfd6>Home</a><a href="/blog" class="active" data-astro-cid-nen7h5rs="true" data-astro-cid-evkijfd6>Blog</a></nav></div></div><hr data-astro-cid-nen7h5rs></header><script type="module">(async()=>{let e=document.getElementById(`search-input`),t=document.getElementById(`search-results`);if(!e||!t)return;let n=[],r=null,i=-1;function a(){return r||(r=fetch(`/search.json`).then(e=>e.json()).then(e=>{n=e}).catch(()=>{}),r)}function o(e,t){if(!t)return s(e);let n=t.replace(/[.*+?^${}()|[\]\\]/g,`\\$&`);return s(e).replace(RegExp(`(${n})`,`gi`),`<mark>$1</mark>`)}function s(e){return e.replace(/&/g,`&amp;`).replace(/</g,`&lt;`).replace(/>/g,`&gt;`)}function c(e,t){if(!e)return``;let n=t.toLowerCase(),r=e.toLowerCase().indexOf(n);if(r===-1)return s(e.slice(0,80))+`…`;let i=Math.max(0,r-30),a=Math.min(e.length,r+t.length+60);return o((i>0?`…`:``)+e.slice(i,a)+(a<e.length?`…`:``),t)}async function l(e){let r=e.trim().toLowerCase();if(!r){t.hidden=!0;return}await a();let l=n.filter(e=>e.title.toLowerCase().includes(r)||e.description.toLowerCase().includes(r)||e.body.toLowerCase().includes(r));if(t.innerHTML=``,i=-1,l.length===0){let e=document.createElement(`li`);e.className=`no-result`,e.textContent=`没有找到相关文章`,t.appendChild(e)}else l.forEach(n=>{let i=!n.title.toLowerCase().includes(r)&&!n.description.toLowerCase().includes(r)?c(n.body,e.trim()):s(n.description),a=document.createElement(`li`),l=document.createElement(`a`);l.href=`/blog/${n.id}/`,l.innerHTML=`
+						<div class="result-title">${o(n.title,e.trim())}</div>
+						<div class="result-desc">${i}</div>
+					`,a.appendChild(l),t.appendChild(a)});t.hidden=!1}function u(e){t.querySelectorAll(`li:not(.no-result)`).forEach((t,n)=>t.classList.toggle(`active`,n===e)),i=e}e.addEventListener(`focus`,()=>a()),e.addEventListener(`input`,()=>{l(e.value)}),e.addEventListener(`keydown`,n=>{let r=t.querySelectorAll(`li:not(.no-result)`);if(n.key===`ArrowDown`)n.preventDefault(),u(Math.min(i+1,r.length-1));else if(n.key===`ArrowUp`)n.preventDefault(),u(Math.max(i-1,0));else if(n.key===`Enter`){if(i>=0&&r[i]){let e=r[i].querySelector(`a`);e&&(window.location.href=e.href)}}else n.key===`Escape`&&(t.hidden=!0,e.blur())}),document.addEventListener(`keydown`,t=>{(t.ctrlKey||t.metaKey)&&t.key===`k`&&(t.preventDefault(),e.focus(),e.select())}),document.addEventListener(`click`,n=>{!e.contains(n.target)&&!t.contains(n.target)&&(t.hidden=!0)})})();</script><main><article><h1>Fedora GNOME 下 Flatpak Spotify + Spicetify 最终笔记</h1><p><small><time datetime="2026-03-12T08:29:00.000Z">2026年3月12日</time></small></p><hr><h1 id="fedora-gnome-下-flatpak-spotify--spicetify-最终笔记">Fedora GNOME 下 Flatpak Spotify + Spicetify 最终笔记</h1>
+<h2 id="目标">目标</h2>
+<p>解决这几类问题：</p>
+<ul>
+<li>Flatpak 版 Spotify 无法被 Spicetify 修改</li>
+<li><code>permission denied</code></li>
+<li>Marketplace/主题不生效</li>
+<li>Spotify 更新后在 GNOME Wayland 下出现丑的系统蓝色标题栏</li>
+</ul>
+<hr>
+<h1 id="一确认安装的是用户级-flatpak-spotify">一、确认安装的是用户级 Flatpak Spotify</h1>
+<h2 id="1-查找-spotify-安装路径">1. 查找 Spotify 安装路径</h2>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">find</span><span style="color:#9ECBFF"> /var/lib/flatpak</span><span style="color:#9ECBFF"> ~/.local/share/flatpak</span><span style="color:#79B8FF"> -type</span><span style="color:#9ECBFF"> d</span><span style="color:#F97583"> 2></span><span style="color:#9ECBFF">/dev/null</span><span style="color:#F97583"> |</span><span style="color:#B392F0"> grep</span><span style="color:#9ECBFF"> '/com.spotify.Client/.*/files/extra/share/spotify$'</span></span></code></pre>
+<h3 id="如果输出是-varlibflatpak">如果输出是 <code>/var/lib/flatpak/...</code></h3>
+<p>说明是<strong>系统级安装</strong>，Spicetify 可能没有权限修改。</p>
+<h3 id="如果输出是-localshareflatpak">如果输出是 <code>~/.local/share/flatpak/...</code></h3>
+<p>说明是<strong>用户级安装</strong>，推荐使用这个。</p>
+<hr>
+<h2 id="2-如果是系统级改装为用户级">2. 如果是系统级，改装为用户级</h2>
+<p>先卸载系统级：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">flatpak</span><span style="color:#9ECBFF"> uninstall</span><span style="color:#9ECBFF"> com.spotify.Client</span></span></code></pre>
+<p>如果还没添加 Flathub，先加：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">flatpak</span><span style="color:#9ECBFF"> remote-add</span><span style="color:#79B8FF"> --user</span><span style="color:#79B8FF"> --if-not-exists</span><span style="color:#9ECBFF"> flathub</span><span style="color:#9ECBFF"> https://flathub.org/repo/flathub.flatpakrepo</span></span></code></pre>
+<p>再安装用户级：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">flatpak</span><span style="color:#9ECBFF"> install</span><span style="color:#79B8FF"> --user</span><span style="color:#9ECBFF"> flathub</span><span style="color:#9ECBFF"> com.spotify.Client</span></span></code></pre>
+<p>启动一次：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">flatpak</span><span style="color:#9ECBFF"> run</span><span style="color:#9ECBFF"> com.spotify.Client</span></span></code></pre>
+<p>然后关闭。</p>
+<hr>
+<h1 id="二配置-spicetify">二、配置 Spicetify</h1>
+<h2 id="1-设置-prefs_path">1. 设置 <code>prefs_path</code></h2>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">spicetify</span><span style="color:#9ECBFF"> config</span><span style="color:#9ECBFF"> prefs_path</span><span style="color:#9ECBFF"> /home/你的用户名/.var/app/com.spotify.Client/config/spotify/prefs</span></span></code></pre>
+<p>例如：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">spicetify</span><span style="color:#9ECBFF"> config</span><span style="color:#9ECBFF"> prefs_path</span><span style="color:#9ECBFF"> /home/ogumo/.var/app/com.spotify.Client/config/spotify/prefs</span></span></code></pre>
+<hr>
+<h2 id="2-查找用户级-spotify_path">2. 查找用户级 <code>spotify_path</code></h2>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">find</span><span style="color:#9ECBFF"> ~/.local/share/flatpak</span><span style="color:#79B8FF"> -type</span><span style="color:#9ECBFF"> d</span><span style="color:#F97583"> 2></span><span style="color:#9ECBFF">/dev/null</span><span style="color:#F97583"> |</span><span style="color:#B392F0"> grep</span><span style="color:#9ECBFF"> '/com.spotify.Client/.*/files/extra/share/spotify$'</span></span></code></pre>
+<p>例如可能得到：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">/home/ogumo/.local/share/flatpak/app/com.spotify.Client/x86_64/stable/哈希值/files/extra/share/spotify</span></span></code></pre>
+<hr>
+<h2 id="3-设置-spotify_path">3. 设置 <code>spotify_path</code></h2>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">spicetify</span><span style="color:#9ECBFF"> config</span><span style="color:#9ECBFF"> spotify_path</span><span style="color:#9ECBFF"> 你上一步找到的路径</span></span></code></pre>
+<p>例如：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">spicetify</span><span style="color:#9ECBFF"> config</span><span style="color:#9ECBFF"> spotify_path</span><span style="color:#9ECBFF"> /home/ogumo/.local/share/flatpak/app/com.spotify.Client/x86_64/stable/d5ba61e0e06ba34e0dd2f9bd61c71fd1f41db0e2dfcafb4043856623458b6076/files/extra/share/spotify</span></span></code></pre>
+<hr>
+<h2 id="4-检查配置">4. 检查配置</h2>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">spicetify</span><span style="color:#9ECBFF"> config</span></span></code></pre>
+<p>至少确认这两项正确：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="ini"><code><span class="line"><span style="color:#F97583">prefs_path</span><span style="color:#E1E4E8"> = /home/ogumo/.var/app/com.spotify.Client/config/spotify/prefs</span></span>
+<span class="line"><span style="color:#F97583">spotify_path</span><span style="color:#E1E4E8"> = /home/ogumo/.local/share/flatpak/app/com.spotify.Client/.../files/extra/share/spotify</span></span></code></pre>
+<hr>
+<h1 id="三应用-spicetify">三、应用 Spicetify</h1>
+<p>先关闭 Spotify：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">flatpak</span><span style="color:#9ECBFF"> kill</span><span style="color:#9ECBFF"> com.spotify.Client</span><span style="color:#F97583"> 2></span><span style="color:#9ECBFF">/dev/null</span></span>
+<span class="line"><span style="color:#B392F0">pkill</span><span style="color:#9ECBFF"> spotify</span><span style="color:#F97583"> 2></span><span style="color:#9ECBFF">/dev/null</span></span></code></pre>
+<p>首次应用：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">spicetify</span><span style="color:#9ECBFF"> backup</span><span style="color:#9ECBFF"> apply</span></span></code></pre>
+<p>如果已经做过备份并应用过，再用：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">spicetify</span><span style="color:#9ECBFF"> apply</span></span></code></pre>
+<hr>
+<h2 id="常见错误permission-denied">常见错误：<code>permission denied</code></h2>
+<p>如果报类似：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">fatal</span><span style="color:#9ECBFF"> unlinkat</span><span style="color:#9ECBFF"> ...</span><span style="color:#9ECBFF"> permission</span><span style="color:#9ECBFF"> denied</span></span></code></pre>
+<p>说明你在改系统级 Flatpak 路径 <code>/var/lib/flatpak/...</code>。<br>
+解决方法：<strong>改用用户级 Flatpak 安装</strong>。</p>
+<hr>
+<h1 id="四安装-marketplace">四、安装 Marketplace</h1>
+<p>安装脚本：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">curl</span><span style="color:#79B8FF"> -fsSL</span><span style="color:#9ECBFF"> https://raw.githubusercontent.com/spicetify/marketplace/main/resources/install.sh</span><span style="color:#F97583"> |</span><span style="color:#B392F0"> sh</span></span></code></pre>
+<p>再应用：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">spicetify</span><span style="color:#9ECBFF"> apply</span></span></code></pre>
+<p>检查 Marketplace 是否存在：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">ls</span><span style="color:#9ECBFF"> ~/.config/spicetify/CustomApps</span></span></code></pre>
+<p>应看到：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">marketplace</span></span></code></pre>
+<hr>
+<h1 id="五关于没有任何样式变化">五、关于“没有任何样式变化”</h1>
+<p>这通常不是失败，而是：</p>
+<ul>
+<li>Spicetify 已经生效</li>
+<li>但你装的是 Marketplace，不是明显换皮肤的主题</li>
+</ul>
+<p>Marketplace 更像“主题/扩展商店”，不会自动把界面改得很夸张。</p>
+<p>如果想要明显变化：</p>
+<ol>
+<li>打开 Spotify</li>
+<li>进入 Marketplace</li>
+<li>安装一个主题</li>
+</ol>
+<p>也可以看本地主题：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">ls</span><span style="color:#9ECBFF"> ~/.config/spicetify/Themes</span></span></code></pre>
+<hr>
+<h1 id="六gnome-wayland-下-spotify-蓝色系统边框修复">六、GNOME Wayland 下 Spotify 蓝色系统边框修复</h1>
+<h2 id="问题现象">问题现象</h2>
+<p>Spotify 更新后，在 GNOME Wayland 下出现很丑的系统标题栏/蓝色边框。<br>
+这不是 Spicetify 的问题，而是 Spotify 窗口行为更新导致的。</p>
+<hr>
+<h2 id="解决思路">解决思路</h2>
+<p>对 Flatpak Spotify 的桌面启动器加参数，强制它走 X11/XWayland：</p>
+<ul>
+<li><code>WAYLAND_DISPLAY=</code></li>
+<li><code>--ozone-platform=x11</code></li>
+<li><code>--disable-features=UseOzonePlatform</code></li>
+</ul>
+<hr>
+<h2 id="1-找到并复制-desktop-文件">1. 找到并复制 desktop 文件</h2>
+<p>用户级 Flatpak 一般用这个：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#F97583">~</span><span style="color:#E1E4E8">/.local/share/flatpak/exports/share/applications/com.spotify.Client.desktop</span></span></code></pre>
+<p>复制到本地应用目录：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">mkdir</span><span style="color:#79B8FF"> -p</span><span style="color:#9ECBFF"> ~/.local/share/applications</span></span>
+<span class="line"><span style="color:#B392F0">cp</span><span style="color:#9ECBFF"> ~/.local/share/flatpak/exports/share/applications/com.spotify.Client.desktop</span><span style="color:#9ECBFF"> ~/.local/share/applications/</span></span></code></pre>
+<hr>
+<h2 id="2-确认原始-exec">2. 确认原始 <code>Exec=</code></h2>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">grep</span><span style="color:#9ECBFF"> '^Exec='</span><span style="color:#9ECBFF"> ~/.local/share/applications/com.spotify.Client.desktop</span></span></code></pre>
+<p>原始内容一般像这样：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="ini"><code><span class="line"><span style="color:#F97583">Exec</span><span style="color:#E1E4E8">=/usr/bin/flatpak run --</span><span style="color:#F97583">branch</span><span style="color:#E1E4E8">=stable --</span><span style="color:#F97583">arch</span><span style="color:#E1E4E8">=x86_64 --</span><span style="color:#F97583">command</span><span style="color:#E1E4E8">=spotify --file-forwarding com.spotify.Client @@u %U @@</span></span></code></pre>
+<hr>
+<h2 id="3-备份-desktop-文件">3. 备份 desktop 文件</h2>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">cp</span><span style="color:#9ECBFF"> ~/.local/share/applications/com.spotify.Client.desktop</span><span style="color:#9ECBFF"> ~/.local/share/applications/com.spotify.Client.desktop.bak</span></span></code></pre>
+<hr>
+<h2 id="4-修改-exec">4. 修改 <code>Exec=</code></h2>
+<p>执行：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">sed</span><span style="color:#79B8FF"> -i</span><span style="color:#9ECBFF"> 's#^Exec=.*#Exec=env WAYLAND_DISPLAY= /usr/bin/flatpak run --branch=stable --arch=x86_64 --command=spotify com.spotify.Client --ozone-platform=x11 --disable-features=UseOzonePlatform %U#'</span><span style="color:#9ECBFF"> ~/.local/share/applications/com.spotify.Client.desktop</span></span></code></pre>
+<p>检查是否写入成功：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">grep</span><span style="color:#9ECBFF"> '^Exec='</span><span style="color:#9ECBFF"> ~/.local/share/applications/com.spotify.Client.desktop</span></span></code></pre>
+<p>应看到：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="ini"><code><span class="line"><span style="color:#F97583">Exec</span><span style="color:#E1E4E8">=env </span><span style="color:#F97583">WAYLAND_DISPLAY</span><span style="color:#E1E4E8">= /usr/bin/flatpak run --</span><span style="color:#F97583">branch</span><span style="color:#E1E4E8">=stable --</span><span style="color:#F97583">arch</span><span style="color:#E1E4E8">=x86_64 --</span><span style="color:#F97583">command</span><span style="color:#E1E4E8">=spotify com.spotify.Client --</span><span style="color:#F97583">ozone-platform</span><span style="color:#E1E4E8">=x11 --</span><span style="color:#F97583">disable-features</span><span style="color:#E1E4E8">=UseOzonePlatform %U</span></span></code></pre>
+<hr>
+<h2 id="5-刷新缓存并关闭-spotify">5. 刷新缓存并关闭 Spotify</h2>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">update-desktop-database</span><span style="color:#9ECBFF"> ~/.local/share/applications</span><span style="color:#F97583"> 2></span><span style="color:#9ECBFF">/dev/null</span></span>
+<span class="line"><span style="color:#B392F0">flatpak</span><span style="color:#9ECBFF"> kill</span><span style="color:#9ECBFF"> com.spotify.Client</span><span style="color:#F97583"> 2></span><span style="color:#9ECBFF">/dev/null</span></span>
+<span class="line"><span style="color:#B392F0">pkill</span><span style="color:#9ECBFF"> spotify</span><span style="color:#F97583"> 2></span><span style="color:#9ECBFF">/dev/null</span></span></code></pre>
+<hr>
+<h2 id="6-启动测试">6. 启动测试</h2>
+<p>可以先用：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">gtk-launch</span><span style="color:#9ECBFF"> com.spotify.Client</span></span></code></pre>
+<p>如果这样启动标题栏正常，说明修复成功。</p>
+<p>之后从 GNOME 应用菜单打开 Spotify 即可。</p>
+<hr>
+<h2 id="7-如果图标启动还是旧效果">7. 如果图标启动还是旧效果</h2>
+<p>这通常是 GNOME/Dock 缓存问题。</p>
+<p>解决办法：</p>
+<ul>
+<li>把 Dock 上旧的 Spotify 图标取消固定</li>
+<li>从应用菜单重新打开</li>
+<li>再重新固定</li>
+</ul>
+<p>或者简单移动/刷新图标，有时也会生效。</p>
+<hr>
+<h2 id="8-恢复默认启动方式">8. 恢复默认启动方式</h2>
+<p>如果以后想恢复：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">cp</span><span style="color:#9ECBFF"> ~/.local/share/applications/com.spotify.Client.desktop.bak</span><span style="color:#9ECBFF"> ~/.local/share/applications/com.spotify.Client.desktop</span></span>
+<span class="line"><span style="color:#B392F0">update-desktop-database</span><span style="color:#9ECBFF"> ~/.local/share/applications</span><span style="color:#F97583"> 2></span><span style="color:#9ECBFF">/dev/null</span></span></code></pre>
+<hr>
+<h1 id="七常用检查命令">七、常用检查命令</h1>
+<h2 id="查看-spicetify-配置">查看 Spicetify 配置</h2>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">spicetify</span><span style="color:#9ECBFF"> config</span></span></code></pre>
+<h2 id="查看-marketplace-是否安装">查看 Marketplace 是否安装</h2>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">ls</span><span style="color:#9ECBFF"> ~/.config/spicetify/CustomApps</span></span></code></pre>
+<h2 id="查看主题列表">查看主题列表</h2>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">ls</span><span style="color:#9ECBFF"> ~/.config/spicetify/Themes</span></span></code></pre>
+<h2 id="查看当前-desktop-启动参数">查看当前 desktop 启动参数</h2>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">grep</span><span style="color:#9ECBFF"> '^Exec='</span><span style="color:#9ECBFF"> ~/.local/share/applications/com.spotify.Client.desktop</span></span></code></pre>
+<h2 id="查找-spotify-的-desktop-文件">查找 Spotify 的 desktop 文件</h2>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">find</span><span style="color:#9ECBFF"> /var/lib/flatpak</span><span style="color:#9ECBFF"> ~/.local/share/flatpak</span><span style="color:#9ECBFF"> /var/lib/flatpak/exports</span><span style="color:#9ECBFF"> ~/.local/share/flatpak/exports</span><span style="color:#79B8FF"> -name</span><span style="color:#9ECBFF"> 'com.spotify.Client.desktop'</span><span style="color:#F97583"> 2></span><span style="color:#9ECBFF">/dev/null</span></span></code></pre>
+<hr>
+<h1 id="八最终关键命令汇总">八、最终关键命令汇总</h1>
+<h2 id="spicetify-配置">Spicetify 配置</h2>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">spicetify</span><span style="color:#9ECBFF"> config</span><span style="color:#9ECBFF"> prefs_path</span><span style="color:#9ECBFF"> /home/ogumo/.var/app/com.spotify.Client/config/spotify/prefs</span></span>
+<span class="line"><span style="color:#B392F0">spicetify</span><span style="color:#9ECBFF"> config</span><span style="color:#9ECBFF"> spotify_path</span><span style="color:#9ECBFF"> /home/ogumo/.local/share/flatpak/app/com.spotify.Client/x86_64/stable/你的哈希/files/extra/share/spotify</span></span></code></pre>
+<h2 id="首次应用">首次应用</h2>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">flatpak</span><span style="color:#9ECBFF"> kill</span><span style="color:#9ECBFF"> com.spotify.Client</span><span style="color:#F97583"> 2></span><span style="color:#9ECBFF">/dev/null</span></span>
+<span class="line"><span style="color:#B392F0">pkill</span><span style="color:#9ECBFF"> spotify</span><span style="color:#F97583"> 2></span><span style="color:#9ECBFF">/dev/null</span></span>
+<span class="line"><span style="color:#B392F0">spicetify</span><span style="color:#9ECBFF"> backup</span><span style="color:#9ECBFF"> apply</span></span></code></pre>
+<h2 id="之后重新应用">之后重新应用</h2>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">spicetify</span><span style="color:#9ECBFF"> apply</span></span></code></pre>
+<h2 id="安装-marketplace">安装 Marketplace</h2>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">curl</span><span style="color:#79B8FF"> -fsSL</span><span style="color:#9ECBFF"> https://raw.githubusercontent.com/spicetify/marketplace/main/resources/install.sh</span><span style="color:#F97583"> |</span><span style="color:#B392F0"> sh</span></span>
+<span class="line"><span style="color:#B392F0">spicetify</span><span style="color:#9ECBFF"> apply</span></span></code></pre>
+<h2 id="修复-gnome-蓝色标题栏">修复 GNOME 蓝色标题栏</h2>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">mkdir</span><span style="color:#79B8FF"> -p</span><span style="color:#9ECBFF"> ~/.local/share/applications</span></span>
+<span class="line"><span style="color:#B392F0">cp</span><span style="color:#9ECBFF"> ~/.local/share/flatpak/exports/share/applications/com.spotify.Client.desktop</span><span style="color:#9ECBFF"> ~/.local/share/applications/</span></span>
+<span class="line"><span style="color:#B392F0">cp</span><span style="color:#9ECBFF"> ~/.local/share/applications/com.spotify.Client.desktop</span><span style="color:#9ECBFF"> ~/.local/share/applications/com.spotify.Client.desktop.bak</span></span>
+<span class="line"><span style="color:#B392F0">sed</span><span style="color:#79B8FF"> -i</span><span style="color:#9ECBFF"> 's#^Exec=.*#Exec=env WAYLAND_DISPLAY= /usr/bin/flatpak run --branch=stable --arch=x86_64 --command=spotify com.spotify.Client --ozone-platform=x11 --disable-features=UseOzonePlatform %U#'</span><span style="color:#9ECBFF"> ~/.local/share/applications/com.spotify.Client.desktop</span></span>
+<span class="line"><span style="color:#B392F0">update-desktop-database</span><span style="color:#9ECBFF"> ~/.local/share/applications</span><span style="color:#F97583"> 2></span><span style="color:#9ECBFF">/dev/null</span></span>
+<span class="line"><span style="color:#B392F0">flatpak</span><span style="color:#9ECBFF"> kill</span><span style="color:#9ECBFF"> com.spotify.Client</span><span style="color:#F97583"> 2></span><span style="color:#9ECBFF">/dev/null</span></span></code></pre>
+<p>测试启动：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">gtk-launch</span><span style="color:#9ECBFF"> com.spotify.Client</span></span></code></pre>
+<hr>
+<h1 id="九经验总结">九、经验总结</h1>
+<h2 id="这次问题的本质">这次问题的本质</h2>
+<ol>
+<li><strong>Spicetify 权限问题</strong>：因为最开始是系统级 Flatpak，普通用户不能修改 <code>/var/lib/flatpak/...</code></li>
+<li><strong>GNOME 标题栏问题</strong>：是 Spotify 更新后在 Wayland 下的窗口行为变化，不是 Spicetify 弄坏的</li>
+<li><strong>图标启动不生效</strong>：是 GNOME/Dock 缓存问题，不是修复失败</li>
+</ol>
+<hr>
+<p>如果你愿意，我还可以再帮你把这份笔记整理成一个更短的 <strong>“只保留关键命令版”速查表</strong>。</p>
+</article></main><footer data-astro-cid-jo6i4kqk><hr data-astro-cid-jo6i4kqk><div class="footer-inner" data-astro-cid-jo6i4kqk><small data-astro-cid-jo6i4kqk>&copy; 2025 ～ 2026 ogumo All rights reserved.</small></div></footer></body></html>

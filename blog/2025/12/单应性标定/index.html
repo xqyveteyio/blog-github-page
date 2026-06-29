@@ -1,0 +1,226 @@
+<!DOCTYPE html><html lang="en"><head><!-- Global Metadata --><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="icon" href="/favicon.ico"><link rel="sitemap" href="/sitemap-index.xml"><link rel="alternate" type="application/rss+xml" title="Ogumo Blog" href="https://keyboard2005.github.io/rss.xml"><meta name="generator" content="Astro v7.0.3"><!-- Canonical URL --><link rel="canonical" href="https://keyboard2005.github.io/blog/2025/12/%E5%8D%95%E5%BA%94%E6%80%A7%E6%A0%87%E5%AE%9A/"><!-- Primary Meta Tags --><title>单应性标定：从原理到实现</title><meta name="description" content="单应性标定：从原理到实现"><style>:root{--max-width:800px}body{margin:0;padding:0}.container{max-width:var(--max-width);margin:0 auto;padding:0 1em}main{max-width:var(--max-width);margin:0 auto;padding:1em}img{max-width:100%;height:auto}.sr-only{clip:rect(1px, 1px, 1px, 1px);clip-path:inset(50%);white-space:nowrap;border:0;width:1px;height:1px;margin:0;padding:0;overflow:hidden;position:absolute!important}footer[data-astro-cid-jo6i4kqk]{background-color:#f0f0f0;margin-top:2em}.footer-inner[data-astro-cid-jo6i4kqk]{max-width:800px;margin:0 auto;padding:.6em 1em}a[data-astro-cid-evkijfd6]{text-decoration:none;display:inline-block}a[data-astro-cid-evkijfd6].active{font-weight:bolder;text-decoration:underline}header[data-astro-cid-nen7h5rs]{background-color:#f0f0f0}.header-inner[data-astro-cid-nen7h5rs]{align-items:baseline;gap:1em;max-width:800px;margin:0 auto;padding:.6em 1em .4em;display:flex}.header-left[data-astro-cid-nen7h5rs],.header-right[data-astro-cid-nen7h5rs]{flex:1}.header-right[data-astro-cid-nen7h5rs]{justify-content:flex-end;display:flex}.search-wrap[data-astro-cid-nen7h5rs]{width:260px;max-width:260px;position:relative}.search-wrap[data-astro-cid-nen7h5rs] input[data-astro-cid-nen7h5rs]{box-sizing:border-box;border:1px solid #ccc;border-radius:4px;width:100%;padding:.3em .6em;font-size:.9em}.search-results[data-astro-cid-nen7h5rs]{z-index:100;background:#fff;border:1px solid #ccc;border-radius:4px;max-height:320px;margin:0;padding:0;list-style:none;position:absolute;top:calc(100% + 4px);left:0;right:0;overflow-y:auto;box-shadow:0 4px 12px #0000001f}.search-results[data-astro-cid-nen7h5rs][hidden]{display:none}.search-results[data-astro-cid-nen7h5rs] li[data-astro-cid-nen7h5rs] a[data-astro-cid-nen7h5rs]{color:inherit;padding:.5em .8em;text-decoration:none;display:block}.search-results[data-astro-cid-nen7h5rs] li[data-astro-cid-nen7h5rs] a[data-astro-cid-nen7h5rs]:hover,.search-results[data-astro-cid-nen7h5rs] li[data-astro-cid-nen7h5rs].active a[data-astro-cid-nen7h5rs]{background-color:#f0f0f0}.search-results[data-astro-cid-nen7h5rs] .result-title[data-astro-cid-nen7h5rs]{font-size:.9em;font-weight:600}.search-results[data-astro-cid-nen7h5rs] .result-desc[data-astro-cid-nen7h5rs]{color:#666;margin-top:2px;font-size:.78em}.search-results[data-astro-cid-nen7h5rs] .no-result[data-astro-cid-nen7h5rs]{color:#888;padding:.6em .8em;font-size:.88em}nav[data-astro-cid-nen7h5rs]{flex-shrink:0;gap:1em;display:flex}hr[data-astro-cid-nen7h5rs]{margin:0}
+</style></head><body><header data-astro-cid-nen7h5rs><div class="header-inner" data-astro-cid-nen7h5rs><div class="header-left" data-astro-cid-nen7h5rs><strong data-astro-cid-nen7h5rs><a href="/" data-astro-cid-nen7h5rs>Ogumo Blog</a></strong></div><div class="search-wrap" data-astro-cid-nen7h5rs><input id="search-input" type="search" placeholder="搜索... (Ctrl+K)" autocomplete="off" data-astro-cid-nen7h5rs><ul id="search-results" class="search-results" hidden data-astro-cid-nen7h5rs></ul></div><div class="header-right" data-astro-cid-nen7h5rs><nav data-astro-cid-nen7h5rs><a href="/" data-astro-cid-nen7h5rs="true" data-astro-cid-evkijfd6>Home</a><a href="/blog" class="active" data-astro-cid-nen7h5rs="true" data-astro-cid-evkijfd6>Blog</a></nav></div></div><hr data-astro-cid-nen7h5rs></header><script type="module">(async()=>{let e=document.getElementById(`search-input`),t=document.getElementById(`search-results`);if(!e||!t)return;let n=[],r=null,i=-1;function a(){return r||(r=fetch(`/search.json`).then(e=>e.json()).then(e=>{n=e}).catch(()=>{}),r)}function o(e,t){if(!t)return s(e);let n=t.replace(/[.*+?^${}()|[\]\\]/g,`\\$&`);return s(e).replace(RegExp(`(${n})`,`gi`),`<mark>$1</mark>`)}function s(e){return e.replace(/&/g,`&amp;`).replace(/</g,`&lt;`).replace(/>/g,`&gt;`)}function c(e,t){if(!e)return``;let n=t.toLowerCase(),r=e.toLowerCase().indexOf(n);if(r===-1)return s(e.slice(0,80))+`…`;let i=Math.max(0,r-30),a=Math.min(e.length,r+t.length+60);return o((i>0?`…`:``)+e.slice(i,a)+(a<e.length?`…`:``),t)}async function l(e){let r=e.trim().toLowerCase();if(!r){t.hidden=!0;return}await a();let l=n.filter(e=>e.title.toLowerCase().includes(r)||e.description.toLowerCase().includes(r)||e.body.toLowerCase().includes(r));if(t.innerHTML=``,i=-1,l.length===0){let e=document.createElement(`li`);e.className=`no-result`,e.textContent=`没有找到相关文章`,t.appendChild(e)}else l.forEach(n=>{let i=!n.title.toLowerCase().includes(r)&&!n.description.toLowerCase().includes(r)?c(n.body,e.trim()):s(n.description),a=document.createElement(`li`),l=document.createElement(`a`);l.href=`/blog/${n.id}/`,l.innerHTML=`
+						<div class="result-title">${o(n.title,e.trim())}</div>
+						<div class="result-desc">${i}</div>
+					`,a.appendChild(l),t.appendChild(a)});t.hidden=!1}function u(e){t.querySelectorAll(`li:not(.no-result)`).forEach((t,n)=>t.classList.toggle(`active`,n===e)),i=e}e.addEventListener(`focus`,()=>a()),e.addEventListener(`input`,()=>{l(e.value)}),e.addEventListener(`keydown`,n=>{let r=t.querySelectorAll(`li:not(.no-result)`);if(n.key===`ArrowDown`)n.preventDefault(),u(Math.min(i+1,r.length-1));else if(n.key===`ArrowUp`)n.preventDefault(),u(Math.max(i-1,0));else if(n.key===`Enter`){if(i>=0&&r[i]){let e=r[i].querySelector(`a`);e&&(window.location.href=e.href)}}else n.key===`Escape`&&(t.hidden=!0,e.blur())}),document.addEventListener(`keydown`,t=>{(t.ctrlKey||t.metaKey)&&t.key===`k`&&(t.preventDefault(),e.focus(),e.select())}),document.addEventListener(`click`,n=>{!e.contains(n.target)&&!t.contains(n.target)&&(t.hidden=!0)})})();</script><main><article><h1>单应性标定：从原理到实现</h1><p><small><time datetime="2025-12-17T17:00:00.000Z">2025年12月17日</time></small></p><hr><h2 id="什么是单应性">什么是单应性</h2>
+<p>单应性（Homography）是计算机视觉中的核心概念，描述了<strong>同一平面</strong>在两个不同视角下的坐标变换关系。简单理解：当你拍摄一张纸，然后换个角度再拍一张，这两张图像之间的像素对应关系就是单应性。</p>
+<h2 id="核心原理">核心原理</h2>
+<h3 id="数学表达">数学表达</h3>
+<p>单应性用3×3矩阵H表示：</p>
+<p>$$
+\mathbf{x’} = H \mathbf{x}
+$$</p>
+<p>其中：
+$$
+\mathbf{x’} = \begin{bmatrix} x’ \ y’ \ 1 \end{bmatrix}, \quad
+H = \begin{bmatrix}
+h_{11} &amp; h_{12} &amp; h_{13} \
+h_{21} &amp; h_{22} &amp; h_{23} \
+h_{31} &amp; h_{32} &amp; h_{33}
+\end{bmatrix}, \quad
+\mathbf{x} = \begin{bmatrix} x \ y \ 1 \end{bmatrix}
+$$</p>
+<p>归一化后得到：
+$$
+x’ = \frac{h_{11}x + h_{12}y + h_{13}}{h_{31}x + h_{32}y + h_{33}}, \quad
+y’ = \frac{h_{21}x + h_{22}y + h_{23}}{h_{31}x + h_{32}y + h_{33}}
+$$</p>
+<p>其中$(x,y)$是原图像坐标，$(x’,y’)$是目标图像坐标。</p>
+<h3 id="标定原理">标定原理</h3>
+<ol>
+<li><strong>收集对应点对</strong>：至少需要4对匹配点</li>
+<li><strong>构建线性方程组</strong>：每对点贡献2个方程</li>
+<li><strong>求解矩阵H</strong>：使用最小二乘法或SVD分解</li>
+</ol>
+<h2 id="python实现">Python实现</h2>
+<h3 id="基础实现">基础实现</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> cv2</span></span>
+<span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> numpy </span><span style="color:#F97583">as</span><span style="color:#E1E4E8"> np</span></span>
+<span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> matplotlib.pyplot </span><span style="color:#F97583">as</span><span style="color:#E1E4E8"> plt</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">def</span><span style="color:#B392F0"> homography_calibration</span><span style="color:#E1E4E8">(src_points, dst_points):</span></span>
+<span class="line"><span style="color:#9ECBFF">    """</span></span>
+<span class="line"><span style="color:#9ECBFF">    单应性标定</span></span>
+<span class="line"><span style="color:#9ECBFF">    </span></span>
+<span class="line"><span style="color:#9ECBFF">    Args:</span></span>
+<span class="line"><span style="color:#9ECBFF">        src_points: 源图像中的点 [[x1,y1], [x2,y2], ...]</span></span>
+<span class="line"><span style="color:#9ECBFF">        dst_points: 目标图像中的对应点</span></span>
+<span class="line"><span style="color:#9ECBFF">    </span></span>
+<span class="line"><span style="color:#9ECBFF">    Returns:</span></span>
+<span class="line"><span style="color:#9ECBFF">        H: 3x3单应性矩阵</span></span>
+<span class="line"><span style="color:#9ECBFF">    """</span></span>
+<span class="line"><span style="color:#6A737D">    # 转换为numpy数组</span></span>
+<span class="line"><span style="color:#E1E4E8">    src </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> np.float32(src_points)</span></span>
+<span class="line"><span style="color:#E1E4E8">    dst </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> np.float32(dst_points)</span></span>
+<span class="line"><span style="color:#E1E4E8">    </span></span>
+<span class="line"><span style="color:#6A737D">    # 计算单应性矩阵</span></span>
+<span class="line"><span style="color:#E1E4E8">    H </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> cv2.findHomography(src, dst, cv2.</span><span style="color:#79B8FF">RANSAC</span><span style="color:#E1E4E8">)[</span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">]</span></span>
+<span class="line"><span style="color:#E1E4E8">    </span></span>
+<span class="line"><span style="color:#F97583">    return</span><span style="color:#E1E4E8"> H</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">def</span><span style="color:#B392F0"> apply_homography</span><span style="color:#E1E4E8">(image, H, output_size):</span></span>
+<span class="line"><span style="color:#9ECBFF">    """</span></span>
+<span class="line"><span style="color:#9ECBFF">    应用单应性变换</span></span>
+<span class="line"><span style="color:#9ECBFF">    </span></span>
+<span class="line"><span style="color:#9ECBFF">    Args:</span></span>
+<span class="line"><span style="color:#9ECBFF">        image: 输入图像</span></span>
+<span class="line"><span style="color:#9ECBFF">        H: 单应性矩阵</span></span>
+<span class="line"><span style="color:#9ECBFF">        output_size: 输出图像大小 (width, height)</span></span>
+<span class="line"><span style="color:#9ECBFF">    </span></span>
+<span class="line"><span style="color:#9ECBFF">    Returns:</span></span>
+<span class="line"><span style="color:#9ECBFF">        warped_image: 变换后的图像</span></span>
+<span class="line"><span style="color:#9ECBFF">    """</span></span>
+<span class="line"><span style="color:#F97583">    return</span><span style="color:#E1E4E8"> cv2.warpPerspective(image, H, output_size)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 示例使用</span></span>
+<span class="line"><span style="color:#F97583">if</span><span style="color:#79B8FF"> __name__</span><span style="color:#F97583"> ==</span><span style="color:#9ECBFF"> "__main__"</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#6A737D">    # 创建示例数据</span></span>
+<span class="line"><span style="color:#6A737D">    # 假设我们有一个矩形在两个视角下的对应点</span></span>
+<span class="line"><span style="color:#E1E4E8">    src_points </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> [[</span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">], [</span><span style="color:#79B8FF">300</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">], [</span><span style="color:#79B8FF">300</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">200</span><span style="color:#E1E4E8">], [</span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">200</span><span style="color:#E1E4E8">]]    </span><span style="color:#6A737D"># 原始矩形</span></span>
+<span class="line"><span style="color:#E1E4E8">    dst_points </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> [[</span><span style="color:#79B8FF">50</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">30</span><span style="color:#E1E4E8">], [</span><span style="color:#79B8FF">250</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">20</span><span style="color:#E1E4E8">], [</span><span style="color:#79B8FF">280</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">180</span><span style="color:#E1E4E8">], [</span><span style="color:#79B8FF">20</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">190</span><span style="color:#E1E4E8">]] </span><span style="color:#6A737D"># 透视变形后的四边形</span></span>
+<span class="line"><span style="color:#E1E4E8">    </span></span>
+<span class="line"><span style="color:#6A737D">    # 计算单应性矩阵</span></span>
+<span class="line"><span style="color:#E1E4E8">    H </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> homography_calibration(src_points, dst_points)</span></span>
+<span class="line"><span style="color:#79B8FF">    print</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">"单应性矩阵:"</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#79B8FF">    print</span><span style="color:#E1E4E8">(H)</span></span>
+<span class="line"><span style="color:#E1E4E8">    </span></span>
+<span class="line"><span style="color:#6A737D">    # 创建测试图像</span></span>
+<span class="line"><span style="color:#E1E4E8">    test_image </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> np.zeros((</span><span style="color:#79B8FF">200</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">300</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">3</span><span style="color:#E1E4E8">), </span><span style="color:#FFAB70">dtype</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">np.uint8)</span></span>
+<span class="line"><span style="color:#E1E4E8">    cv2.rectangle(test_image, (</span><span style="color:#79B8FF">50</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">50</span><span style="color:#E1E4E8">), (</span><span style="color:#79B8FF">250</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">150</span><span style="color:#E1E4E8">), (</span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">255</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">), </span><span style="color:#79B8FF">3</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">    cv2.putText(test_image, </span><span style="color:#9ECBFF">'Original'</span><span style="color:#E1E4E8">, (</span><span style="color:#79B8FF">100</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">100</span><span style="color:#E1E4E8">), cv2.</span><span style="color:#79B8FF">FONT_HERSHEY_SIMPLEX</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">1</span><span style="color:#E1E4E8">, (</span><span style="color:#79B8FF">255</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">255</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">255</span><span style="color:#E1E4E8">), </span><span style="color:#79B8FF">2</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">    </span></span>
+<span class="line"><span style="color:#6A737D">    # 应用变换</span></span>
+<span class="line"><span style="color:#E1E4E8">    warped </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> apply_homography(test_image, H, (</span><span style="color:#79B8FF">300</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">200</span><span style="color:#E1E4E8">))</span></span>
+<span class="line"><span style="color:#E1E4E8">    </span></span>
+<span class="line"><span style="color:#6A737D">    # 显示结果</span></span>
+<span class="line"><span style="color:#E1E4E8">    plt.figure(</span><span style="color:#FFAB70">figsize</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">12</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">4</span><span style="color:#E1E4E8">))</span></span>
+<span class="line"><span style="color:#E1E4E8">    plt.subplot(</span><span style="color:#79B8FF">1</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">2</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">1</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">    plt.imshow(cv2.cvtColor(test_image, cv2.</span><span style="color:#79B8FF">COLOR_BGR2RGB</span><span style="color:#E1E4E8">))</span></span>
+<span class="line"><span style="color:#E1E4E8">    plt.title(</span><span style="color:#9ECBFF">'原始图像'</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">    plt.axis(</span><span style="color:#9ECBFF">'off'</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">    </span></span>
+<span class="line"><span style="color:#E1E4E8">    plt.subplot(</span><span style="color:#79B8FF">1</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">2</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">2</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">    plt.imshow(cv2.cvtColor(warped, cv2.</span><span style="color:#79B8FF">COLOR_BGR2RGB</span><span style="color:#E1E4E8">))</span></span>
+<span class="line"><span style="color:#E1E4E8">    plt.title(</span><span style="color:#9ECBFF">'单应性变换后'</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">    plt.axis(</span><span style="color:#9ECBFF">'off'</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">    </span></span>
+<span class="line"><span style="color:#E1E4E8">    plt.tight_layout()</span></span>
+<span class="line"><span style="color:#E1E4E8">    plt.show()</span></span></code></pre>
+<h3 id="进阶特征点匹配实现">进阶：特征点匹配实现</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#F97583">def</span><span style="color:#B392F0"> feature_based_homography</span><span style="color:#E1E4E8">(img1, img2, feature_type</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">'SIFT'</span><span style="color:#E1E4E8">):</span></span>
+<span class="line"><span style="color:#9ECBFF">    """</span></span>
+<span class="line"><span style="color:#9ECBFF">    基于特征点匹配的单应性标定</span></span>
+<span class="line"><span style="color:#9ECBFF">    </span></span>
+<span class="line"><span style="color:#9ECBFF">    Args:</span></span>
+<span class="line"><span style="color:#9ECBFF">        img1, img2: 输入图像</span></span>
+<span class="line"><span style="color:#9ECBFF">        feature_type: 特征检测器类型</span></span>
+<span class="line"><span style="color:#9ECBFF">    </span></span>
+<span class="line"><span style="color:#9ECBFF">    Returns:</span></span>
+<span class="line"><span style="color:#9ECBFF">        H: 单应性矩阵</span></span>
+<span class="line"><span style="color:#9ECBFF">        matches: 匹配点对</span></span>
+<span class="line"><span style="color:#9ECBFF">    """</span></span>
+<span class="line"><span style="color:#6A737D">    # 创建特征检测器</span></span>
+<span class="line"><span style="color:#F97583">    if</span><span style="color:#E1E4E8"> feature_type </span><span style="color:#F97583">==</span><span style="color:#9ECBFF"> 'SIFT'</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">        detector </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> cv2.SIFT_create()</span></span>
+<span class="line"><span style="color:#F97583">    elif</span><span style="color:#E1E4E8"> feature_type </span><span style="color:#F97583">==</span><span style="color:#9ECBFF"> 'ORB'</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">        detector </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> cv2.ORB_create()</span></span>
+<span class="line"><span style="color:#E1E4E8">    </span></span>
+<span class="line"><span style="color:#6A737D">    # 检测关键点和描述符</span></span>
+<span class="line"><span style="color:#E1E4E8">    kp1, des1 </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> detector.detectAndCompute(img1, </span><span style="color:#79B8FF">None</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">    kp2, des2 </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> detector.detectAndCompute(img2, </span><span style="color:#79B8FF">None</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">    </span></span>
+<span class="line"><span style="color:#6A737D">    # 特征匹配</span></span>
+<span class="line"><span style="color:#F97583">    if</span><span style="color:#E1E4E8"> feature_type </span><span style="color:#F97583">==</span><span style="color:#9ECBFF"> 'SIFT'</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">        matcher </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> cv2.BFMatcher()</span></span>
+<span class="line"><span style="color:#E1E4E8">        matches </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> matcher.knnMatch(des1, des2, </span><span style="color:#FFAB70">k</span><span style="color:#F97583">=</span><span style="color:#79B8FF">2</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#6A737D">        # 筛选好的匹配</span></span>
+<span class="line"><span style="color:#E1E4E8">        good_matches </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> []</span></span>
+<span class="line"><span style="color:#F97583">        for</span><span style="color:#E1E4E8"> m, n </span><span style="color:#F97583">in</span><span style="color:#E1E4E8"> matches:</span></span>
+<span class="line"><span style="color:#F97583">            if</span><span style="color:#E1E4E8"> m.distance </span><span style="color:#F97583">&#x3C;</span><span style="color:#79B8FF"> 0.7</span><span style="color:#F97583"> *</span><span style="color:#E1E4E8"> n.distance:</span></span>
+<span class="line"><span style="color:#E1E4E8">                good_matches.append(m)</span></span>
+<span class="line"><span style="color:#F97583">    else</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">        matcher </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> cv2.BFMatcher(cv2.</span><span style="color:#79B8FF">NORM_HAMMING</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">crossCheck</span><span style="color:#F97583">=</span><span style="color:#79B8FF">True</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">        good_matches </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> matcher.match(des1, des2)</span></span>
+<span class="line"><span style="color:#E1E4E8">        good_matches </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> sorted</span><span style="color:#E1E4E8">(good_matches, </span><span style="color:#FFAB70">key</span><span style="color:#F97583">=lambda</span><span style="color:#E1E4E8"> x: x.distance)</span></span>
+<span class="line"><span style="color:#E1E4E8">    </span></span>
+<span class="line"><span style="color:#6A737D">    # 提取匹配点坐标</span></span>
+<span class="line"><span style="color:#F97583">    if</span><span style="color:#79B8FF"> len</span><span style="color:#E1E4E8">(good_matches) </span><span style="color:#F97583">>=</span><span style="color:#79B8FF"> 4</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">        src_pts </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> np.float32([kp1[m.queryIdx].pt </span><span style="color:#F97583">for</span><span style="color:#E1E4E8"> m </span><span style="color:#F97583">in</span><span style="color:#E1E4E8"> good_matches]).reshape(</span><span style="color:#F97583">-</span><span style="color:#79B8FF">1</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">1</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">2</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">        dst_pts </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> np.float32([kp2[m.trainIdx].pt </span><span style="color:#F97583">for</span><span style="color:#E1E4E8"> m </span><span style="color:#F97583">in</span><span style="color:#E1E4E8"> good_matches]).reshape(</span><span style="color:#F97583">-</span><span style="color:#79B8FF">1</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">1</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">2</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">        </span></span>
+<span class="line"><span style="color:#6A737D">        # 计算单应性矩阵</span></span>
+<span class="line"><span style="color:#E1E4E8">        H, mask </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> cv2.findHomography(src_pts, dst_pts, cv2.</span><span style="color:#79B8FF">RANSAC</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">5.0</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#F97583">        return</span><span style="color:#E1E4E8"> H, good_matches</span></span>
+<span class="line"><span style="color:#F97583">    else</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#79B8FF">        print</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">"匹配点数量不足!"</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#F97583">        return</span><span style="color:#79B8FF"> None</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">None</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 使用示例</span></span>
+<span class="line"><span style="color:#F97583">def</span><span style="color:#B392F0"> demo_feature_matching</span><span style="color:#E1E4E8">():</span></span>
+<span class="line"><span style="color:#6A737D">    # 加载两张图像（需要替换为实际图像路径）</span></span>
+<span class="line"><span style="color:#6A737D">    # img1 = cv2.imread('image1.jpg', cv2.IMREAD_GRAYSCALE)</span></span>
+<span class="line"><span style="color:#6A737D">    # img2 = cv2.imread('image2.jpg', cv2.IMREAD_GRAYSCALE)</span></span>
+<span class="line"><span style="color:#E1E4E8">    </span></span>
+<span class="line"><span style="color:#6A737D">    # 创建模拟图像进行演示</span></span>
+<span class="line"><span style="color:#E1E4E8">    img1 </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> np.zeros((</span><span style="color:#79B8FF">400</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">400</span><span style="color:#E1E4E8">), </span><span style="color:#FFAB70">dtype</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">np.uint8)</span></span>
+<span class="line"><span style="color:#E1E4E8">    cv2.rectangle(img1, (</span><span style="color:#79B8FF">100</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">100</span><span style="color:#E1E4E8">), (</span><span style="color:#79B8FF">300</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">300</span><span style="color:#E1E4E8">), </span><span style="color:#79B8FF">255</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">2</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">    cv2.circle(img1, (</span><span style="color:#79B8FF">200</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">200</span><span style="color:#E1E4E8">), </span><span style="color:#79B8FF">50</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">128</span><span style="color:#E1E4E8">, </span><span style="color:#F97583">-</span><span style="color:#79B8FF">1</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">    </span></span>
+<span class="line"><span style="color:#6A737D">    # 创建变换后的图像</span></span>
+<span class="line"><span style="color:#E1E4E8">    H_demo </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> np.array([[</span><span style="color:#79B8FF">1.2</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">0.3</span><span style="color:#E1E4E8">, </span><span style="color:#F97583">-</span><span style="color:#79B8FF">50</span><span style="color:#E1E4E8">], [</span><span style="color:#F97583">-</span><span style="color:#79B8FF">0.1</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">1.1</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">30</span><span style="color:#E1E4E8">], [</span><span style="color:#79B8FF">0.001</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">0.002</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">1</span><span style="color:#E1E4E8">]])</span></span>
+<span class="line"><span style="color:#E1E4E8">    img2 </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> cv2.warpPerspective(img1, H_demo, (</span><span style="color:#79B8FF">400</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">400</span><span style="color:#E1E4E8">))</span></span>
+<span class="line"><span style="color:#E1E4E8">    </span></span>
+<span class="line"><span style="color:#6A737D">    # 添加一些噪声</span></span>
+<span class="line"><span style="color:#E1E4E8">    noise </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> np.random.randint(</span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">50</span><span style="color:#E1E4E8">, img2.shape, </span><span style="color:#FFAB70">dtype</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">np.uint8)</span></span>
+<span class="line"><span style="color:#E1E4E8">    img2 </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> cv2.add(img2, noise)</span></span>
+<span class="line"><span style="color:#E1E4E8">    </span></span>
+<span class="line"><span style="color:#6A737D">    # 计算单应性</span></span>
+<span class="line"><span style="color:#E1E4E8">    H, matches </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> feature_based_homography(img1, img2, </span><span style="color:#9ECBFF">'ORB'</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">    </span></span>
+<span class="line"><span style="color:#F97583">    if</span><span style="color:#E1E4E8"> H </span><span style="color:#F97583">is</span><span style="color:#F97583"> not</span><span style="color:#79B8FF"> None</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#79B8FF">        print</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">"检测到的单应性矩阵:"</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#79B8FF">        print</span><span style="color:#E1E4E8">(H)</span></span>
+<span class="line"><span style="color:#79B8FF">        print</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">f</span><span style="color:#9ECBFF">"匹配点数量: </span><span style="color:#79B8FF">{len</span><span style="color:#E1E4E8">(matches)</span><span style="color:#79B8FF">}</span><span style="color:#9ECBFF">"</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">        </span></span>
+<span class="line"><span style="color:#6A737D">        # 验证变换效果</span></span>
+<span class="line"><span style="color:#E1E4E8">        warped </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> cv2.warpPerspective(img1, H, (</span><span style="color:#79B8FF">400</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">400</span><span style="color:#E1E4E8">))</span></span>
+<span class="line"><span style="color:#E1E4E8">        </span></span>
+<span class="line"><span style="color:#E1E4E8">        plt.figure(</span><span style="color:#FFAB70">figsize</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">15</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">5</span><span style="color:#E1E4E8">))</span></span>
+<span class="line"><span style="color:#E1E4E8">        plt.subplot(</span><span style="color:#79B8FF">1</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">3</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">1</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">        plt.imshow(img1, </span><span style="color:#FFAB70">cmap</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">'gray'</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">        plt.title(</span><span style="color:#9ECBFF">'原始图像'</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">        plt.axis(</span><span style="color:#9ECBFF">'off'</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">        </span></span>
+<span class="line"><span style="color:#E1E4E8">        plt.subplot(</span><span style="color:#79B8FF">1</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">3</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">2</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">        plt.imshow(img2, </span><span style="color:#FFAB70">cmap</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">'gray'</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">        plt.title(</span><span style="color:#9ECBFF">'目标图像'</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">        plt.axis(</span><span style="color:#9ECBFF">'off'</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">        </span></span>
+<span class="line"><span style="color:#E1E4E8">        plt.subplot(</span><span style="color:#79B8FF">1</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">3</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">3</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">        plt.imshow(warped, </span><span style="color:#FFAB70">cmap</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">'gray'</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">        plt.title(</span><span style="color:#9ECBFF">'单应性变换结果'</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">        plt.axis(</span><span style="color:#9ECBFF">'off'</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">        </span></span>
+<span class="line"><span style="color:#E1E4E8">        plt.tight_layout()</span></span>
+<span class="line"><span style="color:#E1E4E8">        plt.show()</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># 运行演示</span></span>
+<span class="line"><span style="color:#F97583">if</span><span style="color:#79B8FF"> __name__</span><span style="color:#F97583"> ==</span><span style="color:#9ECBFF"> "__main__"</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">    demo_feature_matching()</span></span></code></pre>
+<h2 id="实际应用场景">实际应用场景</h2>
+<ol>
+<li><strong>图像拼接</strong>：全景照片制作</li>
+<li><strong>文档校正</strong>：倾斜文档的几何校正</li>
+<li><strong>增强现实</strong>：虚拟物体的透视匹配</li>
+<li><strong>相机标定</strong>：内参和外参估计</li>
+<li><strong>平面跟踪</strong>：广告牌、书页等平面目标跟踪</li>
+</ol>
+<h2 id="关键要点">关键要点</h2>
+<ul>
+<li><strong>平面假设</strong>：只适用于平面场景</li>
+<li><strong>点数要求</strong>：至少4对对应点</li>
+<li><strong>鲁棒性</strong>：使用RANSAC处理异常值</li>
+<li><strong>数值稳定性</strong>：注意矩阵条件数和归一化</li>
+</ul>
+<p>单应性标定看似复杂，但本质就是找到两个平面之间的投影变换关系。掌握了基本原理和实现，你就能在各种计算机视觉任务中灵活运用这个强大的工具！</p>
+</article></main><footer data-astro-cid-jo6i4kqk><hr data-astro-cid-jo6i4kqk><div class="footer-inner" data-astro-cid-jo6i4kqk><small data-astro-cid-jo6i4kqk>&copy; 2025 ～ 2026 ogumo All rights reserved.</small></div></footer></body></html>
