@@ -1,0 +1,295 @@
+<!DOCTYPE html><html lang="en"><head><!-- Global Metadata --><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="icon" href="/favicon.ico"><link rel="sitemap" href="/sitemap-index.xml"><link rel="alternate" type="application/rss+xml" title="Ogumo Blog" href="https://keyboard2005.github.io/rss.xml"><meta name="generator" content="Astro v7.0.3"><!-- Canonical URL --><link rel="canonical" href="https://keyboard2005.github.io/blog/2025/11/android-app-https-%E6%8A%93%E5%8C%85-ssl-pinning-%E7%BB%95%E8%BF%87/"><!-- Primary Meta Tags --><title>Android App HTTPS 抓包与 SSL Pinning 绕过实战指南</title><meta name="description" content="详细介绍如何使用 Frida 和 mitmproxy 对 Android App 进行 HTTPS 抓包分析,并绕过 SSL Pinning 证书校验机制"><style>:root{--max-width:800px}body{margin:0;padding:0}.container{max-width:var(--max-width);margin:0 auto;padding:0 1em}main{max-width:var(--max-width);margin:0 auto;padding:1em}img{max-width:100%;height:auto}.sr-only{clip:rect(1px, 1px, 1px, 1px);clip-path:inset(50%);white-space:nowrap;border:0;width:1px;height:1px;margin:0;padding:0;overflow:hidden;position:absolute!important}footer[data-astro-cid-jo6i4kqk]{background-color:#f0f0f0;margin-top:2em}.footer-inner[data-astro-cid-jo6i4kqk]{max-width:800px;margin:0 auto;padding:.6em 1em}a[data-astro-cid-evkijfd6]{text-decoration:none;display:inline-block}a[data-astro-cid-evkijfd6].active{font-weight:bolder;text-decoration:underline}header[data-astro-cid-nen7h5rs]{background-color:#f0f0f0}.header-inner[data-astro-cid-nen7h5rs]{align-items:baseline;gap:1em;max-width:800px;margin:0 auto;padding:.6em 1em .4em;display:flex}.header-left[data-astro-cid-nen7h5rs],.header-right[data-astro-cid-nen7h5rs]{flex:1}.header-right[data-astro-cid-nen7h5rs]{justify-content:flex-end;display:flex}.search-wrap[data-astro-cid-nen7h5rs]{width:260px;max-width:260px;position:relative}.search-wrap[data-astro-cid-nen7h5rs] input[data-astro-cid-nen7h5rs]{box-sizing:border-box;border:1px solid #ccc;border-radius:4px;width:100%;padding:.3em .6em;font-size:.9em}.search-results[data-astro-cid-nen7h5rs]{z-index:100;background:#fff;border:1px solid #ccc;border-radius:4px;max-height:320px;margin:0;padding:0;list-style:none;position:absolute;top:calc(100% + 4px);left:0;right:0;overflow-y:auto;box-shadow:0 4px 12px #0000001f}.search-results[data-astro-cid-nen7h5rs][hidden]{display:none}.search-results[data-astro-cid-nen7h5rs] li[data-astro-cid-nen7h5rs] a[data-astro-cid-nen7h5rs]{color:inherit;padding:.5em .8em;text-decoration:none;display:block}.search-results[data-astro-cid-nen7h5rs] li[data-astro-cid-nen7h5rs] a[data-astro-cid-nen7h5rs]:hover,.search-results[data-astro-cid-nen7h5rs] li[data-astro-cid-nen7h5rs].active a[data-astro-cid-nen7h5rs]{background-color:#f0f0f0}.search-results[data-astro-cid-nen7h5rs] .result-title[data-astro-cid-nen7h5rs]{font-size:.9em;font-weight:600}.search-results[data-astro-cid-nen7h5rs] .result-desc[data-astro-cid-nen7h5rs]{color:#666;margin-top:2px;font-size:.78em}.search-results[data-astro-cid-nen7h5rs] .no-result[data-astro-cid-nen7h5rs]{color:#888;padding:.6em .8em;font-size:.88em}nav[data-astro-cid-nen7h5rs]{flex-shrink:0;gap:1em;display:flex}hr[data-astro-cid-nen7h5rs]{margin:0}
+</style></head><body><header data-astro-cid-nen7h5rs><div class="header-inner" data-astro-cid-nen7h5rs><div class="header-left" data-astro-cid-nen7h5rs><strong data-astro-cid-nen7h5rs><a href="/" data-astro-cid-nen7h5rs>Ogumo Blog</a></strong></div><div class="search-wrap" data-astro-cid-nen7h5rs><input id="search-input" type="search" placeholder="搜索... (Ctrl+K)" autocomplete="off" data-astro-cid-nen7h5rs><ul id="search-results" class="search-results" hidden data-astro-cid-nen7h5rs></ul></div><div class="header-right" data-astro-cid-nen7h5rs><nav data-astro-cid-nen7h5rs><a href="/" data-astro-cid-nen7h5rs="true" data-astro-cid-evkijfd6>Home</a><a href="/blog" class="active" data-astro-cid-nen7h5rs="true" data-astro-cid-evkijfd6>Blog</a></nav></div></div><hr data-astro-cid-nen7h5rs></header><script type="module">(async()=>{let e=document.getElementById(`search-input`),t=document.getElementById(`search-results`);if(!e||!t)return;let n=[],r=null,i=-1;function a(){return r||(r=fetch(`/search.json`).then(e=>e.json()).then(e=>{n=e}).catch(()=>{}),r)}function o(e,t){if(!t)return s(e);let n=t.replace(/[.*+?^${}()|[\]\\]/g,`\\$&`);return s(e).replace(RegExp(`(${n})`,`gi`),`<mark>$1</mark>`)}function s(e){return e.replace(/&/g,`&amp;`).replace(/</g,`&lt;`).replace(/>/g,`&gt;`)}function c(e,t){if(!e)return``;let n=t.toLowerCase(),r=e.toLowerCase().indexOf(n);if(r===-1)return s(e.slice(0,80))+`…`;let i=Math.max(0,r-30),a=Math.min(e.length,r+t.length+60);return o((i>0?`…`:``)+e.slice(i,a)+(a<e.length?`…`:``),t)}async function l(e){let r=e.trim().toLowerCase();if(!r){t.hidden=!0;return}await a();let l=n.filter(e=>e.title.toLowerCase().includes(r)||e.description.toLowerCase().includes(r)||e.body.toLowerCase().includes(r));if(t.innerHTML=``,i=-1,l.length===0){let e=document.createElement(`li`);e.className=`no-result`,e.textContent=`没有找到相关文章`,t.appendChild(e)}else l.forEach(n=>{let i=!n.title.toLowerCase().includes(r)&&!n.description.toLowerCase().includes(r)?c(n.body,e.trim()):s(n.description),a=document.createElement(`li`),l=document.createElement(`a`);l.href=`/blog/${n.id}/`,l.innerHTML=`
+						<div class="result-title">${o(n.title,e.trim())}</div>
+						<div class="result-desc">${i}</div>
+					`,a.appendChild(l),t.appendChild(a)});t.hidden=!1}function u(e){t.querySelectorAll(`li:not(.no-result)`).forEach((t,n)=>t.classList.toggle(`active`,n===e)),i=e}e.addEventListener(`focus`,()=>a()),e.addEventListener(`input`,()=>{l(e.value)}),e.addEventListener(`keydown`,n=>{let r=t.querySelectorAll(`li:not(.no-result)`);if(n.key===`ArrowDown`)n.preventDefault(),u(Math.min(i+1,r.length-1));else if(n.key===`ArrowUp`)n.preventDefault(),u(Math.max(i-1,0));else if(n.key===`Enter`){if(i>=0&&r[i]){let e=r[i].querySelector(`a`);e&&(window.location.href=e.href)}}else n.key===`Escape`&&(t.hidden=!0,e.blur())}),document.addEventListener(`keydown`,t=>{(t.ctrlKey||t.metaKey)&&t.key===`k`&&(t.preventDefault(),e.focus(),e.select())}),document.addEventListener(`click`,n=>{!e.contains(n.target)&&!t.contains(n.target)&&(t.hidden=!0)})})();</script><main><article><h1>Android App HTTPS 抓包与 SSL Pinning 绕过实战指南</h1><p><small><time datetime="2025-11-02T14:51:00.000Z">2025年11月2日</time></small></p><hr><h1 id="android-app-https-抓包与-ssl-pinning-绕过">Android App HTTPS 抓包与 SSL Pinning 绕过</h1>
+<p>本文将详细介绍如何搭建完整的 Android App HTTPS 抓包环境，并使用 Frida 动态注入技术绕过 SSL Pinning 证书校验机制。</p>
+<hr>
+<h2 id="1-环境准备">1. 环境准备</h2>
+<table>
+<thead>
+<tr>
+<th>组件</th>
+<th>版本要求</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Ubuntu / macOS / Windows</strong></td>
+<td>任意</td>
+<td>主机环境（安装 Frida、mitmproxy）</td>
+</tr>
+<tr>
+<td><strong>Android 模拟器</strong></td>
+<td>API 34</td>
+<td>运行目标 App</td>
+</tr>
+<tr>
+<td><strong>Frida</strong></td>
+<td>17.x+</td>
+<td>动态注入 / 绕过 SSL Pinning</td>
+</tr>
+<tr>
+<td><strong>mitmproxy</strong></td>
+<td>最新版</td>
+<td>HTTP/HTTPS 抓包分析器</td>
+</tr>
+</tbody>
+</table>
+<h3 id="安装必要工具">安装必要工具</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">pip</span><span style="color:#9ECBFF"> install</span><span style="color:#9ECBFF"> frida-tools</span><span style="color:#9ECBFF"> mitmproxy</span></span></code></pre>
+<hr>
+<h2 id="2-下载并配置-android-模拟器">2. 下载并配置 Android 模拟器</h2>
+<h3 id="21-安装-android-sdk-command-line-tools">2.1 安装 Android SDK Command-line Tools</h3>
+<ol>
+<li>
+<p>下载 <a href="https://developer.android.com/studio#command-tools">Android Command Line Tools</a></p>
+</li>
+<li>
+<p>解压并配置环境变量：</p>
+</li>
+</ol>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#F97583">export</span><span style="color:#E1E4E8"> ANDROID_HOME</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">$HOME/Android/Sdk</span></span>
+<span class="line"><span style="color:#F97583">export</span><span style="color:#E1E4E8"> PATH</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">$PATH:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$ANDROID_HOME/emulator</span></span></code></pre>
+<h3 id="22-下载系统镜像">2.2 下载系统镜像</h3>
+<p>使用 <code>sdkmanager</code> 下载 Android 34 (API Level 34) 的 x86_64 镜像：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">sdkmanager</span><span style="color:#9ECBFF"> "system-images;android-34;google_apis;x86_64"</span></span></code></pre>
+<p><strong>注意</strong>：选择 <code>google_apis</code> 而非 <code>google_apis_playstore</code>，后者限制较多，不便于 root 和注入操作。</p>
+<h3 id="23-创建-avd-android-virtual-device">2.3 创建 AVD (Android Virtual Device)</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">avdmanager</span><span style="color:#9ECBFF"> create</span><span style="color:#9ECBFF"> avd</span><span style="color:#79B8FF"> -n</span><span style="color:#9ECBFF"> Pixel_API_34</span><span style="color:#79B8FF"> \</span></span>
+<span class="line"><span style="color:#79B8FF">  -k</span><span style="color:#9ECBFF"> "system-images;android-34;google_apis;x86_64"</span><span style="color:#79B8FF"> \</span></span>
+<span class="line"><span style="color:#79B8FF">  --device</span><span style="color:#9ECBFF"> "pixel"</span></span></code></pre>
+<h3 id="24-启动模拟器可写系统分区">2.4 启动模拟器（可写系统分区）</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">emulator</span><span style="color:#79B8FF"> -avd</span><span style="color:#9ECBFF"> Pixel_API_34</span><span style="color:#79B8FF"> \</span></span>
+<span class="line"><span style="color:#79B8FF">  -no-snapshot</span><span style="color:#79B8FF"> \</span></span>
+<span class="line"><span style="color:#79B8FF">  -gpu</span><span style="color:#9ECBFF"> swiftshader_indirect</span><span style="color:#79B8FF"> \</span></span>
+<span class="line"><span style="color:#79B8FF">  -netdelay</span><span style="color:#9ECBFF"> none</span><span style="color:#79B8FF"> \</span></span>
+<span class="line"><span style="color:#79B8FF">  -netspeed</span><span style="color:#9ECBFF"> full</span><span style="color:#79B8FF"> \</span></span>
+<span class="line"><span style="color:#79B8FF">  -writable-system</span></span></code></pre>
+<p><strong>参数说明</strong>：</p>
+<ul>
+<li><code>-writable-system</code>：允许修改 /system 分区，用于安装证书</li>
+<li><code>-no-snapshot</code>：禁用快照，确保每次启动状态干净</li>
+<li><code>-gpu swiftshader_indirect</code>：使用软件渲染，兼容性更好</li>
+<li><code>-netdelay none -netspeed full</code>：移除网络延迟限制</li>
+</ul>
+<hr>
+<h2 id="3-准备-frida-server">3. 准备 frida-server</h2>
+<h3 id="31-下载对应版本的-frida-server">3.1 下载对应版本的 frida-server</h3>
+<p>前往 <a href="https://github.com/frida/frida/releases">Frida Releases</a> 下载与本机 frida-tools 版本一致的 <code>frida-server-android-x86_64</code>。</p>
+<p>查看本机 Frida 版本：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">frida</span><span style="color:#79B8FF"> --version</span></span></code></pre>
+<h3 id="32-推送到模拟器">3.2 推送到模拟器</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">adb</span><span style="color:#9ECBFF"> push</span><span style="color:#9ECBFF"> frida-server</span><span style="color:#9ECBFF"> /data/local/tmp/</span></span>
+<span class="line"><span style="color:#B392F0">adb</span><span style="color:#9ECBFF"> shell</span><span style="color:#9ECBFF"> "chmod 755 /data/local/tmp/frida-server"</span></span></code></pre>
+<h3 id="33-启动-frida-server">3.3 启动 frida-server</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">adb</span><span style="color:#9ECBFF"> shell</span><span style="color:#9ECBFF"> "/data/local/tmp/frida-server &#x26;"</span></span></code></pre>
+<p>验证运行状态：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">adb</span><span style="color:#9ECBFF"> shell</span><span style="color:#9ECBFF"> "ps | grep frida"</span></span></code></pre>
+<hr>
+<h2 id="4-配置代理与-mitmproxy">4. 配置代理与 mitmproxy</h2>
+<h3 id="41-启动-mitmproxy">4.1 启动 mitmproxy</h3>
+<p>在宿主机上启动代理服务：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">mitmproxy</span><span style="color:#79B8FF"> --listen-host</span><span style="color:#79B8FF"> 0.0.0.0</span><span style="color:#79B8FF"> --listen-port</span><span style="color:#79B8FF"> 8080</span></span></code></pre>
+<p>也可以使用 Web 界面版本：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">mitmweb</span><span style="color:#79B8FF"> --listen-host</span><span style="color:#79B8FF"> 0.0.0.0</span><span style="color:#79B8FF"> --listen-port</span><span style="color:#79B8FF"> 8080</span></span></code></pre>
+<h3 id="42-配置模拟器系统代理">4.2 配置模拟器系统代理</h3>
+<p>Android 模拟器访问宿主机使用特殊 IP <code>10.0.2.2</code>：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">adb</span><span style="color:#9ECBFF"> shell</span><span style="color:#9ECBFF"> settings</span><span style="color:#9ECBFF"> put</span><span style="color:#9ECBFF"> global</span><span style="color:#9ECBFF"> http_proxy</span><span style="color:#9ECBFF"> 10.0.2.2:8080</span></span></code></pre>
+<p>验证代理配置：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">adb</span><span style="color:#9ECBFF"> shell</span><span style="color:#9ECBFF"> settings</span><span style="color:#9ECBFF"> get</span><span style="color:#9ECBFF"> global</span><span style="color:#9ECBFF"> http_proxy</span></span>
+<span class="line"><span style="color:#6A737D"># 输出：10.0.2.2:8080</span></span></code></pre>
+<h3 id="43-安装-ca-证书">4.3 安装 CA 证书</h3>
+<ol>
+<li>
+<p>在模拟器浏览器中访问：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>http://mitm.it</span></span></code></pre>
+</li>
+<li>
+<p>选择 “Android” 下载证书</p>
+</li>
+<li>
+<p>安装证书到系统信任区（需要可写系统分区）</p>
+</li>
+</ol>
+<hr>
+<h2 id="5-准备-ssl-pinning-绕过脚本">5. 准备 SSL Pinning 绕过脚本</h2>
+<p>创建 <code>unpinning.js</code> 文件，用于 Hook Java 层的证书校验逻辑：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="javascript"><code><span class="line"><span style="color:#6A737D">// filepath: unpinning.js</span></span>
+<span class="line"><span style="color:#6A737D">// Frida script for bypassing SSL Pinning in Android apps</span></span>
+<span class="line"><span style="color:#E1E4E8">Java.</span><span style="color:#B392F0">perform</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">function</span><span style="color:#E1E4E8"> () {</span></span>
+<span class="line"><span style="color:#E1E4E8">    console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'[+] Starting SSL Pinning Bypass...'</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#E1E4E8">    </span></span>
+<span class="line"><span style="color:#F97583">    var</span><span style="color:#E1E4E8"> X509TrustManager </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> Java.</span><span style="color:#B392F0">use</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'javax.net.ssl.X509TrustManager'</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#F97583">    var</span><span style="color:#E1E4E8"> SSLContext </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> Java.</span><span style="color:#B392F0">use</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'javax.net.ssl.SSLContext'</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">    // Implement a new TrustManager to ignore cert errors</span></span>
+<span class="line"><span style="color:#F97583">    var</span><span style="color:#E1E4E8"> TrustAll </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> Java.</span><span style="color:#B392F0">registerClass</span><span style="color:#E1E4E8">({</span></span>
+<span class="line"><span style="color:#E1E4E8">        name: </span><span style="color:#9ECBFF">'org.hello.TrustAll'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">        implements: [X509TrustManager],</span></span>
+<span class="line"><span style="color:#E1E4E8">        methods: {</span></span>
+<span class="line"><span style="color:#B392F0">            checkClientTrusted</span><span style="color:#E1E4E8">: </span><span style="color:#F97583">function</span><span style="color:#E1E4E8"> (</span><span style="color:#FFAB70">chain</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">authType</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#E1E4E8">                console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'[+] checkClientTrusted bypassed'</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#E1E4E8">            },</span></span>
+<span class="line"><span style="color:#B392F0">            checkServerTrusted</span><span style="color:#E1E4E8">: </span><span style="color:#F97583">function</span><span style="color:#E1E4E8"> (</span><span style="color:#FFAB70">chain</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">authType</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#E1E4E8">                console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'[+] checkServerTrusted bypassed'</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#E1E4E8">            },</span></span>
+<span class="line"><span style="color:#B392F0">            getAcceptedIssuers</span><span style="color:#E1E4E8">: </span><span style="color:#F97583">function</span><span style="color:#E1E4E8"> () { </span></span>
+<span class="line"><span style="color:#E1E4E8">                console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'[+] getAcceptedIssuers bypassed'</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#F97583">                return</span><span style="color:#E1E4E8"> []; </span></span>
+<span class="line"><span style="color:#E1E4E8">            }</span></span>
+<span class="line"><span style="color:#E1E4E8">        }</span></span>
+<span class="line"><span style="color:#E1E4E8">    });</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">    // Replace the default TrustManager with ours</span></span>
+<span class="line"><span style="color:#F97583">    var</span><span style="color:#E1E4E8"> initSSLContext </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> SSLContext.init.</span><span style="color:#B392F0">overload</span><span style="color:#E1E4E8">(</span></span>
+<span class="line"><span style="color:#9ECBFF">        '[Ljavax.net.ssl.KeyManager;'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">        '[Ljavax.net.ssl.TrustManager;'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">        'java.security.SecureRandom'</span></span>
+<span class="line"><span style="color:#E1E4E8">    );</span></span>
+<span class="line"><span style="color:#E1E4E8">    </span></span>
+<span class="line"><span style="color:#E1E4E8">    initSSLContext.</span><span style="color:#B392F0">implementation</span><span style="color:#F97583"> =</span><span style="color:#F97583"> function</span><span style="color:#E1E4E8"> (</span><span style="color:#FFAB70">km</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">tm</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">sr</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#E1E4E8">        console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'[+] Hooking SSLContext.init()'</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#E1E4E8">        console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'[+] Bypassing SSL Pinning via TrustManager'</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#E1E4E8">        initSSLContext.</span><span style="color:#B392F0">call</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">this</span><span style="color:#E1E4E8">, km, [TrustAll.</span><span style="color:#B392F0">$new</span><span style="color:#E1E4E8">()], sr);</span></span>
+<span class="line"><span style="color:#E1E4E8">    };</span></span>
+<span class="line"><span style="color:#E1E4E8">    </span></span>
+<span class="line"><span style="color:#E1E4E8">    console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'[+] SSL Pinning Bypass Ready!'</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#E1E4E8">});</span></span></code></pre>
+<p><strong>工作原理</strong>：</p>
+<ul>
+<li>Hook <code>SSLContext.init()</code> 方法</li>
+<li>替换默认的 <code>TrustManager</code> 为自定义实现</li>
+<li>自定义 TrustManager 接受所有证书，不进行校验</li>
+</ul>
+<hr>
+<h2 id="6-frida-注入与抓包">6. Frida 注入与抓包</h2>
+<h3 id="61-查找目标进程">6.1 查找目标进程</h3>
+<p>启动目标 App 后，查找其进程信息：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">frida-ps</span><span style="color:#79B8FF"> -Uai</span><span style="color:#F97583"> |</span><span style="color:#B392F0"> grep</span><span style="color:#9ECBFF"> com.example.app</span></span></code></pre>
+<h3 id="62-注入脚本">6.2 注入脚本</h3>
+<p>方式一（通过 PID）：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">frida</span><span style="color:#79B8FF"> -U</span><span style="color:#79B8FF"> -p</span><span style="color:#F97583"> &#x3C;</span><span style="color:#9ECBFF">PI</span><span style="color:#E1E4E8">D</span><span style="color:#F97583">></span><span style="color:#79B8FF"> -l</span><span style="color:#9ECBFF"> unpinning.js</span></span></code></pre>
+<p>方式二（通过包名，推荐）：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">frida</span><span style="color:#79B8FF"> -U</span><span style="color:#79B8FF"> -f</span><span style="color:#9ECBFF"> com.example.app</span><span style="color:#79B8FF"> -l</span><span style="color:#9ECBFF"> unpinning.js</span><span style="color:#79B8FF"> --no-pause</span></span></code></pre>
+<p>方式三（Attach 到运行中的进程）：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">frida</span><span style="color:#79B8FF"> -U</span><span style="color:#79B8FF"> -n</span><span style="color:#9ECBFF"> com.example.app</span><span style="color:#79B8FF"> -l</span><span style="color:#9ECBFF"> unpinning.js</span></span></code></pre>
+<h3 id="63-观察输出">6.3 观察输出</h3>
+<p>成功注入后会看到类似输出：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>[+] Starting SSL Pinning Bypass...</span></span>
+<span class="line"><span>[+] Hooking SSLContext.init()</span></span>
+<span class="line"><span>[+] Bypassing SSL Pinning via TrustManager</span></span>
+<span class="line"><span>[+] checkServerTrusted bypassed</span></span>
+<span class="line"><span>[+] SSL Pinning Bypass Ready!</span></span></code></pre>
+<p><img src="/images/2.png" alt="Frida 成功绕过 SSL Pinning"></p>
+<h3 id="64-开始抓包">6.4 开始抓包</h3>
+<p>保持 mitmproxy 运行状态，在 App 中执行网络请求。此时可在 mitmproxy 界面中看到：</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>-> https://api.example.com/login 200 OK</span></span>
+<span class="line"><span>   POST /login</span></span>
+<span class="line"><span>   Content-Type: application/json</span></span>
+<span class="line"><span>   {"username": "test", "password": "123456"}</span></span></code></pre>
+<p>可以实时查看、修改、重放请求和响应内容。</p>
+<p><img src="/images/1.png" alt="mitmproxy 成功抓取 HTTPS 流量"></p>
+<hr>
+<h2 id="7-常用辅助命令">7. 常用辅助命令</h2>
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>命令</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>查看 frida-server 进程</td>
+<td>`adb shell ps</td>
+</tr>
+<tr>
+<td>检查代理端口监听</td>
+<td><code>sudo lsof -i :8080</code> 或 `netstat -an</td>
+</tr>
+<tr>
+<td>测试代理连通性</td>
+<td><code>adb shell curl -I http://10.0.2.2:8080</code></td>
+</tr>
+<tr>
+<td>清除系统代理设置</td>
+<td><code>adb shell settings put global http_proxy :0</code></td>
+</tr>
+<tr>
+<td>列出所有 AVD</td>
+<td><code>emulator -list-avds</code></td>
+</tr>
+<tr>
+<td>查看已连接设备</td>
+<td><code>adb devices</code></td>
+</tr>
+<tr>
+<td>重启 adb 服务</td>
+<td><code>adb kill-server &amp;&amp; adb start-server</code></td>
+</tr>
+<tr>
+<td>查看 Frida 版本</td>
+<td><code>frida --version</code></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="8-整体流程架构">8. 整体流程架构</h2>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>┌─────────────────────────────────────────────────────┐</span></span>
+<span class="line"><span>│                    Android App                      │</span></span>
+<span class="line"><span>│                        ↓                            │</span></span>
+<span class="line"><span>│            [Frida Hook 绕过 SSL 校验]               │</span></span>
+<span class="line"><span>└─────────────────────────────────────────────────────┘</span></span>
+<span class="line"><span>                        ↓</span></span>
+<span class="line"><span>            [系统代理] 10.0.2.2:8080</span></span>
+<span class="line"><span>                        ↓</span></span>
+<span class="line"><span>┌─────────────────────────────────────────────────────┐</span></span>
+<span class="line"><span>│              mitmproxy (宿主机)                     │</span></span>
+<span class="line"><span>│          • 解密 HTTPS 流量                          │</span></span>
+<span class="line"><span>│          • 查看/修改请求响应                         │</span></span>
+<span class="line"><span>│          • 记录完整会话                             │</span></span>
+<span class="line"><span>└─────────────────────────────────────────────────────┘</span></span>
+<span class="line"><span>                        ↓</span></span>
+<span class="line"><span>              [真实的后端服务器]</span></span></code></pre>
+<hr>
+<h2 id="9-常见问题与解决方案">9. 常见问题与解决方案</h2>
+<h3 id="91-无法连接到-mitmproxy">9.1 无法连接到 mitmproxy</h3>
+<p><strong>问题</strong>：模拟器无法访问宿主机的 8080 端口</p>
+<p><strong>解决</strong>：</p>
+<ul>
+<li>检查防火墙是否允许 8080 端口</li>
+<li>确认使用 <code>10.0.2.2</code> 而非 <code>localhost</code> 或 <code>127.0.0.1</code></li>
+<li>验证 mitmproxy 监听在 <code>0.0.0.0</code> 而非 <code>127.0.0.1</code></li>
+</ul>
+<h3 id="92-证书错误仍然存在">9.2 证书错误仍然存在</h3>
+<p><strong>问题</strong>：即使注入了脚本，仍然提示证书错误</p>
+<p><strong>解决</strong>：</p>
+<ul>
+<li>检查 CA 证书是否正确安装到系统信任区</li>
+<li>某些 App 使用 Native 层校验，需要额外 Hook</li>
+<li>尝试使用更全面的绕过脚本（如 frida-multiple-unpinning）</li>
+</ul>
+<h3 id="93-frida-连接失败">9.3 Frida 连接失败</h3>
+<p><strong>问题</strong>：<code>frida-ps -U</code> 无法列出进程</p>
+<p><strong>解决</strong>：</p>
+<ul>
+<li>确认 frida-server 版本与 frida-tools 版本一致</li>
+<li>检查 frida-server 是否正在运行</li>
+<li>尝试重启 adb 服务：<code>adb kill-server &amp;&amp; adb start-server</code></li>
+</ul>
+<hr>
+<h2 id="10-总结">10. 总结</h2>
+<p>通过本文的完整流程，我们实现了：</p>
+<ol>
+<li><strong>搭建 Android 模拟器环境</strong>：使用 Google APIs 镜像，启用可写系统分区</li>
+<li><strong>部署 Frida 框架</strong>：动态注入 JavaScript 代码到目标进程</li>
+<li><strong>配置中间人代理</strong>：通过 mitmproxy 拦截 HTTPS 流量</li>
+<li><strong>绕过 SSL Pinning</strong>：Hook 证书校验逻辑，接受自签名证书</li>
+<li><strong>分析加密流量</strong>：以明文形式查看所有网络请求</li>
+</ol>
+<p>这套方案适用于大多数 Android App 的安全测试和逆向分析场景。对于采用更复杂保护机制的应用（如 Native 层校验、代码混淆、反调试等），需要结合更高级的技术手段。</p>
+<p><strong>免责声明</strong>：本文内容仅供学习研究使用，请勿用于非法用途。未经授权对他人应用进行抓包分析可能违反法律法规。</p>
+<hr>
+</article></main><footer data-astro-cid-jo6i4kqk><hr data-astro-cid-jo6i4kqk><div class="footer-inner" data-astro-cid-jo6i4kqk><small data-astro-cid-jo6i4kqk>&copy; 2025 ～ 2026 ogumo All rights reserved.</small></div></footer></body></html>
